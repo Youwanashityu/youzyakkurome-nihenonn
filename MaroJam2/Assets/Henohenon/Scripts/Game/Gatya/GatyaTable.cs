@@ -4,7 +4,7 @@ using System.Linq;
 
 public class GatyaTable
 {
-    private readonly Dictionary<ItemType, int> rateTable;
+    private readonly IReadOnlyDictionary<ItemType, int> rateTable;
     private readonly int totalRatio;
     
     public GatyaTable(Dictionary<ItemType, int> rateTable)
