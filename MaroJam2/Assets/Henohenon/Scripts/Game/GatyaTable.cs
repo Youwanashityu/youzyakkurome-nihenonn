@@ -13,7 +13,7 @@ public class GatyaTable
         totalRatio = rateTable.Values.Sum(r => r);
     }
 
-    public ItemType GetOnce()
+    public ItemType One()
     {
         var random = UnityEngine.Random.Range(0, totalRatio);
         foreach (var rate in rateTable)

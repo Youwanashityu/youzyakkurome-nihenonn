@@ -12,6 +12,10 @@ public class MainEntryPoint : MonoBehaviour
     private GatyaElements gatyaElements;
     [SerializeField]
     private GeneralElements generalElements;
+    [SerializeField]
+    private GatyaTableScriptable luxTable;
+    [SerializeField]
+    private ItemInfoScriptable itemInfo;
 
     private TitleHandler _titleHandler;
     private HomeHandler _homeHandler;
@@ -23,7 +27,7 @@ public class MainEntryPoint : MonoBehaviour
     {
         _titleHandler = new TitleHandler(titleElements);
         _homeHandler = new HomeHandler(homeElements);
-        _gatyaHandler = new GatyaHandler(gatyaElements);
+        _gatyaHandler = new GatyaHandler(gatyaElements, luxTable.GetPureData, itemInfo.GetPureData);
         _generalHandler = new GeneralHandler(generalElements);
         _mainHandler = new MainHandler(titleElements, homeElements, gatyaElements);
     }

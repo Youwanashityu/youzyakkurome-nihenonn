@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
+// ノリで作ったけどいらんかも
 public class GameObjectShowHide: MonoBehaviour, IShowHide
 {
     public void Show()

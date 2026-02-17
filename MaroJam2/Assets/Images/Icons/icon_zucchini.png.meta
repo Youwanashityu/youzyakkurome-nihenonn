@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 69d5f7e1e3ff6164ead9f448d439693b
+guid: cb83d10f19569f54580ad26dc46f4e47
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2821889241007897894
-    second: "\u3078\u304C\u30B9\u30B3\u30FC\u30F3_0"
+      213: 7978759701502201071
+    second: icon_zucchini_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u3078\u304C\u30B9\u30B3\u30FC\u30F3_0"
+      name: icon_zucchini_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2048
-        height: 2048
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad24a32bfa2a6d8d0800000000000000
-      internalID: -2821889241007897894
+      spriteID: fec8d3cdcaf3abe60800000000000000
+      internalID: 7978759701502201071
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u3078\u304C\u30B9\u30B3\u30FC\u30F3_0": -2821889241007897894
+      icon_zucchini_0: 7978759701502201071
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

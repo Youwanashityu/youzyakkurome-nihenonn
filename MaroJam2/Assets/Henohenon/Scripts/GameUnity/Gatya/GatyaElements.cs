@@ -8,7 +8,20 @@ public class GatyaElements : MonoBehaviour
     private GameObjectShowHide view;
     [SerializeField]
     private Button backButton;
-    
+    [SerializeField]
+    private Button tenButton;
+    [SerializeField]
+    private Button oneButton;
+    [SerializeField] 
+    private TenResultController tenResult;
+    [SerializeField]
+    private OneResultController oneResult;
+
     public IShowHide View => view;
     public Button BackButton => backButton;
+    public Button OneButton => oneButton;
+    public Button TenButton => tenButton;
+    
+    public TenResultController TenResult => tenResult;
+    public OneResultController OneResult => oneResult;
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "NewGatyaTable",
@@ -9,23 +10,21 @@ public class GatyaTableScriptable : ScriptableObject
     [SerializeField]
     private SerializedDictionary<ItemType, int> rateTable;
     
-    [SerializeField][Header("以下見る用")]
+    [Header("以下見る用")]
+    [SerializeField]
     private float totalRatio;
+    [SerializeField]
     private SerializedDictionary<ItemType, float> gatyaPer;
 
     private void OnValidate()
     {
-        totalRatio = 0;
+        totalRatio = rateTable.Values.Sum(r => r);
         gatyaPer.Clear();
         foreach (var rate in rateTable)
         {
-            totalRatio += rate.Value;
             gatyaPer.Add(rate.Key, rate.Value / totalRatio * 100);
         }
     }
 
-    public GatyaTable GetPureTable()
-    {
-        return new GatyaTable(rateTable);
-    }
+    public GatyaTable GetPureData => new GatyaTable(rateTable);
 }

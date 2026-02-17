@@ -17,7 +17,7 @@ public static class CtsUtils
         return cts;
     }
     
-    public static CancellationToken Linkedken(
+    public static CancellationToken LinkedToken(
         this CancellationTokenSource cts,
         CancellationToken other)
     {

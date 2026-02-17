@@ -152,6 +152,8 @@ MonoBehaviour:
   homeElements: {fileID: 2430207138057351662}
   gatyaElements: {fileID: 722862863377823220}
   generalElements: {fileID: 4789730800864309004}
+  luxTable: {fileID: 11400000, guid: 17dc1b5fb12cd984e87c598136287709, type: 2}
+  itemInfo: {fileID: 11400000, guid: 4885469abd381c143b4ea123379c695c, type: 2}
 --- !u!4 &1452088306
 Transform:
   m_ObjectHideFlags: 0
@@ -305,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2134389308671905999, guid: 7f30ac311dd8e144a8417cf8ee7b4510, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3206213907147016052, guid: 7f30ac311dd8e144a8417cf8ee7b4510, type: 3}
       propertyPath: m_LocalPosition.x

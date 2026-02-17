@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(
     fileName = "NewItemInfo",
@@ -6,6 +7,8 @@
 )]
 public class ItemInfoScriptable : ScriptableObject
 {
-    [SerializeField]
-    private SerializedDictionary<ItemType, ItemDisplayInfo> info;
+    [FormerlySerializedAs("info")] [SerializeField]
+    private SerializedDictionary<ItemType, ItemDisplayInfo> displayInfo;
+    
+    public ItemInfo GetPureData => new ItemInfo(displayInfo);
 }
