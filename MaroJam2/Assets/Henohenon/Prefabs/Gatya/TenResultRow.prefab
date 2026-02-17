@@ -125,7 +125,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 1643300769469833394}
+  background: {fileID: 4167431231503972771}
   animation: {fileID: 1007409395665114594}
+  tierColors:
+    m_list:
+    - Key: 0
+      Value: {r: 0.13830996, g: 0.13830996, b: 0.13830996, a: 1}
+    - Key: 1
+      Value: {r: 0.3803922, g: 0.24705884, b: 0.3019608, a: 1}
+    - Key: 2
+      Value: {r: 0.81977934, g: 0.4409352, b: 1, a: 1}
 --- !u!1 &6055766023641399248
 GameObject:
   m_ObjectHideFlags: 0

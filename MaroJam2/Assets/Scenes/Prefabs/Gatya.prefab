@@ -351,7 +351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3712683222222515181
 RectTransform:
   m_ObjectHideFlags: 0
@@ -450,8 +450,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 3994171121191487343}
+  background: {fileID: 1015866582672662791}
   displayName: {fileID: 2695899125457201048}
   closeButton: {fileID: 7159760157283695086}
+  tierColors:
+    m_list:
+    - Key: 0
+      Value: {r: 0.13830996, g: 0.13830996, b: 0.13830996, a: 1}
+    - Key: 1
+      Value: {r: 0.3803922, g: 0.24705884, b: 0.3019608, a: 1}
+    - Key: 2
+      Value: {r: 0.81977934, g: 0.4409352, b: 1, a: 1}
 --- !u!1 &2802872892202951946
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class OneResultController: MonoBehaviour
 {
     [SerializeField] private Image icon;
+    [SerializeField] private Image background;
     [SerializeField] private TMP_Text displayName;
     [SerializeField] private Button closeButton;
+    [SerializeField]
+    private SerializedDictionary<ItemTier, Color> tierColors;
 
     private void Awake()
     {
@@ -18,6 +21,7 @@ public class OneResultController: MonoBehaviour
     {
         gameObject.SetActive(true);
         icon.sprite = displayInfo.Icon;
+        background.color = tierColors[displayInfo.Tier];
         displayName.text = displayInfo.DisplayName;
     }
 

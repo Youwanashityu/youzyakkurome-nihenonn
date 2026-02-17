@@ -1115,7 +1115,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3575037546203691408}
   m_Direction: 2
   m_Value: 1.0000036
-  m_Size: 0.9433332
+  m_Size: 0.9433333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4109,6 +4109,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8912372645788277581}
     m_Modifications:
+    - target: {fileID: 1882673684912867012, guid: a415b9dec2a733d4e9cc55bbb9583f78, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8de59558e3bc5404aa477201e60f9519, type: 3}
     - target: {fileID: 2766508610401505357, guid: a415b9dec2a733d4e9cc55bbb9583f78, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

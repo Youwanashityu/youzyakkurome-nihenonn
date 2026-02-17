@@ -19,17 +19,37 @@ MonoBehaviour:
     - Key: 2
       Value: 1
     - Key: 3
-      Value: 30
+      Value: 10
     - Key: 4
-      Value: 30
-  totalRatio: 62
+      Value: 10
+    - Key: 5
+      Value: 10
+    - Key: 10
+      Value: 75
+    - Key: 11
+      Value: 75
+    - Key: 12
+      Value: 75
+    - Key: 13
+      Value: 75
+  totalRatio: 332
   gatyaPer:
     m_list:
     - Key: 1
-      Value: 1.6129032
+      Value: 0.30120483
     - Key: 2
-      Value: 1.6129032
+      Value: 0.30120483
     - Key: 3
-      Value: 48.387096
+      Value: 3.0120482
     - Key: 4
-      Value: 48.387096
+      Value: 3.0120482
+    - Key: 5
+      Value: 3.0120482
+    - Key: 10
+      Value: 22.59036
+    - Key: 11
+      Value: 22.59036
+    - Key: 12
+      Value: 22.59036
+    - Key: 13
+      Value: 22.59036

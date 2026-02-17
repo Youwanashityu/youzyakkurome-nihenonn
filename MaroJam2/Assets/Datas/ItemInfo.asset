@@ -12,21 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c232b25c04c54258af69556962f3ff8f, type: 3}
   m_Name: ItemInfo
   m_EditorClassIdentifier: 
-  info:
+  displayInfo:
     m_list:
     - Key: 1
       Value:
         displayName: "\u30EB\u30AF\u30B9"
         icon: {fileID: 9101143047519141003, guid: b71cc6fb9295e6844a1f7e44ba0f76a9, type: 3}
+        tier: 2
     - Key: 2
       Value:
         displayName: "\u30B0\u30EC\u30A4\u30E0"
         icon: {fileID: -576238955493357297, guid: 00a6cffdb5d3fb04fa534b2869d98297, type: 3}
+        tier: 2
     - Key: 3
       Value:
         displayName: "\u3078\u306E\u3078\u306E\u3093"
         icon: {fileID: 21300000, guid: fc4d32617e3292340b321b4636fd5c26, type: 3}
+        tier: 1
     - Key: 4
       Value:
         displayName: "\u30C5\u30C3\u30AD\u30FC\u30CB"
         icon: {fileID: 21300000, guid: cb83d10f19569f54580ad26dc46f4e47, type: 3}
+        tier: 1
+    - Key: 5
+      Value:
+        displayName: "\u967D\u4EE5\u524D"
+        icon: {fileID: 21300000, guid: 8de59558e3bc5404aa477201e60f9519, type: 3}
+        tier: 1
+    - Key: 10
+      Value:
+        displayName: "\u3078\u3057\u30B4\u30E0"
+        icon: {fileID: 827047763221804645, guid: 5a8d5501349d8d3439b7f984db11ab2b, type: 3}
+        tier: 0
+    - Key: 11
+      Value:
+        displayName: henocar
+        icon: {fileID: -5821075702729859918, guid: b9758db53d5b7414ca3807e462a77c1a, type: 3}
+        tier: 0
+    - Key: 12
+      Value:
+        displayName: goruheno
+        icon: {fileID: -4779327065703748832, guid: fdd9616db6ebe4d41b9b9fe5ea936628, type: 3}
+        tier: 0
+    - Key: 13
+      Value:
+        displayName: shine
+        icon: {fileID: -3899123574502650213, guid: d24597e85a782554fb0351751c2226ce, type: 3}
+        tier: 0
