@@ -7,9 +7,10 @@ public class GatyaHandler : IDisposable
     private readonly GatyaElements _elements;
     private readonly GatyaTable _luxTable;
     private readonly ItemInfo _itemInfo;
-    private readonly int MaxTenjoCount = 30;
-    private int tenjoCount = 10;
-
+    private readonly int _maxTenjoCount = 50;
+    private int _tenjoCount = 10;
+    private CancellationTokenSource _cts;
+    
     public GatyaHandler(GatyaElements elements, GatyaTable luxTable, ItemInfo itemInfo)
     {
         _elements = elements;
@@ -22,18 +23,18 @@ public class GatyaHandler : IDisposable
 
     private void OnOne()
     {
+        _cts = _cts.Reset();
+
         var info = _itemInfo.DisplayInfo[_luxTable.One()];
-        tenjoCount++;
-        if (tenjoCount >= MaxTenjoCount)
+        _tenjoCount++;
+        if (_tenjoCount >= _maxTenjoCount)
         {
-            // TODO: 流石に頭悪い説
-            while (info.Tier != ItemTier.Epic)
-            {
-                info = _itemInfo.DisplayInfo[_luxTable.One()];
-            }
-            tenjoCount = 0;
+            info = GetTenjoInfo();
+            _tenjoCount = 0;
         }
-        _elements.OneResult.Show(info);
+
+        _elements.OneResult.SkipButton.gameObject.SetActive(false);
+        _elements.OneResult.ShowResult(info, _cts.Token).Forget();
     }
     
     private void OnTen()
@@ -43,17 +44,11 @@ public class GatyaHandler : IDisposable
         for (var i = 0; i < 10; i++)
         {
             infos[i] = _itemInfo.DisplayInfo[_luxTable.One()];
-            tenjoCount++;
-    
-            if (tenjoCount >= MaxTenjoCount)
+            _tenjoCount++;
+            if (_tenjoCount >= _maxTenjoCount)
             {
-                // TODO: 流石に頭悪い説
-                while (infos[i].Tier != ItemTier.Epic)
-                {
-                    infos[i] = _itemInfo.DisplayInfo[_luxTable.One()];
-                }
-
-                tenjoCount = 0;
+                infos[i] = GetTenjoInfo();
+                _tenjoCount = 0;
             }
             
             onlyCommon &= infos[i].Tier == ItemTier.Common;
@@ -61,13 +56,62 @@ public class GatyaHandler : IDisposable
 
         if (onlyCommon)
         {
-            while (infos[10].Tier != ItemTier.Common)
+            infos[9] = GetUpperRareInfo();
+        }
+        ShowTenResult(infos, CancellationToken.None).Forget();
+    }
+    
+    private async UniTask ShowTenResult(ItemDisplayInfo[] infos, CancellationToken token)
+    {
+        _cts = _cts.Reset();
+        var linkedToken = _cts.LinkedToken(token);
+
+        var skipButton = _elements.OneResult.SkipButton;
+        skipButton.gameObject.SetActive(true);
+        skipButton.onClick.RemoveAllListeners();
+        skipButton.onClick.AddListener(() =>
+        {
+            _cts.Cancel();
+        });
+        
+        try
+        {
+            foreach (var info in infos)
             {
-                infos[10] = _itemInfo.DisplayInfo[_luxTable.One()];
+                await _elements.OneResult.ShowResult(info, linkedToken);
             }
         }
-        
-        _elements.TenResult.Show(infos, CancellationToken.None).Forget();
+        finally
+        {
+            skipButton.onClick.RemoveAllListeners();
+
+            _cts = _cts.Reset();
+            linkedToken = _cts.LinkedToken(token);
+            _elements.TenResult. ShowResult(infos, linkedToken).Forget();
+        }
+    }
+
+    private ItemDisplayInfo GetUpperRareInfo()
+    {
+        var result = _itemInfo.DisplayInfo[_luxTable.One()];
+        while (result.Tier == ItemTier.Common)
+        {
+            result = _itemInfo.DisplayInfo[_luxTable.One()];
+        }
+
+        return result;
+    }
+    
+    private ItemDisplayInfo GetTenjoInfo()
+    {
+        var result = _itemInfo.DisplayInfo[_luxTable.One()];
+        // TODO: 流石に頭悪い説
+        while (result.Tier != ItemTier.Epic)
+        {
+            result = _itemInfo.DisplayInfo[_luxTable.One()];
+        }
+
+        return result;
     }
 
     public void Dispose()

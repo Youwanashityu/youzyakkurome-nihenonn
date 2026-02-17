@@ -11,36 +11,47 @@ public class TenResultController : MonoBehaviour
     [SerializeField]
     private Button closeButton;
 
-    private void Awake()
-    {
-        closeButton.onClick.AddListener(Hide);
-    }
-
     private CancellationTokenSource _cts;
 
-    public async UniTask Show(ItemDisplayInfo[] infos, CancellationToken token)
+    public async UniTask ShowResult(ItemDisplayInfo[] infos, CancellationToken token)
     {
         _cts = _cts.Reset();
         var linkedToken = _cts.LinkedToken(token);
+        
+        HideRows();
+        gameObject.SetActive(true);
+
+        try
+        {
+            ShowRows(infos, linkedToken).Forget();
+            await closeButton.OnClickAsync(linkedToken);
+        }
+        finally
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+
+    private void HideRows()
+    {
         foreach (var t in rows)
         {
             t.Reset();
         }
-        gameObject.SetActive(true);
+    }
+
+    private async UniTask ShowRows(ItemDisplayInfo[] infos, CancellationToken token)
+    {
         for (int i = 0; i < infos.Length && i < rows.Length; i++)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: linkedToken);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
             rows[i].Initialize(infos[i]);
         }
     }
 
     private void OnDestroy()
     {
-        closeButton.onClick.RemoveListener(Hide);
-    }
-
-    public void Hide()
-    {
-        gameObject.SetActive(false);
+        _cts = _cts.Clean();
     }
 }

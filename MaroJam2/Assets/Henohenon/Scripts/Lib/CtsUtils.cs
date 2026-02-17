@@ -5,8 +5,8 @@ public static class CtsUtils
     public static CancellationTokenSource Clean(this CancellationTokenSource cts)
     {
         if (cts == null) return null;
-        cts.Cancel();
-        cts.Dispose();
+        cts?.Cancel();
+        cts?.Dispose();
         return null;
     }
 
