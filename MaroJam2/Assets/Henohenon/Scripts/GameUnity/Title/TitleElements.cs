@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class TitleElements : MonoBehaviour
 {
+    // serializable interface的なの使うともっとおしゃれにはできるけどまぁ一旦
+    [SerializeField]
+    private GameObjectShowHide view;
     [SerializeField]
     private Button startButton;
     [SerializeField]
@@ -14,7 +17,8 @@ public class TitleElements : MonoBehaviour
     private PopupElement creditPopup;
     [SerializeField]
     private PopupElement licensePopup;
-    
+
+    public GameObjectShowHide View => view;
     public Button StartButton => startButton;
     public Button CreditButton => creditButton;
     public Button LicenseButton => licenseButton;

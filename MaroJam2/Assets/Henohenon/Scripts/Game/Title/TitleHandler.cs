@@ -12,8 +12,8 @@ public class TitleHandler
     {
         _elements = elements;
         
-        _elements.CreditButton.onClick.AddListener(() => _elements.CreditPopup.Show(CancellationToken.None).Forget());
-        _elements.LicenseButton.onClick.AddListener(() => _elements.LicensePopup.Show(CancellationToken.None).Forget());
+        _elements.CreditButton.onClick.AddListener(() => _elements.CreditPopup.Show());
+        _elements.LicenseButton.onClick.AddListener(() => _elements.LicensePopup.Show());
     }
     
     public void Dispose()

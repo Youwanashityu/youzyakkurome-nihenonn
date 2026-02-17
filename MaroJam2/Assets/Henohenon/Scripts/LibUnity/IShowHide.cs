@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IShowHide
 {
-    public UniTask Show(CancellationToken token);
-    public UniTask Hide(CancellationToken token);
+    public void Show();
+    public void Hide();
 }

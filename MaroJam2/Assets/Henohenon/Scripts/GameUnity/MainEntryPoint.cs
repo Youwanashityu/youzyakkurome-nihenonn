@@ -10,16 +10,22 @@ public class MainEntryPoint : MonoBehaviour
     private HomeElements homeElements;
     [SerializeField]
     private GatyaElements gatyaElements;
+    [SerializeField]
+    private GeneralElements generalElements;
 
     private TitleHandler _titleHandler;
     private HomeHandler _homeHandler;
     private GatyaHandler _gatyaHandler;
+    private GeneralHandler _generalHandler;
+    private MainHandler _mainHandler;
 
     private void Awake()
     {
         _titleHandler = new TitleHandler(titleElements);
         _homeHandler = new HomeHandler(homeElements);
         _gatyaHandler = new GatyaHandler(gatyaElements);
+        _generalHandler = new GeneralHandler(generalElements);
+        _mainHandler = new MainHandler(titleElements, homeElements, gatyaElements);
     }
 
     private void OnDestroy()
@@ -27,5 +33,7 @@ public class MainEntryPoint : MonoBehaviour
         _titleHandler.Dispose();
         _homeHandler.Dispose();
         _gatyaHandler.Dispose();
+        _generalHandler.Dispose();
+        _mainHandler.Dispose();
     }
 }

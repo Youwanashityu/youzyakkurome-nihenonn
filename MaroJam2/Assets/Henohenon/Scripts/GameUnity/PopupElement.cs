@@ -12,15 +12,15 @@ namespace Henohenon.Scripts.CoreUnity
         private void Awake()
         {
             gameObject.SetActive(false);
-            button.onClick.AddListener(() => Hide(CancellationToken.None).Forget());
+            button.onClick.AddListener(Hide);
         }
         
-        public async UniTask Show(CancellationToken token)
+        public void Show()
         {
             gameObject.SetActive(true);
         }
         
-        public async UniTask Hide(CancellationToken token)
+        public void Hide()
         {
             gameObject.SetActive(false);
         }
