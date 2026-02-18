@@ -2,7 +2,7 @@
 
 public static class CtsUtils
 {
-    public static CancellationTokenSource Clean(this CancellationTokenSource cts)
+    public static CancellationTokenSource Clear(this CancellationTokenSource cts)
     {
         if (cts == null) return null;
         cts?.Cancel();
@@ -12,7 +12,7 @@ public static class CtsUtils
 
     public static CancellationTokenSource Reset(this CancellationTokenSource cts)
     {
-        cts.Clean();
+        cts.Clear();
         cts = new CancellationTokenSource();
         return cts;
     }

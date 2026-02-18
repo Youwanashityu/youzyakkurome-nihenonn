@@ -1,4 +1,3 @@
-using Henohenon.Scripts.CoreUnity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,10 @@ public class HomeElements : MonoBehaviour
     private GameObjectShowHide view;
     [SerializeField]
     private Button gatyaButton;
-    
+    [SerializeField]
+    private TalkController talkController;
+
+    public TalkController TalkController => talkController;
     public IShowHide View => view;
     public Button GatyaButton => gatyaButton;
 }

@@ -15,6 +15,7 @@ public class GatyaTable
 
     public ItemType One()
     {
+        // TODO: unityengineのランダムって確かそんな良くなかったのでガチでやるならイイカンジのライブラリ入れたが良い
         var random = UnityEngine.Random.Range(0, totalRatio);
         foreach (var rate in rateTable)
         {

@@ -1,29 +1,39 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TalkController : MonoBehaviour
 {
-    [Header("要素")]
-    [SerializeField] private AudioSource audioSource;
+    [FormerlySerializedAs("audioSource")] [SerializeField] private AudioSource voiceSource;
     [SerializeField] private Image characterImage;
     [SerializeField] private TMP_Text talkText;
     [SerializeField] private TMP_Text selectionTextA;
     [SerializeField] private TMP_Text selectionTextB;
     [SerializeField] private Button talkButton;
+    [SerializeField] private GameObject talkBox;
     [SerializeField] private Button selectionButtonA;
     [SerializeField] private Button selectionButtonB;
     
-    public AudioSource AudioSource => audioSource; 
+    public AudioSource VoiceSource => voiceSource; 
     public Image CharacterImage => characterImage;
     public TMP_Text TalkText => talkText;
     public TMP_Text SelectionTextA => selectionTextA;
     public TMP_Text SelectionTextB => selectionTextB;
     public Button TalkButton => talkButton;
+    public GameObject TalkBox => talkBox;
     
     private CancellationTokenSource _cts;
+
+    private void Awake()
+    {
+        talkBox.SetActive(false);
+        selectionButtonA.gameObject.SetActive(false);
+        selectionButtonB.gameObject.SetActive(false);
+    }
 
     public async UniTask<SelectionType> Question(string alphaText, string betaText, CancellationToken token)
     {
@@ -52,6 +62,7 @@ public class TalkController : MonoBehaviour
     
     public void PlaySound(AudioClip clip)
     {
-        audioSource.PlayOneShot(clip);
+        Debug.Log(clip);
+        voiceSource.PlayOneShot(clip);
     }
 }

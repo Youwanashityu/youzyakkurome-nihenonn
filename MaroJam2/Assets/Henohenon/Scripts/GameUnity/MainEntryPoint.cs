@@ -16,28 +16,18 @@ public class MainEntryPoint : MonoBehaviour
     private GatyaTableScriptable luxTable;
     [SerializeField]
     private ItemInfoScriptable itemInfo;
+    [SerializeField]
+    private LuxTalkScriptable luxTalk;
 
-    private TitleHandler _titleHandler;
-    private HomeHandler _homeHandler;
-    private GatyaHandler _gatyaHandler;
-    private GeneralHandler _generalHandler;
     private MainHandler _mainHandler;
 
     private void Awake()
     {
-        _titleHandler = new TitleHandler(titleElements);
-        _homeHandler = new HomeHandler(homeElements);
-        _gatyaHandler = new GatyaHandler(gatyaElements, luxTable.GetPureData, itemInfo.GetPureData);
-        _generalHandler = new GeneralHandler(generalElements);
-        _mainHandler = new MainHandler(titleElements, homeElements, gatyaElements);
+        _mainHandler = new MainHandler(titleElements, homeElements, gatyaElements, generalElements, itemInfo.GetPureData, luxTable.GetPureData, luxTalk);
     }
 
     private void OnDestroy()
     {
-        _titleHandler.Dispose();
-        _homeHandler.Dispose();
-        _gatyaHandler.Dispose();
-        _generalHandler.Dispose();
         _mainHandler.Dispose();
     }
 }

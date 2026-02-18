@@ -55,6 +55,6 @@ public class OneResultController: MonoBehaviour
 
     private void OnDestroy()
     {
-        _cts = _cts.Clean();
+        _cts = _cts.Clear();
     }
 }

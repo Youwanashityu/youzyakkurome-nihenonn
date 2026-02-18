@@ -3,21 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Henohenon.Scripts.Game.Home.Talk.Lux;
+using R3;
 using UnityEngine;
 
-public class LuxTalkHandler
+public class LuxTalkHandler: IDisposable
 {
     private readonly TalkController _talkController;
     private readonly IReadOnlyDictionary<LuxImageType, Sprite> _images;
     private readonly IReadOnlyDictionary<LuxVoiceType, AudioClip> _voices;
     private readonly IReadOnlyDictionary<LuxTalkType, SimpleTalkParams> _simpleParams;
+    private readonly Observable<Unit> _onNext;
     
     private CancellationTokenSource _cts;
     
-    public LuxTalkHandler(TalkController talkController, IReadOnlyDictionary<LuxImageType, Sprite> images, IReadOnlyDictionary<LuxVoiceType, AudioClip> voices, IReadOnlyDictionary<LuxTalkType, SimpleTalkParams> simpleParams)
+    public LuxTalkHandler(TalkController talkController, Observable<Unit> onNext, IReadOnlyDictionary<LuxImageType, Sprite> images, IReadOnlyDictionary<LuxVoiceType, AudioClip> voices, IReadOnlyDictionary<LuxTalkType, SimpleTalkParams> simpleParams)
     {
         _talkController = talkController;
+        _onNext = onNext;
         _images = images;
         _voices = voices;
         _simpleParams = simpleParams;
@@ -32,6 +34,7 @@ public class LuxTalkHandler
 
     private async UniTask Talk(LuxTalkType type, CancellationToken token)
     {
+        _talkController.TalkBox.gameObject.SetActive(true);
         switch (type)
         {
             case LuxTalkType.Tutorial:
@@ -62,29 +65,40 @@ public class LuxTalkHandler
                 await Text("あれは戦闘ボタンですね。\n俺のかっこいい姿が見れますよ～\n気が向いたらやってくださいね！");
                 await Text("仮想体からいえることは以上です！\n本物の俺と仲良くなって\nハッピーエンド目指しましょうね～");
                 break;
+            case LuxTalkType.TutorialAgain:
+                await Text("は～い！わかりました！\nもう一回説明しますね");
+                await Talk(LuxTalkType.Tutorial, token);
+                break;
             default:
                 if (!_simpleParams.TryGetValue(type, out var param))
                 {
                     throw new ArgumentException("Invalid talk type");
                 }
+                Debug.Log(type);
                 if (_voices.TryGetValue(param.Voice, out var voice)) _talkController.PlaySound(voice);
-                if (_images.TryGetValue(param.Image, out var image)) _talkController.PlaySound(voice);
+                if (_images.TryGetValue(param.Image, out var image)) _talkController.CharacterImage.sprite = image;
                 foreach (var text in param.Texts)
                 {
                     await Text(text);
                 }
                 break;
         }
-
-        async UniTask Text(string text, float waitTime = 0.3f)
+        _talkController.TalkBox.SetActive(false);
+        
+        async UniTask Text(string text)
         {
             _talkController.TalkText.text = text;
-            await UniTask.Delay(TimeSpan.FromSeconds(waitTime), cancellationToken: token);
+            await _onNext.FirstAsync(token);
         }
 
         async UniTask<SelectionType> Question(string alpha, string beta)
         {
             return await _talkController.Question(alpha, beta, token);
         }
+    }
+
+    public void Dispose()
+    {
+        _cts = _cts.Clear();
     }
 }
