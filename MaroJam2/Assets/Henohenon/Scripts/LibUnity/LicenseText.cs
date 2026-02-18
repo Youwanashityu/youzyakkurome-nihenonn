@@ -13,9 +13,12 @@ public class LicensesText : MonoBehaviour
             Debug.LogWarning("License text asset or text component is not assigned.");
             return;
         }
-
+        
         textComponent.text = licenseTextAsset.text;
+        
+#if UNITY_EDITOR
         if (UnityEditor.EditorApplication.isPlaying) return;
         UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(gameObject.scene);
+#endif
     }
 }
