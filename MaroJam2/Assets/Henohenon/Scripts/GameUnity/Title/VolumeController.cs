@@ -8,19 +8,23 @@ public class VolumeController : MonoBehaviour
 
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider seSlider;
+    [SerializeField] private Slider cvSlider;
 
     private void OnEnable()
     {
         bgmSlider.onValueChanged.AddListener(ChangeBgmVolume);
         seSlider.onValueChanged.AddListener(ChangeSeVolume);
+        seSlider.onValueChanged.AddListener(ChangeCvVolume);
         ChangeBgmVolume(bgmSlider.value);
         ChangeSeVolume(seSlider.value);
+        ChangeCvVolume(cvSlider.value);
     }
 
     private void OnDisable()
     {
         bgmSlider.onValueChanged.RemoveAllListeners();
         seSlider.onValueChanged.RemoveAllListeners();
+        cvSlider.onValueChanged.RemoveAllListeners();
     }
 
     private void ChangeBgmVolume(float scale)
@@ -31,6 +35,11 @@ public class VolumeController : MonoBehaviour
     private void ChangeSeVolume(float scale)
     {
         ChangeVolume("SE-Volume", scale);
+    }
+
+    private void ChangeCvVolume(float scale)
+    {
+        ChangeVolume("CV-Volume", scale);
     }
 
     private void ChangeVolume(string propName, float scale)

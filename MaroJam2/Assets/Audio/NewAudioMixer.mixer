@@ -54,7 +54,7 @@ AudioMixerController:
   - guid: d4486a58ed9ee704594aa816464af2d4
     name: SE
   - guid: aef2db0c527d6f3499a2b442d14fa5d8
-    name: Voice
+    name: CV
   m_AudioMixerGroupViews:
   - guids:
     - 90348d09f3c57fe489a3646d077ee4d9
@@ -164,7 +164,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Voice
+  m_Name: CV
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: dc2288a811a5a5647aa180984cd0b932
   m_Children: []
