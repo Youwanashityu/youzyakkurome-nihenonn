@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class TalkController : MonoBehaviour
 {
-    [FormerlySerializedAs("audioSource")] [SerializeField] private AudioSource voiceSource;
     [SerializeField] private Image characterImage;
     [SerializeField] private TMP_Text talkText;
     [SerializeField] private TMP_Text selectionTextA;
@@ -18,7 +17,6 @@ public class TalkController : MonoBehaviour
     [SerializeField] private Button selectionButtonA;
     [SerializeField] private Button selectionButtonB;
     
-    public AudioSource VoiceSource => voiceSource; 
     public Image CharacterImage => characterImage;
     public TMP_Text TalkText => talkText;
     public TMP_Text SelectionTextA => selectionTextA;
@@ -58,11 +56,5 @@ public class TalkController : MonoBehaviour
             selectionButtonA.gameObject.SetActive(false);
             selectionButtonB.gameObject.SetActive(false);
         }
-    }
-    
-    public void PlaySound(AudioClip clip)
-    {
-        Debug.Log(clip);
-        voiceSource.PlayOneShot(clip);
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Henohenon.Scripts.GameUnity.General
 {
-    public class SoundSingleton: MonoBehaviour, ISoundEffectsPlayer, IVoicePlayer
+    public class SoundPlayer: MonoBehaviour, ISoundEffectsPlayer, IVoicePlayer
     {
         [SerializeField] private AudioSource seSource;
         [SerializeField] private AudioSource voiceSource;

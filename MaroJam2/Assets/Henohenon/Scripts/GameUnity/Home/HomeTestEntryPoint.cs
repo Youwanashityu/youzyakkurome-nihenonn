@@ -1,11 +1,14 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Henohenon.Scripts.GameUnity.General;
 using UnityEngine;
 
 public class HomeTestEntryPoint : MonoBehaviour
 {
     [SerializeField]
-    private HomeElements elements;
+    private HomeElements homeElements;
+    [SerializeField]
+    private GeneralElements generalElements;
     [SerializeField]
     private LuxTalkScriptable luxTalk;
 
@@ -13,7 +16,7 @@ public class HomeTestEntryPoint : MonoBehaviour
 
     private void Awake()
     {
-        _handler = new HomeHandler(elements, luxTalk);
+        _handler = new HomeHandler(homeElements, generalElements, luxTalk);
     }
 
     private void OnDestroy()

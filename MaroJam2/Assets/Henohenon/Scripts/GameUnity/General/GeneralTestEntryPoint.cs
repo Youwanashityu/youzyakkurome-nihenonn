@@ -1,3 +1,4 @@
+using Henohenon.Scripts.GameUnity.General;
 using UnityEngine;
 
 public class GeneralTestEntryPoint : MonoBehaviour
