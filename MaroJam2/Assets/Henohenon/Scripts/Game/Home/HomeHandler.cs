@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Henohenon.Scripts.GameUnity.General;
 using R3;
 using UnityEngine.UI;
 using UnityEngine;
@@ -16,13 +17,13 @@ public class HomeHandler : IDisposable
     private CancellationTokenSource _cts;
     private bool _running = false;
 
-    public HomeHandler(HomeElements elements, LuxTalkScriptable luxTalk)
+    public HomeHandler(HomeElements elements, GeneralElements generalElements, LuxTalkScriptable luxTalk)
     {
         var talkController = elements.TalkController;
         _talkButton = talkController.TalkButton;
         _randomTalks = luxTalk.RandomTalks;
         _onNext = new Subject<Unit>();
-        _luxTalkHandler = new LuxTalkHandler(talkController, _onNext, luxTalk.Images, luxTalk.Voices, luxTalk.SimpleParams);
+        _luxTalkHandler = new LuxTalkHandler(talkController, generalElements.VoicePlayer, _onNext, luxTalk.Images, luxTalk.Voices, luxTalk.SimpleParams);
         
         _talkButton.onClick.AddListener(OnTalkButton);
     }

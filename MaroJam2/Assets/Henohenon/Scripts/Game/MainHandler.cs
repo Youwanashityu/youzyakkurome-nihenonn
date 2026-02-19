@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Henohenon.Scripts.GameUnity.General;
 using UnityEngine.UI;
 
 public class MainHandler: IDisposable
@@ -16,7 +17,7 @@ public class MainHandler: IDisposable
     {
         _viewHandler = new ViewHandler(titleElements, homeElements, gatyaElements);
         _titleHandler = new TitleHandler(titleElements);
-        _homeHandler = new HomeHandler(homeElements, luxTalk);
+        _homeHandler = new HomeHandler(homeElements, generalElements, luxTalk);
         _gatyaHandler = new GatyaHandler(gatyaElements, luxTable, itemInfo);
         _generalHandler = new GeneralHandler(generalElements);
         

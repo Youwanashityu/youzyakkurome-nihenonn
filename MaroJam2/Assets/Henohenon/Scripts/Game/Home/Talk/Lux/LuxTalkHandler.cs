@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Henohenon.Scripts.GameUnity.General;
 using R3;
 using UnityEngine;
 
 public class LuxTalkHandler: IDisposable
 {
     private readonly TalkController _talkController;
+    private readonly IVoicePlayer _voicePlayer;
     private readonly IReadOnlyDictionary<LuxImageType, Sprite> _images;
     private readonly IReadOnlyDictionary<LuxVoiceType, AudioClip> _voices;
     private readonly IReadOnlyDictionary<LuxTalkType, SimpleTalkParams> _simpleParams;
@@ -16,9 +18,10 @@ public class LuxTalkHandler: IDisposable
     
     private CancellationTokenSource _cts;
     
-    public LuxTalkHandler(TalkController talkController, Observable<Unit> onNext, IReadOnlyDictionary<LuxImageType, Sprite> images, IReadOnlyDictionary<LuxVoiceType, AudioClip> voices, IReadOnlyDictionary<LuxTalkType, SimpleTalkParams> simpleParams)
+    public LuxTalkHandler(TalkController talkController, IVoicePlayer voicePlayer, Observable<Unit> onNext, IReadOnlyDictionary<LuxImageType, Sprite> images, IReadOnlyDictionary<LuxVoiceType, AudioClip> voices, IReadOnlyDictionary<LuxTalkType, SimpleTalkParams> simpleParams)
     {
         _talkController = talkController;
+        _voicePlayer = voicePlayer;
         _onNext = onNext;
         _images = images;
         _voices = voices;
@@ -75,7 +78,7 @@ public class LuxTalkHandler: IDisposable
                     throw new ArgumentException("Invalid talk type");
                 }
                 Debug.Log(type);
-                if (_voices.TryGetValue(param.Voice, out var voice)) _talkController.PlaySound(voice);
+                if (_voices.TryGetValue(param.Voice, out var voice)) _voicePlayer.Play(voice);
                 if (_images.TryGetValue(param.Image, out var image)) _talkController.CharacterImage.sprite = image;
                 foreach (var text in param.Texts)
                 {
