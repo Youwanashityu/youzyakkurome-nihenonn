@@ -19,5 +19,5 @@ public class LuxScriptable : ScriptableObject
     private SerializedDictionary<ItemType, PresentInfo<LuxTalkType>> presentsInfo;
 
 
-    public CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> GetPureData => new CharacterData<LuxImageType, LuxVoiceType, LuxTalkType>(images[LuxImageType.Default], images, voices, simpleParams, randomTalks, presentsInfo);
+    public CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> GetPureData => new CharacterData<LuxImageType, LuxVoiceType, LuxTalkType>(images[LuxImageType.Default],images[LuxImageType.Mini_Default], images, voices, simpleParams, randomTalks, presentsInfo);
 }
