@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Microsoft.Unity.VisualStudio.Editor;
 using R3;
 using UnityEngine;
 
@@ -65,9 +66,10 @@ public class LuxTalkHandler : TalkHandler<LuxTalkType>, IDisposable
                 {
                     throw new ArgumentException("Invalid talk type");
                 }
+                
+                Voice(param.Voice);
+                Image(param.Image);
 
-                if (_data.Voices.TryGetValue(param.Voice, out var voice)) _voicePlayer.Play(voice);
-                if (_data.Images.TryGetValue(param.Image, out var image)) _talkController.CharacterImage.sprite = image;
                 foreach (var text in param.Texts)
                 {
                     await Text(text);
@@ -78,10 +80,25 @@ public class LuxTalkHandler : TalkHandler<LuxTalkType>, IDisposable
 
         _talkController.TalkBox.SetActive(false);
 
+        async UniTask Delay(float delay)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
+        }
+
         async UniTask Text(string text)
         {
             _talkController.TalkText.text = text;
             await _onNext.FirstAsync(token);
+        }
+
+        void Image(LuxImageType type)
+        {
+            if (_data.Images.TryGetValue(type, out var image)) _talkController.CharacterImage.sprite = image;
+        }
+
+        void Voice(LuxVoiceType type)
+        {
+            if (_data.Voices.TryGetValue(type, out var voice)) _voicePlayer.Play(voice);
         }
 
         async UniTask<SelectionType> Question(string alpha, string beta)
