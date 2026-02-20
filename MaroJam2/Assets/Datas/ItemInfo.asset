@@ -17,7 +17,7 @@ MonoBehaviour:
     - Key: 1
       Value:
         displayName: "\u30EB\u30AF\u30B9"
-        icon: {fileID: 9101143047519141003, guid: b71cc6fb9295e6844a1f7e44ba0f76a9, type: 3}
+        icon: {fileID: -8512840749737169233, guid: 68cb89b53b6040b42a8db2dd7f541ccc, type: 3}
         tier: 2
     - Key: 2
       Value:

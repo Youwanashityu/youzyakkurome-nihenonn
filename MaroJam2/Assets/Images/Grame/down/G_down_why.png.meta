@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2cd885d7e0448f3418baeaa8d9dd8174
+guid: c44461b6a07125442ab59e0809a571c6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4060979464287938429
-    second: button_sentakusi_0
+      213: 8878745686264976186
+    second: G_down_why_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: button_sentakusi_0
+      name: G_down_why_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 18
         y: 0
-        width: 668
-        height: 110
+        width: 597
+        height: 956
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 60, y: 0, z: 60, w: 0}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 38816f671b084a7c0800000000000000
-      internalID: -4060979464287938429
+      spriteID: a331bd8f824a73b70800000000000000
+      internalID: 8878745686264976186
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0844c2795d306ad43b62fe45d6239623
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      button_sentakusi_0: -4060979464287938429
+      G_down_why_0: 8878745686264976186
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

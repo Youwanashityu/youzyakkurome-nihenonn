@@ -23,7 +23,7 @@ MonoBehaviour:
   images:
     m_list:
     - Key: 1
-      Value: {fileID: 9101143047519141003, guid: b71cc6fb9295e6844a1f7e44ba0f76a9, type: 3}
+      Value: {fileID: 1631978693375817954, guid: fa9bc1e2f4f3be04baca55f99d9a25af, type: 3}
   voices:
     m_list:
     - Key: 1
