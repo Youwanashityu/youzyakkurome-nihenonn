@@ -1,33 +1,33 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Henohenon.Scripts.GameUnity.General;
 using R3;
 using UnityEngine.UI;
-using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class HomeHandler : IDisposable
 {
     private readonly Button _talkButton;
-    private readonly LuxTalkHandler _luxTalkHandler;
-    private readonly IReadOnlyDictionary<int, LuxTalkType[]> _randomTalks;
     private readonly Subject<Unit> _onNext;
+    public Subject<Unit> OnNext => _onNext;
+    private ICharacterHandler _characterHandler;
+    private InventoryHandler _inventoryHandler;
     private CancellationTokenSource _cts;
     private bool _running = false;
 
-    public HomeHandler(HomeElements elements, GeneralElements generalElements, LuxTalkScriptable luxTalk)
+    public HomeHandler(HomeElements elements)
     {
         var talkController = elements.TalkController;
         _talkButton = talkController.TalkButton;
-        _randomTalks = luxTalk.RandomTalks;
         _onNext = new Subject<Unit>();
-        _luxTalkHandler = new LuxTalkHandler(talkController, generalElements.VoicePlayer, _onNext, luxTalk.Images, luxTalk.Voices, luxTalk.SimpleParams);
         
         _talkButton.onClick.AddListener(OnTalkButton);
     }
 
+    public void Initialize(ICharacterHandler handler)
+    {
+        _characterHandler = handler;
+    }
+    
     public async UniTask RunTutorial(CancellationToken token)
     {
         // テスト楽にしたかったのでrunningによるreturnはナシ
@@ -37,23 +37,7 @@ public class HomeHandler : IDisposable
         _running = true;
         try
         {
-            await _luxTalkHandler.ExecTalk(LuxTalkType.Tutorial, linkedToken);
-        }
-        finally
-        {
-            _running = false;
-        }
-    }
-
-    public async UniTask RunTalk(LuxTalkType type, CancellationToken token)
-    {
-        _cts = _cts.Reset();
-        var linkedToken = _cts.LinkedToken(token);
-        
-        _running = true;
-        try
-        {
-            await _luxTalkHandler.ExecTalk(type, linkedToken);
+            await _characterHandler.Tutorial(linkedToken);
         }
         finally
         {
@@ -67,14 +51,9 @@ public class HomeHandler : IDisposable
         var linkedToken = _cts.LinkedToken(token);
         
         _running = true;
-        var talkType = type switch
-        {
-            ItemType.SunShine => LuxTalkType.LIKE01_Hello,
-            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
-        };
         try
         {
-            await _luxTalkHandler.ExecTalk(talkType, linkedToken);
+            await _characterHandler.Present(type, linkedToken);
         }
         finally
         {
@@ -84,13 +63,10 @@ public class HomeHandler : IDisposable
     
     private void OnTalkButton()
     {
+        _cts = _cts.Reset();
         if (!_running)
         {
-            var loveLevel = 0;
-            var talkList = _randomTalks[loveLevel];
-            var talkType = talkList[Random.Range(0, talkList.Length)];
-            _cts = _cts.Reset();
-            RunTalk(talkType, _cts.Token).Forget();
+            _characterHandler.RandomTalk(_cts.Token).Forget();
         }
         else
         {
@@ -100,7 +76,6 @@ public class HomeHandler : IDisposable
 
     public void Dispose()
     {
-        _luxTalkHandler.Dispose();
         _talkButton.onClick.RemoveListener(OnTalkButton);
     }
 }

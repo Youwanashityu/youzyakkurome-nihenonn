@@ -10,13 +10,13 @@ public class HomeTestEntryPoint : MonoBehaviour
     [SerializeField]
     private GeneralElements generalElements;
     [SerializeField]
-    private LuxTalkScriptable luxTalk;
+    private LuxScriptable luxData;
 
     private HomeHandler _handler;
 
     private void Awake()
     {
-        _handler = new HomeHandler(homeElements, generalElements, luxTalk);
+        _handler = new HomeHandler(homeElements);
     }
 
     private void OnDestroy()
@@ -38,7 +38,8 @@ public class HomeTestEntryPoint : MonoBehaviour
     {
         if (testTalkType != _lastTalkType)
         {
-            _handler.RunTalk(testTalkType, CancellationToken.None).Forget();
+            Debug.LogWarning("実装できてないわw");
+            //_handler.RunTalk(testTalkType, CancellationToken.None).Forget();
             _lastTalkType = testTalkType;
         }
         if (testPresentType != _lastPresentType)

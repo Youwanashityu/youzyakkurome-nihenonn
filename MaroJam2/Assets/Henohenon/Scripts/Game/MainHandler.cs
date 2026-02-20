@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Henohenon.Scripts.GameUnity.General;
@@ -11,15 +12,17 @@ public class MainHandler: IDisposable
     private readonly HomeHandler _homeHandler;
     private readonly GatyaHandler _gatyaHandler;
     private readonly GeneralHandler _generalHandler;
+    private readonly CharacterSelectorHandler _charaSelectorHandler;
     private readonly Button _startButton;
 
-    public MainHandler(TitleElements titleElements, HomeElements homeElements, GatyaElements gatyaElements, GeneralElements generalElements, ItemInfo itemInfo, GatyaTable luxTable, LuxTalkScriptable luxTalk)
+    public MainHandler(TitleElements titleElements, HomeElements homeElements, GatyaElements gatyaElements, GeneralElements generalElements, ItemInfo itemInfo, GatyaTable luxTable,  CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
     {
         _viewHandler = new ViewHandler(titleElements, homeElements, gatyaElements);
         _titleHandler = new TitleHandler(titleElements);
-        _homeHandler = new HomeHandler(homeElements, generalElements, luxTalk);
+        _homeHandler = new HomeHandler(homeElements);
         _gatyaHandler = new GatyaHandler(gatyaElements, luxTable, itemInfo);
         _generalHandler = new GeneralHandler(generalElements);
+        _charaSelectorHandler = new CharacterSelectorHandler(homeElements, gatyaElements, generalElements.VoicePlayer, _homeHandler, luxData);
         
         _startButton = titleElements.StartButton;
         _startButton.onClick.AddListener(RunTutorial);
@@ -37,5 +40,6 @@ public class MainHandler: IDisposable
 		_gatyaHandler.Dispose();
 		_generalHandler.Dispose();
 		_viewHandler.Dispose();
+		_charaSelectorHandler.Dispose();
 	}
 }

@@ -26,8 +26,10 @@ public class TalkController : MonoBehaviour
     
     private CancellationTokenSource _cts;
 
-    private void Awake()
+    public void Initialize(Sprite image)
     {
+        _cts = _cts.Clear();
+        characterImage.sprite = image;
         talkBox.SetActive(false);
         selectionButtonA.gameObject.SetActive(false);
         selectionButtonB.gameObject.SetActive(false);
