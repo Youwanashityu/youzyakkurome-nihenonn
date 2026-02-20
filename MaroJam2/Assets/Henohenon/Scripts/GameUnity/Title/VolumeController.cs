@@ -14,7 +14,7 @@ public class VolumeController : MonoBehaviour
     {
         bgmSlider.onValueChanged.AddListener(ChangeBgmVolume);
         seSlider.onValueChanged.AddListener(ChangeSeVolume);
-        seSlider.onValueChanged.AddListener(ChangeCvVolume);
+        cvSlider.onValueChanged.AddListener(ChangeCvVolume);
         ChangeBgmVolume(bgmSlider.value);
         ChangeSeVolume(seSlider.value);
         ChangeCvVolume(cvSlider.value);
@@ -29,17 +29,17 @@ public class VolumeController : MonoBehaviour
 
     private void ChangeBgmVolume(float scale)
     {
-        ChangeVolume("BGM-Volume", scale);
+        ChangeVolume("BGM", scale);
     }
 
     private void ChangeSeVolume(float scale)
     {
-        ChangeVolume("SE-Volume", scale);
+        ChangeVolume("SE", scale);
     }
 
     private void ChangeCvVolume(float scale)
     {
-        ChangeVolume("CV-Volume", scale);
+        ChangeVolume("CV", scale);
     }
 
     private void ChangeVolume(string propName, float scale)
