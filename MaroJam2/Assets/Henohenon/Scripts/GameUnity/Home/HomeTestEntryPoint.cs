@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Henohenon.Scripts.GameUnity.General;
+using R3;
 using UnityEngine;
 
 public class HomeTestEntryPoint : MonoBehaviour
@@ -10,20 +11,25 @@ public class HomeTestEntryPoint : MonoBehaviour
     [SerializeField]
     private GeneralElements generalElements;
     [SerializeField]
-    private LuxTalkScriptable luxTalk;
+    private ItemInfoScriptable itemInfo;
 
     private HomeHandler _handler;
+    private Subject<ItemType> _onGetItem;
 
     private void Awake()
     {
-        _handler = new HomeHandler(homeElements, generalElements, luxTalk);
+        _onGetItem = new Subject<ItemType>();
+        var inventoryHandler = new InventoryHandler(itemInfo.GetPureData, _onGetItem, homeElements.Presents);
+        _handler = new HomeHandler(homeElements, inventoryHandler);
     }
 
     private void OnDestroy()
     {
         _handler.Dispose();
+        _onGetItem.Dispose();
     }
-    
+
+    /*
     [Header("以下テスト用")]
     [SerializeField]
     private LuxTalkType testTalkType;
@@ -38,14 +44,15 @@ public class HomeTestEntryPoint : MonoBehaviour
     {
         if (testTalkType != _lastTalkType)
         {
-            _handler.RunTalk(testTalkType, CancellationToken.None).Forget();
+            Debug.LogWarning("実装できてないわw");
+            //_handler.RunTalk(testTalkType, CancellationToken.None).Forget();
             _lastTalkType = testTalkType;
         }
         if (testPresentType != _lastPresentType)
         {
-            _handler.RunPresent(testPresentType, CancellationToken.None).Forget();
+            //_handler.RunPresent(testPresentType, CancellationToken.None).Forget();
             _lastPresentType = testPresentType;
         }
 
-    }
+    }*/
 }

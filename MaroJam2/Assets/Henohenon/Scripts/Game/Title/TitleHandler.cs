@@ -1,8 +1,3 @@
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using Henohenon.Scripts.CoreUnity;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class TitleHandler
 {
