@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 4366438337201024291}
   numberText: {fileID: 115770209162708058}
+  button: {fileID: 5771918853747788777}
 --- !u!1 &6894978208131281667
 GameObject:
   m_ObjectHideFlags: 0
