@@ -16,6 +16,10 @@ MonoBehaviour:
     m_list:
     - Key: 1
       Value: {fileID: 1631978693375817954, guid: fa9bc1e2f4f3be04baca55f99d9a25af, type: 3}
+    - Key: 2
+      Value: {fileID: -1068684429343525715, guid: 5a9e9414c63b6a0468e864be72b9180d, type: 3}
+    - Key: 3
+      Value: {fileID: 323970440915599317, guid: e7bc636ee7014484fa1b93beb9c52b4e, type: 3}
   voices:
     m_list:
     - Key: 1
