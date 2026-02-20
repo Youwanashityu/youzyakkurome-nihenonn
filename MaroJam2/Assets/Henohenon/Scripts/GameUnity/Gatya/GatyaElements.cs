@@ -1,4 +1,3 @@
-using Henohenon.Scripts.CoreUnity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +11,8 @@ public class GatyaElements : MonoBehaviour
     private Button tenButton;
     [SerializeField]
     private Button oneButton;
+    [SerializeField]
+    private CharacterSelector characterSelector;
     [SerializeField] 
     private TenResultController tenResult;
     [SerializeField]
@@ -21,6 +22,7 @@ public class GatyaElements : MonoBehaviour
     public Button BackButton => backButton;
     public Button OneButton => oneButton;
     public Button TenButton => tenButton;
+    public CharacterSelector CharacterSelector => characterSelector;
     
     public TenResultController TenResult => tenResult;
     public OneResultController OneResult => oneResult;
