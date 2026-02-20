@@ -23,8 +23,11 @@ public class CharactersManager: IDisposable
         {
             { CharacterType.Lux, luxHandler }
         };
-        
+
+        _talkController = talkController;
         _homeHandler = homeHandler;
+
+        SetCharacter(CharacterType.Lux);
     }
 
     public void SetCharacter(CharacterType type)

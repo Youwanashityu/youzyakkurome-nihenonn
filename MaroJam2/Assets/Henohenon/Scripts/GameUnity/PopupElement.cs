@@ -3,12 +3,13 @@ using UnityEngine.UI;
 
 public class PopupElement: MonoBehaviour, IShowHide
 {
+    [SerializeField] private bool hideOnAwake = true;
     [SerializeField] private Button closeButton;
     [SerializeField] private Button backgroundButton;
     
     private void Awake()
     {
-        gameObject.SetActive(false);
+        if (hideOnAwake) gameObject.SetActive(false);
         closeButton.onClick.AddListener(Hide);
         backgroundButton.onClick.AddListener(Hide);
     }

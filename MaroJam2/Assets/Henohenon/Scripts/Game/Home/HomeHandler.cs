@@ -6,31 +6,40 @@ using UnityEngine.UI;
 
 public class HomeHandler : IDisposable
 {
-    private readonly Button _talkButton;
+    private readonly HomeElements _elements;
     private readonly Subject<Unit> _onNext;
     public Subject<Unit> OnNext => _onNext;
     private ICharacterHandler _characterHandler;
+    private IDisposable _loveSubscription;
+    private readonly CompositeDisposable _disposables;
     private InventoryHandler _inventoryHandler;
     private CancellationTokenSource _cts;
     private bool _running = false;
 
-    public HomeHandler(HomeElements elements)
+    public HomeHandler(HomeElements elements, InventoryHandler inventoryHandler)
     {
-        var talkController = elements.TalkController;
-        _talkButton = talkController.TalkButton;
+        _elements = elements;
         _onNext = new Subject<Unit>();
-        
-        _talkButton.onClick.AddListener(OnTalkButton);
+        _disposables = new CompositeDisposable();
+        _inventoryHandler = inventoryHandler;
+
+        _elements.TalkController.TalkButton.onClick.AddListener(OnTalkButton);
+        _elements.Presents.OnPresent.Subscribe(t => RunPresent(t, CancellationToken.None).Forget()).AddTo(_disposables);
+        _elements.PresentButton.onClick.AddListener(OnPresentButton);
+        _elements.SwitchCharaButton.onClick.AddListener(OnSwitchCharaButton);
     }
 
     public void Initialize(ICharacterHandler handler)
     {
         _characterHandler = handler;
+        _elements.LevelSlider.value = _characterHandler.Love.CurrentValue / 100f;
+        _loveSubscription?.Dispose();
+        _loveSubscription = _characterHandler.Love.Subscribe(value => _elements.LevelSlider.value = value);
     }
     
     public async UniTask RunTutorial(CancellationToken token)
     {
-        // テスト楽にしたかったのでrunningによるreturnはナシ
+        if (_running) return;
         _cts = _cts.Reset();
         var linkedToken = _cts.LinkedToken(token);
         
@@ -44,16 +53,18 @@ public class HomeHandler : IDisposable
             _running = false;
         }
     }
-
-    public async UniTask RunPresent(ItemType type, CancellationToken token)
+    
+    private async UniTask RunPresent(ItemType type, CancellationToken token)
     {
+        if (_running) return;
         _cts = _cts.Reset();
-        var linkedToken = _cts.LinkedToken(token);
         
         _running = true;
         try
         {
-            await _characterHandler.Present(type, linkedToken);
+            var number = _inventoryHandler.UseItem(type);
+            number = Math.Max(0, number);
+            await _characterHandler.Present(type, number, _cts.Token);
         }
         finally
         {
@@ -74,8 +85,20 @@ public class HomeHandler : IDisposable
         }
     }
 
+    private void OnPresentButton()
+    {
+        _elements.Presents.Popup.Show();
+    }
+    
+    private void OnSwitchCharaButton()
+    {
+        _elements.CharacterSelector.Popup.Show();
+    }
+
     public void Dispose()
     {
-        _talkButton.onClick.RemoveListener(OnTalkButton);
+        _elements.TalkController.TalkButton.onClick.RemoveListener(OnTalkButton);
+        _loveSubscription?.Dispose();
+        _disposables.Dispose();
     }
 }

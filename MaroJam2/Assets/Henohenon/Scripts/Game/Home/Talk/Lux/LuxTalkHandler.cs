@@ -66,7 +66,6 @@ public class LuxTalkHandler : TalkHandler<LuxTalkType>, IDisposable
                     throw new ArgumentException("Invalid talk type");
                 }
 
-                Debug.Log(type);
                 if (_data.Voices.TryGetValue(param.Voice, out var voice)) _voicePlayer.Play(voice);
                 if (_data.Images.TryGetValue(param.Image, out var image)) _talkController.CharacterImage.sprite = image;
                 foreach (var text in param.Texts)

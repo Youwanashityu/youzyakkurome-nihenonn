@@ -13,15 +13,17 @@ public class MainHandler: IDisposable
     private readonly GatyaHandler _gatyaHandler;
     private readonly GeneralHandler _generalHandler;
     private readonly CharacterSelectorHandler _charaSelectorHandler;
+    private readonly InventoryHandler _inventoryHandler;
     private readonly Button _startButton;
 
     public MainHandler(TitleElements titleElements, HomeElements homeElements, GatyaElements gatyaElements, GeneralElements generalElements, ItemInfo itemInfo, GatyaTable luxTable,  CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
     {
         _viewHandler = new ViewHandler(titleElements, homeElements, gatyaElements);
         _titleHandler = new TitleHandler(titleElements);
-        _homeHandler = new HomeHandler(homeElements);
         _gatyaHandler = new GatyaHandler(gatyaElements, luxTable, itemInfo);
         _generalHandler = new GeneralHandler(generalElements);
+        _inventoryHandler = new InventoryHandler(itemInfo, _gatyaHandler.OnGetItem, homeElements.Presents);
+        _homeHandler = new HomeHandler(homeElements, _inventoryHandler);
         _charaSelectorHandler = new CharacterSelectorHandler(homeElements, gatyaElements, generalElements.VoicePlayer, _homeHandler, luxData);
         
         _startButton = titleElements.StartButton;

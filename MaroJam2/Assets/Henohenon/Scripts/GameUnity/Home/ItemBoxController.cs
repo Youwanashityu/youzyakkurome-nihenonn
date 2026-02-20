@@ -20,7 +20,7 @@ public class ItemBoxController: MonoBehaviour
 
     public void SetNumber(int number)
     {
-        _button.interactable = number <= 0;
+        _button.interactable = number > 0;
         numberText.text = number.ToString();
     }
 }

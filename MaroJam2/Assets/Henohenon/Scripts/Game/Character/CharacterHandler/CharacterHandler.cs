@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using R3;
 
 public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     where TImage : Enum
@@ -12,7 +13,8 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     private readonly PresentHandler<TTalk> _presentHandler;
     private readonly CharacterData<TImage, TVoice, TTalk> _data;
     public ICharacterData Data => _data;
-    private float _love;
+    private readonly ReactiveProperty<float> _love = new (0);
+    public ReadOnlyReactiveProperty<float> Love => _love;
     
     public CharacterHandler(CharacterType type, TalkHandler<TTalk> talkHandler, CharacterData<TImage, TVoice, TTalk> data)
     {
@@ -29,7 +31,7 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     
     public async UniTask RandomTalk(CancellationToken token)
     {
-        var list = _data.RandomTalks[LoveLv];
+        var list = _data.RandomTalks[0]; // TODO: Lovelevel反映
         var type = list[UnityEngine.Random.Range(0, list.Length)];
         
         await _talkHandler.ExecTalk(type, token);
@@ -48,25 +50,9 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
         
         await _talkHandler.ExecTalk(talkType, token);
 
-        _love += info.LoveAmount * numb;
+        _love.Value += info.LoveAmount * numb;
     }
     
-    public float Love => _love;
-    public int LoveLv
-    {
-        get
-        {
-            if (_love < 10) return 0;
-            if (_love < 20) return 1;
-            return 2;
-        }
-    }
-    
-    private void AddLove(float value)
-    {
-        _love += value;
-    }
-
     public void Dispose()
     {
         _talkHandler.Dispose();

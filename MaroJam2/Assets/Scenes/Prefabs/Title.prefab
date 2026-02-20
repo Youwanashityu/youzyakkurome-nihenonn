@@ -1512,6 +1512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9d4840076c47d0a9889d6788f750de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hideOnAwake: 1
 --- !u!1 &6806063402580250392
 GameObject:
   m_ObjectHideFlags: 0
@@ -3425,7 +3426,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5026015340095593853, guid: c969e6b64c06ae94099803552a56b830, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9017208929373438798}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3098648514088447821, guid: c969e6b64c06ae94099803552a56b830, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2147109190304938756}
   m_SourcePrefab: {fileID: 100100000, guid: c969e6b64c06ae94099803552a56b830, type: 3}
 --- !u!224 &1579952187767075556 stripped
 RectTransform:
@@ -3437,7 +3441,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8113032459726970183, guid: c969e6b64c06ae94099803552a56b830, type: 3}
   m_PrefabInstance: {fileID: 5787935270548205465}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8886301429526053076}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c96fc4ffed144efaaa05f9be99aa44b5, type: 3}
@@ -3448,6 +3452,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2379611062990320809, guid: c969e6b64c06ae94099803552a56b830, type: 3}
   m_PrefabInstance: {fileID: 5787935270548205465}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8886301429526053076 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3098648514088447821, guid: c969e6b64c06ae94099803552a56b830, type: 3}
+  m_PrefabInstance: {fileID: 5787935270548205465}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2147109190304938756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886301429526053076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2240f67cbc77c97439f2d17b9ebeea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  licenseTextAsset: {fileID: 4900000, guid: 96f4356be390422e8551cfc9988645bd, type: 3}
+  textComponent: {fileID: 8237203402352415464}
 --- !u!1001 &6612276972591294909
 PrefabInstance:
   m_ObjectHideFlags: 0

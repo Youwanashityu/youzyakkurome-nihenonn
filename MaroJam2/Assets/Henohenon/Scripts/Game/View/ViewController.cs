@@ -22,8 +22,6 @@ public class ViewController
             { View.Home, homeView },
             { View.Gatya, gatyaView }
         };
-        
-        
     }
 
     public void Show(View view)

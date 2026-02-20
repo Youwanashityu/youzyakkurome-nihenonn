@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using R3;
 
 public class GatyaHandler : IDisposable
 {
@@ -10,7 +11,9 @@ public class GatyaHandler : IDisposable
     private readonly int _maxTenjoCount = 50;
     private int _tenjoCount = 10;
     private CancellationTokenSource _cts;
-    
+    private readonly Subject<ItemType> _onGetItem = new ();
+    public Subject<ItemType> OnGetItem => _onGetItem;
+
     public GatyaHandler(GatyaElements elements, GatyaTable luxTable, ItemInfo itemInfo)
     {
         _elements = elements;
@@ -25,14 +28,16 @@ public class GatyaHandler : IDisposable
     {
         _cts = _cts.Reset();
 
-        var info = _itemInfo.DisplayInfo[_luxTable.One()];
+        var type = _luxTable.One();
+        var info = _itemInfo.DisplayInfo[type];
         _tenjoCount++;
         if (_tenjoCount >= _maxTenjoCount)
         {
-            info = GetTenjoInfo();
+            (type, info) = GetTenjo();
             _tenjoCount = 0;
         }
 
+        _onGetItem.OnNext(type);
         _elements.OneResult.SkipButton.gameObject.SetActive(false);
         _elements.OneResult.ShowResult(info, _cts.Token).Forget();
     }
@@ -43,14 +48,18 @@ public class GatyaHandler : IDisposable
         var onlyCommon = true;
         for (var i = 0; i < 10; i++)
         {
-            infos[i] = _itemInfo.DisplayInfo[_luxTable.One()];
+            
+            var type = _luxTable.One();
+            var info = _itemInfo.DisplayInfo[type];
             _tenjoCount++;
             if (_tenjoCount >= _maxTenjoCount)
             {
-                infos[i] = GetTenjoInfo();
+                (type, info) = GetTenjo();
                 _tenjoCount = 0;
             }
-            
+
+            infos[i] = info;
+            _onGetItem.OnNext(type);
             onlyCommon &= infos[i].Tier == ItemTier.Common;
         }
 
@@ -102,19 +111,23 @@ public class GatyaHandler : IDisposable
         return result;
     }
     
-    private ItemDisplayInfo GetTenjoInfo()
+    private (ItemType, ItemDisplayInfo) GetTenjo()
     {
+        var type = ItemType.None;
         var result = _itemInfo.DisplayInfo[_luxTable.One()];
         // TODO: 流石に頭悪い説
         while (result.Tier != ItemTier.Epic)
         {
-            result = _itemInfo.DisplayInfo[_luxTable.One()];
+            type = _luxTable.One();
+            result = _itemInfo.DisplayInfo[type];
         }
 
-        return result;
+        return (type, result);
     }
 
     public void Dispose()
     {
+        _cts.Reset();
+        _onGetItem.Dispose();
     }
 }

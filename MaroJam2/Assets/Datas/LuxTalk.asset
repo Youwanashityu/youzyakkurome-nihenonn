@@ -12,14 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526b0ed60a4343df85b2bbea85fce9b9, type: 3}
   m_Name: LuxTalk
   m_EditorClassIdentifier: 
-  simpleParams:
-    m_list:
-    - Key: 4
-      Value:
-        texts:
-        - "\u3059\u3044\u307E\u305B\u30FC\u3093"
-        image: 1
-        voice: 1
   images:
     m_list:
     - Key: 1
@@ -28,7 +20,21 @@ MonoBehaviour:
     m_list:
     - Key: 1
       Value: {fileID: 8300000, guid: a818e502737230a469cc0139680314d6, type: 3}
+  simpleParams:
+    m_list:
+    - Key: 4
+      Value:
+        texts:
+        - "\u3059\u3044\u307E\u305B\u30FC\u3093"
+        image: 1
+        voice: 1
   randomTalks:
     m_list:
     - Key: 0
       Value: 04000000
+  presentsInfo:
+    m_list:
+    - Key: 13
+      Value:
+        talkType: 04000000
+        loveAmount: 5
