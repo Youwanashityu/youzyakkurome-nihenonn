@@ -3,24 +3,18 @@ using System.Collections.Generic;
 using R3;
 using UnityEngine;
 
-[RequireComponent(typeof(PopupElement))]
 public class PresentsPopupController: MonoBehaviour
 {
     [SerializeField] private ItemBoxController itemBoxPrefab;
     [SerializeField] private RectTransform list;
+    [SerializeField] private PopupElement popup;
 
     private readonly Subject<ItemType> _onPresent = new();
     public Observable<ItemType> OnPresent => _onPresent;
     private readonly Dictionary<ItemType, ItemBoxController> _instances = new Dictionary<ItemType, ItemBoxController>();
-    private PopupElement _popup;
-    public PopupElement Popup => _popup;
 
-    public void Awake()
-    {
-        _popup = GetComponent<PopupElement>();
-        Debug.Log(_popup);
-    }
-
+    public PopupElement Popup => popup;
+    
     public void Clear()
     {
         foreach (var instance in _instances.Values)

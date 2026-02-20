@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GatyaElements : MonoBehaviour
@@ -12,6 +13,8 @@ public class GatyaElements : MonoBehaviour
     [SerializeField]
     private Button oneButton;
     [SerializeField]
+    private Button changeButton;
+    [SerializeField]
     private CharacterSelector characterSelector;
     [SerializeField] 
     private TenResultController tenResult;
@@ -22,6 +25,7 @@ public class GatyaElements : MonoBehaviour
     public Button BackButton => backButton;
     public Button OneButton => oneButton;
     public Button TenButton => tenButton;
+    public Button ChangeButton => changeButton;
     public CharacterSelector CharacterSelector => characterSelector;
     
     public TenResultController TenResult => tenResult;

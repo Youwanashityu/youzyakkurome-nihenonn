@@ -20,6 +20,7 @@ public class GatyaHandler : IDisposable
         _luxTable = luxTable;
         _itemInfo = itemInfo;
         
+        _elements.ChangeButton.onClick.AddListener(OnChange);
         _elements.OneButton.onClick.AddListener(OnOne);
         _elements.TenButton.onClick.AddListener(OnTen);
     }
@@ -68,6 +69,11 @@ public class GatyaHandler : IDisposable
             infos[9] = GetUpperRareInfo();
         }
         ShowTenResult(infos, CancellationToken.None).Forget();
+    }
+
+    private void OnChange()
+    {
+        _elements.CharacterSelector.Popup.Show();
     }
     
     private async UniTask ShowTenResult(ItemDisplayInfo[] infos, CancellationToken token)
