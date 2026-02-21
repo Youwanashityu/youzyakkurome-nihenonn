@@ -22,7 +22,7 @@ public class SoundHandler
             if (tier == ItemTier.Common) OnGatyaNSe();
             else OnGatyaSrSe();
         }).AddTo(_disposable);
-        foreach (var chara in charactersManager._characters.Values)
+        foreach (var chara in charactersManager.Characters.Values)
         {
             chara.Love.Subscribe(_ => OnLikeUp()).AddTo(_disposable);
         }

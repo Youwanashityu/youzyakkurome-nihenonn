@@ -59,7 +59,6 @@ public class GatyaController: IGatyaController, IDisposable
         var onlyCommon = true;
         for (var i = 0; i < 10; i++)
         {
-            
             var type = _table.One();
             var info = _displayInfo[type];
             _tenjoCount++;
@@ -99,7 +98,7 @@ public class GatyaController: IGatyaController, IDisposable
         skipButton.onClick.RemoveAllListeners();
         skipButton.onClick.AddListener(() =>
         {
-            _cts.Cancel();
+            _cts = _cts.Clear();
         });
         
         try

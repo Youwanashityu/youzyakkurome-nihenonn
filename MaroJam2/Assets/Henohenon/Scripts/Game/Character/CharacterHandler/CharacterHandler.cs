@@ -9,8 +9,7 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     where TTalk : Enum
 {
     public readonly CharacterType CharacterType;
-    private readonly TalkHandler<TTalk> _talkHandler;
-    private readonly PresentHandler<TTalk> _presentHandler;
+    private readonly TalkHandler<TTalk> _talkHandler; 
     private readonly CharacterData<TImage, TVoice, TTalk> _data;
     public ICharacterData Data => _data;
     private readonly ReactiveProperty<float> _love = new (0);
@@ -20,7 +19,6 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     {
         CharacterType = type;
         _talkHandler = talkHandler;
-        _presentHandler = new PresentHandler<TTalk>(_talkHandler, data.PresentsInfo);
         _data = data;
     }
 
@@ -76,6 +74,5 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     public void Dispose()
     {
         _talkHandler.Dispose();
-        _presentHandler.Dispose();
     }
 }

@@ -3,8 +3,8 @@ using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(
-    fileName = "NewGatyaTable",
-    menuName = "Data/GatyaTable"
+    fileName = "NewGatyaData",
+    menuName = "Data/GatyaData"
 )]
 public class GatyaDataScriptable: ScriptableObject
 {

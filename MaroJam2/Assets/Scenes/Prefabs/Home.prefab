@@ -299,6 +299,7 @@ MonoBehaviour:
   switchCharaButton: {fileID: 6377434099755377588}
   presentListButton: {fileID: 5385209957811064402}
   backToTitleButton: {fileID: 4909508168355948529}
+  loveLvText: {fileID: 295764325989884149}
   levelSlider: {fileID: 4229268447428209551}
   talkController: {fileID: 9030547694710800337}
   presentsController: {fileID: 7150919156657180477}
@@ -2625,6 +2626,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63dbe7ed76bd5234694edca61929d1d3, type: 3}
+--- !u!114 &295764325989884149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2056385771525186414, guid: 63dbe7ed76bd5234694edca61929d1d3, type: 3}
+  m_PrefabInstance: {fileID: 1770895283361743771}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7601631733475014567 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8209235468209648700, guid: 63dbe7ed76bd5234694edca61929d1d3, type: 3}
