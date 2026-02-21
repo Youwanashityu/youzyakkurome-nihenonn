@@ -54,27 +54,30 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
         }
         finally
         {
-            _love.Value += info.LoveAmount * numb;
+            _love.Value = _love.CurrentValue + info.LoveAmount * numb;
         }
     }
 
     public float GetLoveRatio()
     {
-        return _love.CurrentValue / _data.LoveLvPoints[GetLoveLv()];
+        var last = _data.LoveLvPoints[GetLoveLv() - 1];
+        var current = _data.LoveLvPoints[GetLoveLv()];
+        return (_love.CurrentValue - last) / (current - last);
     }
 
     public int GetLoveLv()
     {
         var result = 0;
+        var v = _love.CurrentValue;
         foreach (var point in _data.LoveLvPoints)
         {
-            if (_love.CurrentValue >= point)
+            if (v < point)
             {
                 return result;
             }
             result++;
         }
-        return result;
+        return 10;
     }
 
     public void Dispose()

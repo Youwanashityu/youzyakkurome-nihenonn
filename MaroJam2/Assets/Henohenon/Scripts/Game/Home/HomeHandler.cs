@@ -43,7 +43,8 @@ public class HomeHandler : IDisposable
         _loveSubscription?.Dispose();
         _loveSubscription = _characterHandler.Love.Subscribe(_ =>
         {
-            _elements.LoveLvText.text = "Lv." + _characterHandler.GetLoveLv();
+            var lv = _characterHandler.GetLoveLv();
+            _elements.LoveLvText.text = $"Lv.{lv}";
             _elements.LevelSlider.value = _characterHandler.GetLoveRatio();
         });
     }
@@ -67,7 +68,6 @@ public class HomeHandler : IDisposable
     
     private async UniTask RunPresent(ItemType type, CancellationToken token)
     {
-        if(_runningPresent) return;
         _presentCts = _presentCts.Reset();
         var linkedToken = _presentCts.LinkedToken(token);
         

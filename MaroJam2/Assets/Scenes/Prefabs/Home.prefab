@@ -2949,6 +2949,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 406893553544239428, guid: 67213b4506d125d4395a724a64ede62d, type: 3}
+      propertyPath: m_MinValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406893553544239428, guid: 67213b4506d125d4395a724a64ede62d, type: 3}
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}

@@ -10,7 +10,6 @@ public class InventoryKeyHandler: IItemsHandler, IBadMoneyKeyHandler, IDisposabl
     private readonly Dictionary<ItemType, int> _items;
     private readonly ReactiveProperty<int> _keyAmount;
     private readonly ReactiveProperty<int> _badMoneyAmount;
-    private readonly IDisposable _subscription;
     public ReadOnlyReactiveProperty<int> KeyAmount => _keyAmount;
     public ReadOnlyReactiveProperty<int> BadMoneyAmount => _badMoneyAmount;
 
@@ -41,12 +40,11 @@ public class InventoryKeyHandler: IItemsHandler, IBadMoneyKeyHandler, IDisposabl
 
     public void Purchase(int addKey, int subBadMoney)
     {
-        _keyAmount.Value += addKey;
-        _badMoneyAmount.Value -= subBadMoney;
+        _keyAmount.Value = _keyAmount.CurrentValue + addKey;
+        _badMoneyAmount.Value = _badMoneyAmount.CurrentValue - subBadMoney;
     }
 
     public void Dispose()
     {
-        _subscription.Dispose();
     }
 }
