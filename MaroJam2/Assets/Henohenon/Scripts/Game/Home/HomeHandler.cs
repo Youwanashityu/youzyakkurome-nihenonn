@@ -35,7 +35,11 @@ public class HomeHandler : IDisposable
         _characterHandler = handler;
         _elements.LevelSlider.value = _characterHandler.Love.CurrentValue / 100f;
         _loveSubscription?.Dispose();
-        _loveSubscription = _characterHandler.Love.Subscribe(value => _elements.LevelSlider.value = value);
+        _loveSubscription = _characterHandler.Love.Subscribe(_ =>
+        {
+            _elements.LoveLvText.text = "Lv." + _characterHandler.GetLoveLv();
+            _elements.LevelSlider.value = _characterHandler.GetLoveRatio();
+        });
     }
     
     public async UniTask RunTutorial(CancellationToken token)

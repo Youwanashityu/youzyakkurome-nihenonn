@@ -4,11 +4,11 @@ using R3;
 
 public class CharactersManager: IDisposable
 {
-    private readonly Dictionary<CharacterType, ICharacterHandler> _characters;
+    public readonly IReadOnlyDictionary<CharacterType, ICharacterHandler> _characters;
     private readonly HomeHandler _homeHandler;
     private readonly TalkController _talkController;
 
-    public CharactersManager(TalkController talkController, IVoicePlayer voicePlayer, HomeHandler homeHandler, CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
+    public CharactersManager(TalkController talkController, IVoicePlayer voicePlayer, float[] loveLvPoints, HomeHandler homeHandler, CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
     {
         var luxTalkHandler = new LuxTalkHandler(
             talkController,
@@ -17,7 +17,7 @@ public class CharactersManager: IDisposable
             luxData
         );
         var luxHandler =
-            new CharacterHandler<LuxImageType, LuxVoiceType, LuxTalkType>(CharacterType.Lux, luxTalkHandler, luxData);
+            new CharacterHandler<LuxImageType, LuxVoiceType, LuxTalkType>(CharacterType.Lux, luxTalkHandler, luxData, loveLvPoints);
 
         _characters = new Dictionary<CharacterType, ICharacterHandler>
         {

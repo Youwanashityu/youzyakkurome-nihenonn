@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class HomeElements : MonoBehaviour
     [SerializeField]
     private Button backToTitleButton;
     [SerializeField]
+    private TMP_Text loveLvText;
+    [SerializeField]
     private Slider levelSlider;
     [SerializeField]
     private TalkController talkController;
@@ -27,6 +30,7 @@ public class HomeElements : MonoBehaviour
     public Button SwitchCharaButton => switchCharaButton;
     public Button PresentButton => presentListButton;
     public Button BackToTitle => backToTitleButton;
+    public TMP_Text LoveLvText => loveLvText;
     public Slider LevelSlider => levelSlider;
     public TalkController TalkController => talkController;
     public PresentsPopupController Presents => presentsController;

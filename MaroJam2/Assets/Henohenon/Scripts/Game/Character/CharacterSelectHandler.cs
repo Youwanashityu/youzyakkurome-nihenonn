@@ -4,9 +4,9 @@ public class CharacterSelectorHandler
     private readonly CharacterSelector _homeSelector;
     private readonly CharacterSelector _gatyaSelector;
     private readonly CharactersManager _charactersManager;
-    public CharacterSelectorHandler(HomeElements homeElements, GatyaElements gatyaElements, IVoicePlayer voicePlayer, HomeHandler homeHandler, CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
+    public CharacterSelectorHandler(HomeElements homeElements, GatyaElements gatyaElements, IVoicePlayer voicePlayer, float[] loveLvPoints, HomeHandler homeHandler, CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
     {
-        _charactersManager = new CharactersManager(homeElements.TalkController, voicePlayer, homeHandler, luxData);
+        _charactersManager = new CharactersManager(homeElements.TalkController, voicePlayer, loveLvPoints, homeHandler, luxData);
         _homeSelector = homeElements.CharacterSelector;
         _gatyaSelector = gatyaElements.CharacterSelector;
         AddListenCharacterSelector(_homeSelector);

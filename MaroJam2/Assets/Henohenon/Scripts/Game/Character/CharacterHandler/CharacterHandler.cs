@@ -12,16 +12,18 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     private readonly TalkHandler<TTalk> _talkHandler;
     private readonly PresentHandler<TTalk> _presentHandler;
     private readonly CharacterData<TImage, TVoice, TTalk> _data;
+    private readonly float[] _loveLvPoints;
     public ICharacterData Data => _data;
     private readonly ReactiveProperty<float> _love = new (0);
     public ReadOnlyReactiveProperty<float> Love => _love;
     
-    public CharacterHandler(CharacterType type, TalkHandler<TTalk> talkHandler, CharacterData<TImage, TVoice, TTalk> data)
+    public CharacterHandler(CharacterType type, TalkHandler<TTalk> talkHandler, CharacterData<TImage, TVoice, TTalk> data, float[] loveLvPoints)
     {
         CharacterType = type;
         _talkHandler = talkHandler;
         _presentHandler = new PresentHandler<TTalk>(_talkHandler, data.PresentsInfo);
         _data = data;
+        _loveLvPoints = loveLvPoints;
     }
 
     // TODO: cts管理
@@ -53,7 +55,26 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
 
         _love.Value += info.LoveAmount * numb;
     }
-    
+
+    public float GetLoveRatio()
+    {
+        return _love.CurrentValue / _loveLvPoints[GetLoveLv()];
+    }
+
+    public int GetLoveLv()
+    {
+        var result = 0;
+        foreach (var point in _loveLvPoints)
+        {
+            if (_love.CurrentValue >= point)
+            {
+                return result;
+            }
+            result++;
+        }
+        return result;
+    }
+
     public void Dispose()
     {
         _talkHandler.Dispose();

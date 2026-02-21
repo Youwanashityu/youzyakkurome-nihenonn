@@ -10,7 +10,7 @@ public class SoundHandler
     private readonly GeneralElements _generalElements;
     private readonly CompositeDisposable _disposable;
     
-    public SoundHandler(GeneralElements generalElements, TitleElements titleElements, GatyaHandler gatyaHandler)
+    public SoundHandler(GeneralElements generalElements, TitleElements titleElements, CharactersManager charactersManager, GatyaHandler gatyaHandler)
     {
         _startButton = titleElements.StartButton;
         _disposable = new CompositeDisposable();
@@ -22,6 +22,10 @@ public class SoundHandler
             if (tier == ItemTier.Common) OnGatyaNSe();
             else OnGatyaSrSe();
         }).AddTo(_disposable);
+        foreach (var chara in charactersManager._characters.Values)
+        {
+            chara.Love.Subscribe(_ => OnLikeUp()).AddTo(_disposable);
+        }
     }
 
     private void OnClickSe() => PlaySe(_generalElements.Click);
