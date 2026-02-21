@@ -14,18 +14,16 @@ public class InventoryKeyHandler: IItemsHandler, IBadMoneyKeyHandler, IDisposabl
     public ReadOnlyReactiveProperty<int> KeyAmount => _keyAmount;
     public ReadOnlyReactiveProperty<int> BadMoneyAmount => _badMoneyAmount;
 
-    public InventoryKeyHandler(ItemInfo itemInfo, Observable<ItemType> onGetItem, PresentsPopupController presentsPopup)
+    public InventoryKeyHandler(ItemInfo itemInfo, PresentsPopupController presentsPopup)
     {
         _displayInfos = itemInfo.DisplayInfo;
         _keyAmount = new ReactiveProperty<int>(itemInfo.InitKeyAmount);
         _badMoneyAmount = new ReactiveProperty<int>(0);
         _presentsPopup = presentsPopup;
         _items = new();
-
-        _subscription = onGetItem.Subscribe(AddItem);
     }
 
-    private void AddItem(ItemType type)
+    public void AddItem(ItemType type)
     {
         _items[type] = _items.GetValueOrDefault(type) + 1;
         _presentsPopup.Set(type, _displayInfos[type], _items[type]);
@@ -36,6 +34,7 @@ public class InventoryKeyHandler: IItemsHandler, IBadMoneyKeyHandler, IDisposabl
         if (!_items.TryGetValue(type, out var result)) return 0;
         _items[type] = 0;
         _presentsPopup.Set(type, _displayInfos[type], _items[type]);
+        _presentsPopup.Popup.Hide();
 
         return result;
     }

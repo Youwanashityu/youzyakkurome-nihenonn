@@ -18,8 +18,7 @@ public class HomeTestEntryPoint : MonoBehaviour
 
     private void Awake()
     {
-        _onGetItem = new Subject<ItemType>();
-        var inventoryHandler = new InventoryKeyHandler(itemInfo.GetPureData, _onGetItem, homeElements.Presents);
+        var inventoryHandler = new InventoryKeyHandler(itemInfo.GetPureData, homeElements.Presents);
         _handler = new HomeHandler(homeElements, inventoryHandler);
     }
 

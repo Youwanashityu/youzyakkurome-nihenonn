@@ -20,9 +20,9 @@ public class MainHandler: IDisposable
     {
         _viewHandler = new ViewHandler(titleElements, homeElements, gatyaElements);
         _titleHandler = new TitleHandler(titleElements);
-        _gatyaHandler = new GatyaHandler(gatyaElements, gatyaData, itemInfo);
         _generalHandler = new GeneralHandler(generalElements);
-        _inventoryKeyHandler = new InventoryKeyHandler(itemInfo, _gatyaHandler.GatyaController.OnGetItem, homeElements.Presents);
+        _inventoryKeyHandler = new InventoryKeyHandler(itemInfo, homeElements.Presents);
+        _gatyaHandler = new GatyaHandler(gatyaElements, gatyaData, itemInfo, _inventoryKeyHandler);
         _homeHandler = new HomeHandler(homeElements, _inventoryKeyHandler);
         _charaSelectorHandler = new CharacterSelectorHandler(homeElements, gatyaElements, generalElements.VoicePlayer, _homeHandler, _gatyaHandler.GatyaController, gatyaData.Tables, luxData);
         
@@ -41,6 +41,7 @@ public class MainHandler: IDisposable
 		_homeHandler.Dispose();
 		_gatyaHandler.Dispose();
 		_generalHandler.Dispose();
+		_inventoryKeyHandler.Dispose();
 		_viewHandler.Dispose();
 		_charaSelectorHandler.Dispose();
 	}

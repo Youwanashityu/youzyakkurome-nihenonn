@@ -25,6 +25,12 @@ public class GatyaController: IGatyaController, IDisposable
         _elements = elements;
         _displayInfo = displayInfo;
         _maxTenjoCount = maxTenjoCount;
+        
+        _elements.OneResult.SkipButton.onClick.AddListener(() =>
+        {
+            _cts = _cts.Clear();
+        });
+        _elements.OneResult.SkipButton.gameObject.SetActive(false);
     }
 
     public void SetTable(GatyaTable table)
@@ -90,16 +96,11 @@ public class GatyaController: IGatyaController, IDisposable
 
     private async UniTask ShowTenResult(ItemDisplayInfo[] infos, CancellationToken token)
     {
-        _cts = _cts.Clear();
+        _cts = _cts.Reset();
         var linkedToken = _cts.LinkedToken(token);
 
         var skipButton = _elements.OneResult.SkipButton;
         skipButton.gameObject.SetActive(true);
-        skipButton.onClick.RemoveAllListeners();
-        skipButton.onClick.AddListener(() =>
-        {
-            _cts = _cts.Clear();
-        });
         
         try
         {
@@ -110,8 +111,7 @@ public class GatyaController: IGatyaController, IDisposable
         }
         finally
         {
-            skipButton.onClick.RemoveAllListeners();
-
+            skipButton.gameObject.SetActive(true);
             _cts = _cts.Reset();
             linkedToken = _cts.LinkedToken(token);
             _elements.TenResult.ShowResult(infos, linkedToken).Forget();

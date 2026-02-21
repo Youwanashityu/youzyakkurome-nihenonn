@@ -2,6 +2,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
+using UnityEngine;
 
 public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     where TImage : Enum
@@ -46,10 +47,15 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
         var info = _data.PresentsInfo[type];
         var list = info.TalkType;
         var talkType = list[UnityEngine.Random.Range(0, list.Length)];
-        
-        await _talkHandler.ExecTalk(talkType, token);
 
-        _love.Value += info.LoveAmount * numb;
+        try
+        {
+            await _talkHandler.ExecTalk(talkType, token);
+        }
+        finally
+        {
+            _love.Value += info.LoveAmount * numb;
+        }
     }
 
     public float GetLoveRatio()

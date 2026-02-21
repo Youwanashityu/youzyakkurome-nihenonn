@@ -78,14 +78,18 @@ public class LuxTalkHandler : TalkHandler<LuxTalkType>, IDisposable
                 Voice(param.Voice);
                 Image(param.Image);
 
+                Debug.Log("start talk");
                 foreach (var text in param.Texts)
                 {
                     await Text(text);
+                    Debug.Log("next talk");
                 }
+                Debug.Log("end talk");
 
                 break;
         }
 
+        Debug.Log("finish talk");
         _talkController.TalkBox.SetActive(false);
 
         async UniTask Delay(float delay)

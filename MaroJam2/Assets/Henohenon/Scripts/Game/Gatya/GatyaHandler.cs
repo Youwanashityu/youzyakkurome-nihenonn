@@ -1,3 +1,4 @@
+using R3;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -8,13 +9,14 @@ public class GatyaHandler : IDisposable
     private readonly GatyaController _gatyaController;
     private readonly PurchaseController _purchaseController;
     private readonly IReadOnlyDictionary<PurchaseType, Button> _purchaseButtons;
+    private readonly IDisposable _subscription;
     public IGatyaController GatyaController => _gatyaController;
 
-    public GatyaHandler(GatyaElements elements, GatyaData data, ItemInfo itemInfo)
+    public GatyaHandler(GatyaElements elements, GatyaData data, ItemInfo itemInfo, InventoryKeyHandler inventoryKeyHandler)
     {
         _elements = elements;
         _gatyaController = new GatyaController(elements, itemInfo.DisplayInfo, data.MaxTenjoCount);
-        _purchaseController = new PurchaseController(elements.KeyText, data.PurchaseInfos);
+        _purchaseController = new PurchaseController(elements.KeyText, data.PurchaseInfos, inventoryKeyHandler);
         
         _elements.ChangeButton.onClick.AddListener(OnChange);
         _elements.OneButton.onClick.AddListener(_gatyaController.OnOne);
@@ -25,6 +27,8 @@ public class GatyaHandler : IDisposable
         {
             purchase.Value.onClick.AddListener(() => _purchaseController.Purchase(purchase.Key));
         }
+
+        _subscription = _gatyaController.OnGetItem.Subscribe(inventoryKeyHandler.AddItem);
     }
 
     private void OnChange()
@@ -43,5 +47,6 @@ public class GatyaHandler : IDisposable
         }
         
         _gatyaController.Dispose();
+        _subscription.Dispose();
     }
 }

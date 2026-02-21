@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class HomeHandler : IDisposable
@@ -13,8 +14,12 @@ public class HomeHandler : IDisposable
     private ICharacterHandler _characterHandler;
     private IDisposable _loveSubscription;
     private readonly CompositeDisposable _disposables;
-    private CancellationTokenSource _cts;
-    private bool _running = false;
+    private CancellationTokenSource _tutorialCts;
+    private CancellationTokenSource _presentCts;
+    private CancellationTokenSource _talkCts;
+    private bool _runningTutorial = false;
+    private bool _runningPresent = false;
+    private bool _runningTalk = false;
 
     public HomeHandler(HomeElements elements, IItemsHandler itemsHandler)
     {
@@ -45,45 +50,45 @@ public class HomeHandler : IDisposable
     
     public async UniTask RunTutorial(CancellationToken token)
     {
-        if (_running) return;
-        _cts = _cts.Reset();
-        var linkedToken = _cts.LinkedToken(token);
+        if (_runningTutorial) return;
+        _tutorialCts = _tutorialCts.Reset();
+        var linkedToken = _tutorialCts.LinkedToken(token);
         
-        _running = true;
+        _runningTutorial = true;
         try
         {
             await _characterHandler.Tutorial(linkedToken);
         }
         finally
         {
-            _running = false;
+            _runningTutorial = false;
         }
     }
     
     private async UniTask RunPresent(ItemType type, CancellationToken token)
     {
-        if (_running) return;
-        _cts = _cts.Reset();
+        if(_runningPresent) return;
+        _presentCts = _presentCts.Reset();
+        var linkedToken = _presentCts.LinkedToken(token);
         
-        _running = true;
+        _runningPresent = true;
         try
         {
             var number = _itemsHandler.UseItem(type);
             number = Math.Max(0, number);
-            await _characterHandler.Present(type, number, _cts.Token);
+            await _characterHandler.Present(type, number, linkedToken);
         }
         finally
         {
-            _running = false;
+            _runningPresent = false;
         }
     }
     
     private void OnTalkButton()
     {
-        _cts = _cts.Reset();
-        if (!_running)
+        if (!_runningTalk && !_runningPresent && !_runningTutorial)
         {
-            _characterHandler.RandomTalk(_cts.Token).Forget();
+            RunTalk().Forget();
         }
         else
         {
@@ -91,6 +96,21 @@ public class HomeHandler : IDisposable
         }
     }
 
+    private async UniTask RunTalk()
+    {
+        if (_runningTalk) return;
+        _talkCts = _talkCts.Reset();
+        _runningTalk = true;
+        try
+        {
+            await _characterHandler.RandomTalk(_talkCts.Token);
+        }
+        finally
+        {
+            _runningTalk = false;
+        }
+    }
+    
     private void OnPresentButton()
     {
         _elements.Presents.Popup.Show();
