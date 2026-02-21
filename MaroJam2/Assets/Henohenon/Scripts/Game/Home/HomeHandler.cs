@@ -30,10 +30,11 @@ public class HomeHandler : IDisposable
         _elements.SwitchCharaButton.onClick.AddListener(OnSwitchCharaButton);
     }
 
-    public void Initialize(ICharacterHandler handler)
+    public void Initialize(ICharacterHandler handler, ItemType[] filter)
     {
         _characterHandler = handler;
         _elements.LevelSlider.value = _characterHandler.Love.CurrentValue / 100f;
+        _elements.Presents.SetFilter(filter);
         _loveSubscription?.Dispose();
         _loveSubscription = _characterHandler.Love.Subscribe(_ =>
         {

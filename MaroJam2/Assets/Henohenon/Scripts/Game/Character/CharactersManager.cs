@@ -32,8 +32,10 @@ public class CharactersManager: IDisposable
 
     public void SetCharacter(CharacterType type)
     {
-        _homeHandler.Initialize(_characters[type]);
-        _talkController.Initialize(_characters[type].Data.DefaultCharaImage, _characters[type].Data.DefaultMiniImage);
+        var character = _characters[type];
+        var data = character.Data;
+        _homeHandler.Initialize(character, data.EventItemList);
+        _talkController.Initialize(data.DefaultCharaImage, data.DefaultMiniImage);
     }
 
     public void Dispose()

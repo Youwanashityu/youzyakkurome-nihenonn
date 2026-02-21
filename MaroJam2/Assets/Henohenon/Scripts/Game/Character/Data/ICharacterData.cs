@@ -5,4 +5,5 @@ public interface ICharacterData
 {
     public Sprite DefaultCharaImage { get; }
     public Sprite DefaultMiniImage { get; }
+    public ItemType[] EventItemList { get; }
 }

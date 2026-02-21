@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CharacterData<TImage, TVoice, TTalk>: ICharacterData
@@ -9,6 +10,7 @@ public class CharacterData<TImage, TVoice, TTalk>: ICharacterData
 {
     public Sprite DefaultCharaImage { get; }
     public Sprite DefaultMiniImage { get; }
+    public ItemType[] EventItemList { get; }
     public readonly IReadOnlyDictionary<TImage, Sprite> Images;
     public readonly IReadOnlyDictionary<TVoice, AudioClip> Voices;
     public readonly IReadOnlyDictionary<TTalk, SimpleTalkParams> SimpleParams;
@@ -20,6 +22,7 @@ public class CharacterData<TImage, TVoice, TTalk>: ICharacterData
     {
         DefaultCharaImage = defaultCharaImage;
         DefaultMiniImage = defaultMiniImage;
+        EventItemList = presentsInfo.Keys.ToArray();
         Images = images;
         Voices = voices;
         SimpleParams = simpleParams;
