@@ -7,8 +7,10 @@ using UnityEngine.Serialization;
 )]
 public class ItemInfoScriptable : ScriptableObject
 {
+    [SerializeField]
+    private int initKeyAmount = 53;
     [FormerlySerializedAs("info")] [SerializeField]
     private SerializedDictionary<ItemType, ItemDisplayInfo> displayInfo;
     
-    public ItemInfo GetPureData => new ItemInfo(displayInfo);
+    public ItemInfo GetPureData => new ItemInfo(initKeyAmount, displayInfo);
 }

@@ -1,153 +1,47 @@
 using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using R3;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GatyaHandler : IDisposable
 {
     private readonly GatyaElements _elements;
-    private readonly GatyaTable _luxTable;
-    private readonly ItemInfo _itemInfo;
-    private readonly int _maxTenjoCount = 50;
-    private int _tenjoCount = 10;
-    private CancellationTokenSource _cts;
-    private readonly Subject<Unit> _onStartGatya = new ();
-    private readonly Subject<ItemType> _onGetItem = new ();
-    private readonly Subject<ItemTier> _onPickItem = new ();
-    public Observable<Unit> OnStartGatya => _onStartGatya;
-    public Observable<ItemType> OnGetItem => _onGetItem;
-    public Observable<ItemTier> OnPickItem => _onPickItem;
+    private readonly GatyaController _gatyaController;
+    private readonly PurchaseController _purchaseController;
+    private readonly IReadOnlyDictionary<PurchaseType, Button> _purchaseButtons;
+    public IGatyaController GatyaController => _gatyaController;
 
-    public GatyaHandler(GatyaElements elements, GatyaTable luxTable, ItemInfo itemInfo)
+    public GatyaHandler(GatyaElements elements, GatyaData data, ItemInfo itemInfo)
     {
         _elements = elements;
-        _luxTable = luxTable;
-        _itemInfo = itemInfo;
+        _gatyaController = new GatyaController(elements, itemInfo.DisplayInfo, data.MaxTenjoCount);
+        _purchaseController = new PurchaseController(elements.KeyText, data.PurchaseInfos);
         
         _elements.ChangeButton.onClick.AddListener(OnChange);
-        _elements.OneButton.onClick.AddListener(OnOne);
-        _elements.TenButton.onClick.AddListener(OnTen);
-    }
-
-    private void OnOne()
-    {
-        _onStartGatya.OnNext(Unit.Default);
-        _cts = _cts.Reset();
-
-        var type = _luxTable.One();
-        var info = _itemInfo.DisplayInfo[type];
-        _tenjoCount++;
-        if (_tenjoCount >= _maxTenjoCount)
+        _elements.OneButton.onClick.AddListener(_gatyaController.OnOne);
+        _elements.TenButton.onClick.AddListener(_gatyaController.OnTen);
+        _elements.AddKeysButton.onClick.AddListener(_elements.PurchasePopup.Show);
+        _purchaseButtons = elements.PurchaseButtons;
+        foreach (var purchase in _purchaseButtons)
         {
-            (type, info) = GetTenjo();
-            _tenjoCount = 0;
+            purchase.Value.onClick.AddListener(() => _purchaseController.Purchase(purchase.Key));
         }
-
-        _onGetItem.OnNext(type);
-        _elements.OneResult.SkipButton.gameObject.SetActive(false);
-        OnPick(info, _cts.Token).Forget();
-    }
-    
-    private void OnTen()
-    {
-        _onStartGatya.OnNext(Unit.Default);
-        _cts = _cts.Reset();
-
-        var infos = new ItemDisplayInfo[10];
-        var onlyCommon = true;
-        for (var i = 0; i < 10; i++)
-        {
-            
-            var type = _luxTable.One();
-            var info = _itemInfo.DisplayInfo[type];
-            _tenjoCount++;
-            if (_tenjoCount >= _maxTenjoCount)
-            {
-                (type, info) = GetTenjo();
-                _tenjoCount = 0;
-            }
-
-            infos[i] = info;
-            _onGetItem.OnNext(type);
-            onlyCommon &= infos[i].Tier == ItemTier.Common;
-        }
-
-        if (onlyCommon)
-        {
-            infos[9] = GetUpperRareInfo();
-        }
-        ShowTenResult(infos, CancellationToken.None).Forget();
     }
 
     private void OnChange()
     {
         _elements.CharacterSelector.Popup.Show();
     }
-    
-    private async UniTask ShowTenResult(ItemDisplayInfo[] infos, CancellationToken token)
-    {
-        _cts = _cts.Reset();
-        var linkedToken = _cts.LinkedToken(token);
-
-        var skipButton = _elements.OneResult.SkipButton;
-        skipButton.gameObject.SetActive(true);
-        skipButton.onClick.RemoveAllListeners();
-        skipButton.onClick.AddListener(() =>
-        {
-            _cts.Cancel();
-        });
-        
-        try
-        {
-            foreach (var info in infos)
-            {
-                await OnPick(info, token);
-            }
-        }
-        finally
-        {
-            skipButton.onClick.RemoveAllListeners();
-
-            _cts = _cts.Reset();
-            linkedToken = _cts.LinkedToken(token);
-            _elements.TenResult.ShowResult(infos, linkedToken).Forget();
-        }
-    }
-    
-    private async UniTask OnPick(ItemDisplayInfo info, CancellationToken token)
-    {
-        _onPickItem.OnNext(info.Tier);
-        await _elements.OneResult.ShowResult(info, token);
-    }
-
-    private ItemDisplayInfo GetUpperRareInfo()
-    {
-        var result = _itemInfo.DisplayInfo[_luxTable.One()];
-        while (result.Tier == ItemTier.Common)
-        {
-            result = _itemInfo.DisplayInfo[_luxTable.One()];
-        }
-
-        return result;
-    }
-    
-    private (ItemType, ItemDisplayInfo) GetTenjo()
-    {
-        var type = ItemType.None;
-        var result = _itemInfo.DisplayInfo[_luxTable.One()];
-        // TODO: 流石に頭悪い説
-        while (result.Tier != ItemTier.Epic)
-        {
-            type = _luxTable.One();
-            result = _itemInfo.DisplayInfo[type];
-        }
-
-        return (type, result);
-    }
-
     public void Dispose()
     {
-        _cts.Reset();
-        _onGetItem.Dispose();
+        _elements.ChangeButton.onClick.RemoveListener(OnChange);
+        _elements.OneButton.onClick.RemoveListener(_gatyaController.OnOne);
+        _elements.TenButton.onClick.RemoveListener(_gatyaController.OnTen);
+        _elements.AddKeysButton.onClick.RemoveListener(_elements.PurchasePopup.Show);
+        foreach (var purchase in _purchaseButtons)
+        {
+            purchase.Value.onClick.RemoveListener(() => _purchaseController.Purchase(purchase.Key));
+        }
+        
+        _gatyaController.Dispose();
     }
 }

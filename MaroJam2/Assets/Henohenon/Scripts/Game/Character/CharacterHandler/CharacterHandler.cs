@@ -12,18 +12,16 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     private readonly TalkHandler<TTalk> _talkHandler;
     private readonly PresentHandler<TTalk> _presentHandler;
     private readonly CharacterData<TImage, TVoice, TTalk> _data;
-    private readonly float[] _loveLvPoints;
     public ICharacterData Data => _data;
     private readonly ReactiveProperty<float> _love = new (0);
     public ReadOnlyReactiveProperty<float> Love => _love;
     
-    public CharacterHandler(CharacterType type, TalkHandler<TTalk> talkHandler, CharacterData<TImage, TVoice, TTalk> data, float[] loveLvPoints)
+    public CharacterHandler(CharacterType type, TalkHandler<TTalk> talkHandler, CharacterData<TImage, TVoice, TTalk> data)
     {
         CharacterType = type;
         _talkHandler = talkHandler;
         _presentHandler = new PresentHandler<TTalk>(_talkHandler, data.PresentsInfo);
         _data = data;
-        _loveLvPoints = loveLvPoints;
     }
 
     // TODO: cts管理
@@ -58,13 +56,13 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
 
     public float GetLoveRatio()
     {
-        return _love.CurrentValue / _loveLvPoints[GetLoveLv()];
+        return _love.CurrentValue / _data.LoveLvPoints[GetLoveLv()];
     }
 
     public int GetLoveLv()
     {
         var result = 0;
-        foreach (var point in _loveLvPoints)
+        foreach (var point in _data.LoveLvPoints)
         {
             if (_love.CurrentValue >= point)
             {

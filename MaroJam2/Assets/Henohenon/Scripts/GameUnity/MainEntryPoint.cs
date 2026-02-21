@@ -15,7 +15,7 @@ public class MainEntryPoint : MonoBehaviour
     [SerializeField]
     private GeneralElements generalElements;
     [SerializeField]
-    private GatyaTableScriptable luxTable;
+    private GatyaDataScriptable gatyaData;
     [SerializeField]
     private ItemInfoScriptable itemInfo;
     [SerializeField]
@@ -25,7 +25,7 @@ public class MainEntryPoint : MonoBehaviour
 
     private void Awake()
     {
-        _mainHandler = new MainHandler(titleElements, homeElements, gatyaElements, generalElements, itemInfo.GetPureData, luxTable.GetPureData, lux.GetPureData);
+        _mainHandler = new MainHandler(titleElements, homeElements, gatyaElements, generalElements, itemInfo.GetPureData, gatyaData.GetPureData, lux.GetPureData);
     }
 
     private void OnDestroy()

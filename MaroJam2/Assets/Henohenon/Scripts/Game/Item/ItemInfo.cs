@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 public class ItemInfo
 {
-    private readonly Dictionary<ItemType, ItemDisplayInfo> _displayInfo;
+    public readonly int InitKeyAmount;
+    public IReadOnlyDictionary<ItemType, ItemDisplayInfo> DisplayInfo { get; }
     
-    public ItemInfo(Dictionary<ItemType, ItemDisplayInfo> displayInfo)
+    public ItemInfo(int initKeyAmount, Dictionary<ItemType, ItemDisplayInfo> displayInfo)
     {
-        _displayInfo = displayInfo;
+        InitKeyAmount = initKeyAmount;
+        DisplayInfo = displayInfo;
     }
     
-    public Dictionary<ItemType, ItemDisplayInfo> DisplayInfo => _displayInfo;
 }

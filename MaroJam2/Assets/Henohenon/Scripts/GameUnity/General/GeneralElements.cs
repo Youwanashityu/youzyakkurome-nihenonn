@@ -5,7 +5,6 @@ namespace Henohenon.Scripts.GameUnity.General
     public class GeneralElements : MonoBehaviour
     {
         [SerializeField] private SoundPlayer soundPlayer;
-        [SerializeField] private float[] loveLvPoints;
         [SerializeField] private AudioClip click;
         [SerializeField] private AudioClip clickDecision;
         [SerializeField] private AudioClip likeabilityUp;
@@ -14,7 +13,6 @@ namespace Henohenon.Scripts.GameUnity.General
         [SerializeField] private AudioClip gatyaSingleN;
         [SerializeField] private AudioClip gatyaSingleSr;
     
-        public float[] LoveLvPoints => loveLvPoints;
         public ISoundEffectsPlayer SoundEffectsPlayer => soundPlayer;
         public IVoicePlayer VoicePlayer => soundPlayer;
         public AudioClip Click => click;

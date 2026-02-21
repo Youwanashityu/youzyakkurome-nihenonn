@@ -8,20 +8,20 @@ public class HomeHandler : IDisposable
 {
     private readonly HomeElements _elements;
     private readonly Subject<Unit> _onNext;
+    private readonly IItemsHandler _itemsHandler;
     public Subject<Unit> OnNext => _onNext;
     private ICharacterHandler _characterHandler;
     private IDisposable _loveSubscription;
     private readonly CompositeDisposable _disposables;
-    private InventoryHandler _inventoryHandler;
     private CancellationTokenSource _cts;
     private bool _running = false;
 
-    public HomeHandler(HomeElements elements, InventoryHandler inventoryHandler)
+    public HomeHandler(HomeElements elements, IItemsHandler itemsHandler)
     {
         _elements = elements;
         _onNext = new Subject<Unit>();
         _disposables = new CompositeDisposable();
-        _inventoryHandler = inventoryHandler;
+        _itemsHandler = itemsHandler;
 
         _elements.TalkController.CharaTalkButton.onClick.AddListener(OnTalkButton);
         _elements.TalkController.MiniTalkButton.onClick.AddListener(OnTalkButton);
@@ -68,7 +68,7 @@ public class HomeHandler : IDisposable
         _running = true;
         try
         {
-            var number = _inventoryHandler.UseItem(type);
+            var number = _itemsHandler.UseItem(type);
             number = Math.Max(0, number);
             await _characterHandler.Present(type, number, _cts.Token);
         }

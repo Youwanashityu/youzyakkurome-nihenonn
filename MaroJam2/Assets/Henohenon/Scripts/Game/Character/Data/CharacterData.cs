@@ -8,6 +8,7 @@ public class CharacterData<TImage, TVoice, TTalk>: ICharacterData
     where TVoice : Enum
     where TTalk : Enum
 {
+    public float[] LoveLvPoints { get; }
     public Sprite DefaultCharaImage { get; }
     public Sprite DefaultMiniImage { get; }
     public ItemType[] EventItemList { get; }
@@ -18,8 +19,9 @@ public class CharacterData<TImage, TVoice, TTalk>: ICharacterData
     public readonly IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> PresentsInfo;
 
 
-    public CharacterData(Sprite defaultCharaImage, Sprite defaultMiniImage, IReadOnlyDictionary<TImage, Sprite> images, IReadOnlyDictionary<TVoice, AudioClip> voices, IReadOnlyDictionary<TTalk, SimpleTalkParams> simpleParams, IReadOnlyDictionary<int, TTalk[]> randomTalks, IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> presentsInfo)
+    public CharacterData(float[] loveLvPoints, Sprite defaultCharaImage, Sprite defaultMiniImage, IReadOnlyDictionary<TImage, Sprite> images, IReadOnlyDictionary<TVoice, AudioClip> voices, IReadOnlyDictionary<TTalk, SimpleTalkParams> simpleParams, IReadOnlyDictionary<int, TTalk[]> randomTalks, IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> presentsInfo)
     {
+        LoveLvPoints = loveLvPoints;
         DefaultCharaImage = defaultCharaImage;
         DefaultMiniImage = defaultMiniImage;
         EventItemList = presentsInfo.Keys.ToArray();

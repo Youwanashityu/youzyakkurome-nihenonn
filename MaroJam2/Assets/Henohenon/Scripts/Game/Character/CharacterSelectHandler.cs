@@ -1,12 +1,14 @@
 ﻿
+using System.Collections.Generic;
+
 public class CharacterSelectorHandler
 {
     private readonly CharacterSelector _homeSelector;
     private readonly CharacterSelector _gatyaSelector;
     private readonly CharactersManager _charactersManager;
-    public CharacterSelectorHandler(HomeElements homeElements, GatyaElements gatyaElements, IVoicePlayer voicePlayer, float[] loveLvPoints, HomeHandler homeHandler, CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
+    public CharacterSelectorHandler(HomeElements homeElements, GatyaElements gatyaElements, IVoicePlayer voicePlayer, HomeHandler homeHandler, IReadOnlyDictionary<CharacterType, GatyaTable> tables, CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
     {
-        _charactersManager = new CharactersManager(homeElements.TalkController, voicePlayer, loveLvPoints, homeHandler, luxData);
+        _charactersManager = new CharactersManager(homeElements.TalkController, voicePlayer, homeHandler, tables, luxData);
         _homeSelector = homeElements.CharacterSelector;
         _gatyaSelector = gatyaElements.CharacterSelector;
         AddListenCharacterSelector(_homeSelector);

@@ -5,10 +5,12 @@ using R3;
 public class CharactersManager: IDisposable
 {
     public readonly IReadOnlyDictionary<CharacterType, ICharacterHandler> _characters;
+    public readonly IReadOnlyDictionary<CharacterType, GatyaTable> _tables;
     private readonly HomeHandler _homeHandler;
     private readonly TalkController _talkController;
+    private readonly IGatyaController _gatyaController;
 
-    public CharactersManager(TalkController talkController, IVoicePlayer voicePlayer, float[] loveLvPoints, HomeHandler homeHandler, CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
+    public CharactersManager(TalkController talkController, IVoicePlayer voicePlayer, HomeHandler homeHandler, IReadOnlyDictionary<CharacterType, GatyaTable> tables, CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
     {
         var luxTalkHandler = new LuxTalkHandler(
             talkController,
@@ -17,13 +19,14 @@ public class CharactersManager: IDisposable
             luxData
         );
         var luxHandler =
-            new CharacterHandler<LuxImageType, LuxVoiceType, LuxTalkType>(CharacterType.Lux, luxTalkHandler, luxData, loveLvPoints);
+            new CharacterHandler<LuxImageType, LuxVoiceType, LuxTalkType>(CharacterType.Lux, luxTalkHandler, luxData);
 
         _characters = new Dictionary<CharacterType, ICharacterHandler>
         {
             { CharacterType.Lux, luxHandler }
         };
 
+        _tables = tables;
         _talkController = talkController;
         _homeHandler = homeHandler;
 
@@ -36,6 +39,7 @@ public class CharactersManager: IDisposable
         var data = character.Data;
         _homeHandler.Initialize(character, data.EventItemList);
         _talkController.Initialize(data.DefaultCharaImage, data.DefaultMiniImage);
+        _gatyaController.SetTable(_tables[type]);
     }
 
     public void Dispose()

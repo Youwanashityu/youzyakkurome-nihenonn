@@ -16,8 +16,8 @@ public class SoundHandler
         _disposable = new CompositeDisposable();
         
         _startButton.onClick.AddListener(OnClickDesitionSe);
-        gatyaHandler.OnStartGatya.Subscribe(_ => OnGatyaStartSe()).AddTo(_disposable);
-        gatyaHandler.OnPickItem.Subscribe(tier =>
+        gatyaHandler.GatyaController.OnStartGatya.Subscribe(_ => OnGatyaStartSe()).AddTo(_disposable);
+        gatyaHandler.GatyaController.OnPickItem.Subscribe(tier =>
         {
             if (tier == ItemTier.Common) OnGatyaNSe();
             else OnGatyaSrSe();
