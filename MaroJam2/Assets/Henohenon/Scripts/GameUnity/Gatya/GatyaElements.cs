@@ -19,16 +19,16 @@ public class GatyaElements : MonoBehaviour
     [SerializeField]
     private Button addKeysButton;
     [SerializeField]
-    private PopupElement purchasePopup;
-    [SerializeField]
-    private SerializedDictionary<PurchaseType, Button> purchaseButtons;
-    [SerializeField]
     private CharacterSelector characterSelector;
     [SerializeField] 
     private TenResultController tenResult;
     [SerializeField]
     private OneResultController oneResult;
-
+    [SerializeField]
+    private PurchaseController purchaseController;
+    [SerializeField] 
+    private AlertShowHide alertText;
+    
     public IShowHide View => view;
     public TMP_Text KeyText => keyText;
     public Button BackButton => backButton;
@@ -36,10 +36,10 @@ public class GatyaElements : MonoBehaviour
     public Button TenButton => tenButton;
     public Button ChangeButton => changeButton;
     public Button AddKeysButton => addKeysButton;
-    public PopupElement PurchasePopup => purchasePopup;
-    public SerializedDictionary<PurchaseType, Button> PurchaseButtons => purchaseButtons;
     public CharacterSelector CharacterSelector => characterSelector;
-    
+    public PurchaseController PurchaseController => purchaseController;
+    public AlertShowHide AlertText => alertText;
+
     public TenResultController TenResult => tenResult;
     public OneResultController OneResult => oneResult;
 }

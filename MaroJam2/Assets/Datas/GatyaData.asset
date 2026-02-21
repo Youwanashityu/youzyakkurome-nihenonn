@@ -21,13 +21,13 @@ MonoBehaviour:
     m_list:
     - Key: 2
       Value:
-        badMoneyAmount: 10000
+        akkaAmount: 10000
         keyAmount: 50
     - Key: 1
       Value:
-        badMoneyAmount: 2500
+        akkaAmount: 2500
         keyAmount: 10
     - Key: 0
       Value:
-        badMoneyAmount: 250
+        akkaAmount: 250
         keyAmount: 1

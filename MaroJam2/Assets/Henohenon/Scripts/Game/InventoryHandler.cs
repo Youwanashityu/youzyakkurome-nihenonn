@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using R3;
 using UnityEngine;
 
-public class InventoryKeyHandler: IItemsHandler, IBadMoneyKeyHandler, IDisposable
+public class InventoryKeyHandler: IItemsHandler, IAkkaKeyHandler, IDisposable
 {
     private readonly IReadOnlyDictionary<ItemType, ItemDisplayInfo> _displayInfos;
     private readonly PresentsPopupController _presentsPopup;
     private readonly Dictionary<ItemType, int> _items;
     private readonly ReactiveProperty<int> _keyAmount;
-    private readonly ReactiveProperty<int> _badMoneyAmount;
+    private readonly ReactiveProperty<int> _akkaAmount;
     public ReadOnlyReactiveProperty<int> KeyAmount => _keyAmount;
-    public ReadOnlyReactiveProperty<int> BadMoneyAmount => _badMoneyAmount;
+    public ReadOnlyReactiveProperty<int> AkkaAmount => _akkaAmount;
 
     public InventoryKeyHandler(ItemInfo itemInfo, PresentsPopupController presentsPopup)
     {
         _displayInfos = itemInfo.DisplayInfo;
-        _keyAmount = new ReactiveProperty<int>(itemInfo.InitKeyAmount);
-        _badMoneyAmount = new ReactiveProperty<int>(0);
+        var randomKeyAmount =  itemInfo.InitKeyAmount[UnityEngine.Random.Range(0, itemInfo.InitKeyAmount.Length)];
+        var randomAkkaAmount =  itemInfo.InitAkkaAmount[UnityEngine.Random.Range(0, itemInfo.InitAkkaAmount.Length)];
+        _keyAmount = new ReactiveProperty<int>(randomKeyAmount);
+        _akkaAmount = new ReactiveProperty<int>(randomAkkaAmount);
         _presentsPopup = presentsPopup;
         _items = new();
     }
@@ -38,10 +40,15 @@ public class InventoryKeyHandler: IItemsHandler, IBadMoneyKeyHandler, IDisposabl
         return result;
     }
 
-    public void Purchase(int addKey, int subBadMoney)
+    public void Purchase(int addKey, int subAkka)
     {
         _keyAmount.Value = _keyAmount.CurrentValue + addKey;
-        _badMoneyAmount.Value = _badMoneyAmount.CurrentValue - subBadMoney;
+        _akkaAmount.Value = _akkaAmount.CurrentValue - subAkka;
+    }
+
+    public void UseKey(int numb)
+    {
+        _keyAmount.Value = _keyAmount.CurrentValue - numb;
     }
 
     public void Dispose()

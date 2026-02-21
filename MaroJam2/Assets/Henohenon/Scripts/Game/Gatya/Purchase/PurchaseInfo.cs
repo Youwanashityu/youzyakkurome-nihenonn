@@ -5,9 +5,9 @@ using UnityEngine;
 [Serializable]
 public class PurchaseInfo
 {
-    [SerializeField] private int badMoneyAmount;
+    [SerializeField] private int akkaAmount;
     [SerializeField] private int keyAmount;
 
-    public int BadMoneyAmount => badMoneyAmount;
+    public int AkkaAmount => akkaAmount;
     public int KeyAmount => keyAmount;
 }

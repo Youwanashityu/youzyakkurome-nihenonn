@@ -38,7 +38,7 @@ public class GatyaController: IGatyaController, IDisposable
         _table = table;
     }
 
-    public void OnOne()
+    public void GatyaOne()
     {
         _onStartGatya.OnNext(Unit.Default);
         _cts = _cts.Reset();
@@ -57,7 +57,7 @@ public class GatyaController: IGatyaController, IDisposable
         OnPick(info, _cts.Token).Forget();
     }
     
-    public void OnTen()
+    public void GatyaTen()
     {
         _onStartGatya.OnNext(Unit.Default);
 
