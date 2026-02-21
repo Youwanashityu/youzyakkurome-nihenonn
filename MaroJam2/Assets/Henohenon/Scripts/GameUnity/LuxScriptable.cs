@@ -14,7 +14,7 @@ public class LuxScriptable : ScriptableObject
     [SerializeField]
     private SerializedDictionary<LuxVoiceType, AudioClip> voices;
     [SerializeField]
-    private SerializedDictionary<LuxTalkType, SimpleTalkParams> simpleParams;
+    private SerializedDictionary<LuxTalkType, LuxSimpleTalkParams> simpleParams;
     [SerializeField]
     private SerializedDictionary<int, LuxTalkType[]> randomTalks;
     [SerializeField]

@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class LuxSimpleTalkParams
+public class GraimSimpleTalkParams
 {
     [SerializeField] private string[] texts;
     [SerializeField] private LuxImageType image;

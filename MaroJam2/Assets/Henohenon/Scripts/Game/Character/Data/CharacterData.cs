@@ -14,12 +14,12 @@ public class CharacterData<TImage, TVoice, TTalk>: ICharacterData
     public ItemType[] EventItemList { get; }
     public readonly IReadOnlyDictionary<TImage, Sprite> Images;
     public readonly IReadOnlyDictionary<TVoice, AudioClip> Voices;
-    public readonly IReadOnlyDictionary<TTalk, SimpleTalkParams> SimpleParams;
+    public readonly IReadOnlyDictionary<TTalk, LuxSimpleTalkParams> SimpleParams;
     public readonly IReadOnlyDictionary<int, TTalk[]> RandomTalks;
     public readonly IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> PresentsInfo;
 
 
-    public CharacterData(float[] loveLvPoints, Sprite defaultCharaImage, Sprite defaultMiniImage, IReadOnlyDictionary<TImage, Sprite> images, IReadOnlyDictionary<TVoice, AudioClip> voices, IReadOnlyDictionary<TTalk, SimpleTalkParams> simpleParams, IReadOnlyDictionary<int, TTalk[]> randomTalks, IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> presentsInfo)
+    public CharacterData(float[] loveLvPoints, Sprite defaultCharaImage, Sprite defaultMiniImage, IReadOnlyDictionary<TImage, Sprite> images, IReadOnlyDictionary<TVoice, AudioClip> voices, IReadOnlyDictionary<TTalk, LuxSimpleTalkParams> simpleParams, IReadOnlyDictionary<int, TTalk[]> randomTalks, IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> presentsInfo)
     {
         LoveLvPoints = loveLvPoints;
         DefaultCharaImage = defaultCharaImage;
