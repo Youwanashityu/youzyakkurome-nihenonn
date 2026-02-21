@@ -11,8 +11,12 @@ public class GatyaHandler : IDisposable
     private readonly int _maxTenjoCount = 50;
     private int _tenjoCount = 10;
     private CancellationTokenSource _cts;
+    private readonly Subject<Unit> _onStartGatya = new ();
     private readonly Subject<ItemType> _onGetItem = new ();
-    public Subject<ItemType> OnGetItem => _onGetItem;
+    private readonly Subject<ItemTier> _onPickItem = new ();
+    public Observable<Unit> OnStartGatya => _onStartGatya;
+    public Observable<ItemType> OnGetItem => _onGetItem;
+    public Observable<ItemTier> OnPickItem => _onPickItem;
 
     public GatyaHandler(GatyaElements elements, GatyaTable luxTable, ItemInfo itemInfo)
     {
@@ -27,6 +31,7 @@ public class GatyaHandler : IDisposable
 
     private void OnOne()
     {
+        _onStartGatya.OnNext(Unit.Default);
         _cts = _cts.Reset();
 
         var type = _luxTable.One();
@@ -40,11 +45,14 @@ public class GatyaHandler : IDisposable
 
         _onGetItem.OnNext(type);
         _elements.OneResult.SkipButton.gameObject.SetActive(false);
-        _elements.OneResult.ShowResult(info, _cts.Token).Forget();
+        OnPick(info, _cts.Token).Forget();
     }
     
     private void OnTen()
     {
+        _onStartGatya.OnNext(Unit.Default);
+        _cts = _cts.Reset();
+
         var infos = new ItemDisplayInfo[10];
         var onlyCommon = true;
         for (var i = 0; i < 10; i++)
@@ -93,7 +101,7 @@ public class GatyaHandler : IDisposable
         {
             foreach (var info in infos)
             {
-                await _elements.OneResult.ShowResult(info, linkedToken);
+                await OnPick(info, token);
             }
         }
         finally
@@ -102,8 +110,14 @@ public class GatyaHandler : IDisposable
 
             _cts = _cts.Reset();
             linkedToken = _cts.LinkedToken(token);
-            _elements.TenResult. ShowResult(infos, linkedToken).Forget();
+            _elements.TenResult.ShowResult(infos, linkedToken).Forget();
         }
+    }
+    
+    private async UniTask OnPick(ItemDisplayInfo info, CancellationToken token)
+    {
+        _onPickItem.OnNext(info.Tier);
+        await _elements.OneResult.ShowResult(info, token);
     }
 
     private ItemDisplayInfo GetUpperRareInfo()
