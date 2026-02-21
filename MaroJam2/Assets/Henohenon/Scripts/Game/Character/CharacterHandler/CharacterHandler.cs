@@ -24,6 +24,7 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
         _data = data;
     }
 
+    // TODO: cts管理
     public async UniTask Talk(TTalk type, CancellationToken token)
     {
         await _talkHandler.ExecTalk(type, token);
