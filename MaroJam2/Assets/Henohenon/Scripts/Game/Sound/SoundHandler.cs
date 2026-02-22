@@ -19,11 +19,12 @@ public class SoundHandler
         
         _startButton.onClick.AddListener(OnClickDesitionSe);
         gatyaHandler.GatyaController.OnStartGatya.Subscribe(_ => OnGatyaStartSe()).AddTo(_disposable);
+        /*
         gatyaHandler.GatyaController.OnPickItem.Subscribe(tier =>
         {
             if (tier == ItemTier.Common) OnGatyaNSe();
             else OnGatyaSrSe();
-        }).AddTo(_disposable);
+        }).AddTo(_disposable);*/
         foreach (var chara in characters)
         {
             chara.Love.Subscribe(_ => OnLikeUp()).AddTo(_disposable);
