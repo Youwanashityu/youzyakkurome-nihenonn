@@ -21,7 +21,7 @@ public class MainHandler: IDisposable
         _viewHandler = new ViewHandler(titleElements, homeElements, gatyaElements);
         _titleHandler = new TitleHandler(titleElements);
         _generalHandler = new GeneralHandler(generalElements);
-        _inventoryKeyHandler = new InventoryKeyHandler(itemInfo, homeElements.Presents);
+        _inventoryKeyHandler = new InventoryKeyHandler(itemInfo, homeElements.Presents, new ());
         _gatyaHandler = new GatyaHandler(gatyaElements, gatyaData, itemInfo, _inventoryKeyHandler);
         _homeHandler = new HomeHandler(homeElements, _inventoryKeyHandler);
         _charaSelectorHandler = new CharacterSelectorHandler(homeElements, gatyaElements, generalElements.VoicePlayer, _homeHandler, _gatyaHandler.GatyaController, gatyaData.Tables, data);

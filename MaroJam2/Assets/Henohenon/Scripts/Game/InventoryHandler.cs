@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using R3;
-using UnityEngine;
 
 public class InventoryKeyHandler: IItemsHandler, IAkkaKeyHandler, IDisposable
 {
@@ -13,7 +12,7 @@ public class InventoryKeyHandler: IItemsHandler, IAkkaKeyHandler, IDisposable
     public ReadOnlyReactiveProperty<int> KeyAmount => _keyAmount;
     public ReadOnlyReactiveProperty<int> AkkaAmount => _akkaAmount;
 
-    public InventoryKeyHandler(ItemInfo itemInfo, PresentsPopupController presentsPopup)
+    public InventoryKeyHandler(ItemInfo itemInfo, PresentsPopupController presentsPopup, Dictionary<ItemType, int> initItems)
     {
         _displayInfos = itemInfo.DisplayInfo;
         var randomKeyAmount =  itemInfo.InitKeyAmount[UnityEngine.Random.Range(0, itemInfo.InitKeyAmount.Length)];
@@ -21,7 +20,11 @@ public class InventoryKeyHandler: IItemsHandler, IAkkaKeyHandler, IDisposable
         _keyAmount = new ReactiveProperty<int>(randomKeyAmount);
         _akkaAmount = new ReactiveProperty<int>(randomAkkaAmount);
         _presentsPopup = presentsPopup;
-        _items = new();
+        _items = initItems;
+        foreach (var item in initItems)
+        {
+            _presentsPopup.Set(item.Key, _displayInfos[item.Key], _items[item.Key]);
+        }
     }
 
     public void AddItem(ItemType type)

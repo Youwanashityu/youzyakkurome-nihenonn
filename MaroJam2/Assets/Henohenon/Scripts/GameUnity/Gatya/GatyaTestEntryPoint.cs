@@ -11,7 +11,7 @@ public class GatyaTestEntryPoint : MonoBehaviour
 
     private void Awake()
     {
-        _handler = new GatyaHandler(elements, gatyaData.GetPureData, itemInfo.GetPureData, new InventoryKeyHandler(itemInfo.GetPureData, null));
+        _handler = new GatyaHandler(elements, gatyaData.GetPureData, itemInfo.GetPureData, new InventoryKeyHandler(itemInfo.GetPureData, null, new ()));
     }
 
     private void OnDestroy()
