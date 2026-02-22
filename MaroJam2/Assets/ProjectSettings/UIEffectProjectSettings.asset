@@ -44,6 +44,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: DETAIL_MASKING GRADATION_COLOR2
         passType: 0
+      - keywords: DETAIL_MULTIPLY_ADDITIVE
+        passType: 0
       - keywords: EDGE_PLAIN
         passType: 0
       - keywords: EDGE_PLAIN UNITY_UI_ALPHACLIP
@@ -66,6 +68,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: SAMPLING_BLUR_DETAIL
         passType: 0
+      - keywords: SAMPLING_BLUR_FAST
+        passType: 0
       - keywords: SAMPLING_BLUR_MEDIUM
         passType: 0
       - keywords: SAMPLING_EDGE_ALPHA
@@ -79,4 +83,8 @@ ShaderVariantCollection:
       - keywords: SAMPLING_RGB_SHIFT TONE_GRAYSCALE
         passType: 0
       - keywords: SAMPLING_RGB_SHIFT TONE_SEPIA
+        passType: 0
+      - keywords: TRANSITION_BLAZE
+        passType: 0
+      - keywords: TRANSITION_FADE
         passType: 0
