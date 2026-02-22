@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Microsoft.Unity.VisualStudio.Editor;
 using R3;
-using UnityEngine;
 
 public class GraimTalkHandler : TalkHandler, IDisposable
 {
