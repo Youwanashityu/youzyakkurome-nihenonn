@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15c47cf2dca3492eb123ad467a8947b0, type: 3}
-  m_Name: NewGraim
+  m_Name: Graim
   m_EditorClassIdentifier: 
   loveLvPoints:
   - 0
@@ -37,7 +37,12 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: 8f39310c1e616d14580021e0de72c247, type: 3}
   simpleParams:
     m_list:
-    - Key: 3
+    - Key: 0
+      Value:
+        texts: []
+        image: 0
+        voice: 0
+    - Key: 4
       Value:
         texts:
         - "\u304A\u306F\u3088\u3046\u3054\u3056\u3044\u307E\u3059\uFF01"
@@ -47,11 +52,23 @@ MonoBehaviour:
         voice: 1
   randomTalks:
     m_list:
-    - Key: 0
-      Value: 03000000
+    - Key: 1
+      Value: 04000000
   presentsInfo:
     m_list:
     - Key: 13
       Value:
-        talkType: 03000000
+        talkType: 00000000
+        loveAmount: 100
+    - Key: 4
+      Value:
+        talkType: 00000000
+        loveAmount: 5
+    - Key: 3
+      Value:
+        talkType: 00000000
+        loveAmount: 5
+    - Key: 8
+      Value:
+        talkType: 00000000
         loveAmount: 5

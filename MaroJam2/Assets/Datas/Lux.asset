@@ -37,25 +37,36 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: a818e502737230a469cc0139680314d6, type: 3}
   simpleParams:
     m_list:
+    - Key: 0
+      Value:
+        texts: []
+        image: 0
+        voice: 0
     - Key: 4
       Value:
         texts:
         - "\u3059\u3044\u307E\u305B\u30FC\u3093"
         image: 1
         voice: 1
-    - Key: 2
-      Value:
-        texts:
-        - "\u3042\u308A\u304C\u3068\u3046\uFF01"
-        image: 1
-        voice: 0
   randomTalks:
     m_list:
-    - Key: 0
-      Value: 02000000
+    - Key: 1
+      Value: 05000000
   presentsInfo:
     m_list:
     - Key: 13
       Value:
-        talkType: 02000000
+        talkType: 00000000
+        loveAmount: 100
+    - Key: 4
+      Value:
+        talkType: 00000000
+        loveAmount: 5
+    - Key: 3
+      Value:
+        talkType: 00000000
+        loveAmount: 5
+    - Key: 8
+      Value:
+        talkType: 00000000
         loveAmount: 5
