@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using Henohenon.Scripts.GameUnity.General;
 using UnityEngine;
 using R3;
@@ -6,12 +7,13 @@ using UnityEngine.UI;
 
 public class SoundHandler
 {
-    private readonly Button _startButton; 
     private readonly GeneralElements _generalElements;
+    private readonly Button _startButton; 
     private readonly CompositeDisposable _disposable;
     
-    public SoundHandler(GeneralElements generalElements, TitleElements titleElements, CharactersManager charactersManager, GatyaHandler gatyaHandler)
+    public SoundHandler(GeneralElements generalElements, TitleElements titleElements, ICharacterHandler[] characters, GatyaHandler gatyaHandler)
     {
+        _generalElements = generalElements;
         _startButton = titleElements.StartButton;
         _disposable = new CompositeDisposable();
         
@@ -22,7 +24,7 @@ public class SoundHandler
             if (tier == ItemTier.Common) OnGatyaNSe();
             else OnGatyaSrSe();
         }).AddTo(_disposable);
-        foreach (var chara in charactersManager.Characters.Values)
+        foreach (var chara in characters)
         {
             chara.Love.Subscribe(_ => OnLikeUp()).AddTo(_disposable);
         }

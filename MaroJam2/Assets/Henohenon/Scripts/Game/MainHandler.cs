@@ -14,6 +14,7 @@ public class MainHandler: IDisposable
     private readonly GeneralHandler _generalHandler;
     private readonly CharacterSelectorHandler _charaSelectorHandler;
     private readonly InventoryKeyHandler _inventoryKeyHandler;
+    private readonly SoundHandler _soundHandler;
     private readonly Button _startButton;
 
     public MainHandler(TitleElements titleElements, HomeElements homeElements, GatyaElements gatyaElements, GeneralElements generalElements, ItemInfo itemInfo, GatyaData gatyaData, IReadOnlyDictionary<CharacterType, CharacterData> data)
@@ -25,6 +26,7 @@ public class MainHandler: IDisposable
         _gatyaHandler = new GatyaHandler(gatyaElements, gatyaData, itemInfo, _inventoryKeyHandler);
         _homeHandler = new HomeHandler(homeElements, _inventoryKeyHandler);
         _charaSelectorHandler = new CharacterSelectorHandler(homeElements, gatyaElements, generalElements.VoicePlayer, _homeHandler, _gatyaHandler.GatyaController, gatyaData.Tables, data);
+        _soundHandler = new SoundHandler(generalElements, titleElements, _charaSelectorHandler.Characters, _gatyaHandler);
         
         _startButton = titleElements.StartButton;
         _startButton.onClick.AddListener(RunTutorial);
