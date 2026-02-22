@@ -14,7 +14,7 @@ public class OneResultController: MonoBehaviour
     [SerializeField] private TMP_Text displayName;
     [SerializeField] private Button closeButton;
     [SerializeField] private Button skipButton;
-    [SerializeField] private SerializedDictionary<ItemTier, Color> tierColors;
+    // [SerializeField] private SerializedDictionary<ItemTier, Sprite> tierItemBacks;
 
     private CancellationTokenSource _cts;
 
@@ -49,7 +49,6 @@ public class OneResultController: MonoBehaviour
     private void SetDisplayInfo(ItemDisplayInfo info)
     {
         icon.sprite = info.Icon;
-        background.color = tierColors[info.Tier];
         displayName.text = info.DisplayName;
     }
 
