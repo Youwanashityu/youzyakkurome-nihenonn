@@ -17,6 +17,8 @@ MonoBehaviour:
     m_list:
     - Key: 1
       Value: {fileID: 11400000, guid: 17dc1b5fb12cd984e87c598136287709, type: 2}
+    - Key: 0
+      Value: {fileID: 11400000, guid: 17dc1b5fb12cd984e87c598136287709, type: 2}
   purchaseInfos:
     m_list:
     - Key: 2

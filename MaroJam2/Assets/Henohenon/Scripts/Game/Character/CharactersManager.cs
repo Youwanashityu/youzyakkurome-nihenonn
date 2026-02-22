@@ -11,19 +11,27 @@ public class CharactersManager: IDisposable
     private readonly TalkController _talkController;
     private readonly IGatyaController _gatyaController;
 
-    public CharactersManager(TalkController talkController, IVoicePlayer voicePlayer, HomeHandler homeHandler, IGatyaController gatyaController, IReadOnlyDictionary<CharacterType, GatyaTable> tables, CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
+    public CharactersManager(TalkController talkController, IVoicePlayer voicePlayer, HomeHandler homeHandler, IGatyaController gatyaController, IReadOnlyDictionary<CharacterType, GatyaTable> tables, IReadOnlyDictionary<CharacterType, CharacterData> data)
     {
-        var luxTalkHandler = new LuxTalkHandler(
+        var graimTalkHandler = new GraimTalkHandler(
             talkController,
             voicePlayer,
             homeHandler.OnNext,
-            luxData
+            data[CharacterType.Graim]
+        );        var luxTalkHandler = new LuxTalkHandler(
+            talkController,
+            voicePlayer,
+            homeHandler.OnNext,
+            data[CharacterType.Lux]
         );
+        var graimHandler =
+            new CharacterHandler(CharacterType.Graim, graimTalkHandler, data[CharacterType.Graim]);
         var luxHandler =
-            new CharacterHandler<LuxImageType, LuxVoiceType, LuxTalkType>(CharacterType.Lux, luxTalkHandler, luxData);
+            new CharacterHandler(CharacterType.Lux, luxTalkHandler, data[CharacterType.Lux]);
 
         Characters = new Dictionary<CharacterType, ICharacterHandler>
         {
+            { CharacterType.Graim, graimHandler },
             { CharacterType.Lux, luxHandler }
         };
 

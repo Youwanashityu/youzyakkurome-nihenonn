@@ -1,5 +1,5 @@
 ﻿
-public enum LuxVoiceType
+public enum GraimVoiceType
 {
     None,
     ExcuseMe

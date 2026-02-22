@@ -3,27 +3,27 @@ using UnityEngine;
 
 
 [CreateAssetMenu(
-    fileName = "NewLux",
-    menuName = "Data/Lux"
+    fileName = "NewGraim",
+    menuName = "Data/Graim"
 )]
-public class LuxScriptable : ScriptableObject
+public class GraimScriptable : ScriptableObject
 {
     [SerializeField]
     private float[] loveLvPoints;
     [SerializeField]
-    private SerializedDictionary<LuxImageType, Sprite> images;
+    private SerializedDictionary<GraimImageType, Sprite> images;
     [SerializeField]
-    private SerializedDictionary<LuxVoiceType, AudioClip> voices;
+    private SerializedDictionary<GraimVoiceType, AudioClip> voices;
     [SerializeField]
-    private SerializedDictionary<LuxTalkType, SimpleTalkParams<LuxImageType, LuxVoiceType>> simpleParams;
+    private SerializedDictionary<GraimTalkType, SimpleTalkParams<GraimImageType, GraimVoiceType>> simpleParams;
     [SerializeField]
-    private SerializedDictionary<int, LuxTalkType[]> randomTalks;
+    private SerializedDictionary<int, GraimTalkType[]> randomTalks;
     [SerializeField]
-    private SerializedDictionary<ItemType, PresentInfo<LuxTalkType>> presentsInfo;
+    private SerializedDictionary<ItemType, PresentInfo<GraimTalkType>> presentsInfo;
 
     public CharacterData GetPureData => new CharacterData(
-        loveLvPoints, images[LuxImageType.Default],
-        images[LuxImageType.Mini_Default], 
+        loveLvPoints, images[GraimImageType.Default],
+        images[GraimImageType.Mini_Default], 
         images.ToDictionary(x => (int)x.Key, x=> x.Value),
         voices.ToDictionary(x => (int)x.Key, x=> x.Value),
         simpleParams.ToDictionary(x => (int)x.Key, x => new SimpleTalkParams<int, int>(x.Value.Texts, (int)x.Value.Image, (int)x.Value.Voice)),

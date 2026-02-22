@@ -3,23 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CharacterData<TImage, TVoice, TTalk>: ICharacterData
-    where TImage : Enum
-    where TVoice : Enum
-    where TTalk : Enum
+public class CharacterData: ICharacterData
 {
     public float[] LoveLvPoints { get; }
     public Sprite DefaultCharaImage { get; }
     public Sprite DefaultMiniImage { get; }
     public ItemType[] EventItemList { get; }
-    public readonly IReadOnlyDictionary<TImage, Sprite> Images;
-    public readonly IReadOnlyDictionary<TVoice, AudioClip> Voices;
-    public readonly IReadOnlyDictionary<TTalk, LuxSimpleTalkParams> SimpleParams;
-    public readonly IReadOnlyDictionary<int, TTalk[]> RandomTalks;
-    public readonly IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> PresentsInfo;
+    public readonly IReadOnlyDictionary<int, Sprite> Images;
+    public readonly IReadOnlyDictionary<int, AudioClip> Voices;
+    public readonly IReadOnlyDictionary<int, SimpleTalkParams<int, int>> SimpleParams;
+    public readonly IReadOnlyDictionary<int, int[]> RandomTalks;
+    public readonly IReadOnlyDictionary<ItemType, PresentInfo<int>> PresentsInfo;
 
 
-    public CharacterData(float[] loveLvPoints, Sprite defaultCharaImage, Sprite defaultMiniImage, IReadOnlyDictionary<TImage, Sprite> images, IReadOnlyDictionary<TVoice, AudioClip> voices, IReadOnlyDictionary<TTalk, LuxSimpleTalkParams> simpleParams, IReadOnlyDictionary<int, TTalk[]> randomTalks, IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> presentsInfo)
+    public CharacterData(float[] loveLvPoints, Sprite defaultCharaImage, Sprite defaultMiniImage, IReadOnlyDictionary<int, Sprite> images, IReadOnlyDictionary<int, AudioClip> voices, IReadOnlyDictionary<int, SimpleTalkParams<int, int>> simpleParams, IReadOnlyDictionary<int, int[]> randomTalks, IReadOnlyDictionary<ItemType, PresentInfo<int>> presentsInfo)
     {
         LoveLvPoints = loveLvPoints;
         DefaultCharaImage = defaultCharaImage;

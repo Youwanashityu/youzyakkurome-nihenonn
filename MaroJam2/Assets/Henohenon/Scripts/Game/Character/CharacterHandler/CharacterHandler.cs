@@ -4,19 +4,16 @@ using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
-public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
-    where TImage : Enum
-    where TVoice : Enum
-    where TTalk : Enum
+public class CharacterHandler: ICharacterHandler
 {
     public readonly CharacterType CharacterType;
-    private readonly TalkHandler<TTalk> _talkHandler; 
-    private readonly CharacterData<TImage, TVoice, TTalk> _data;
+    private readonly TalkHandler _talkHandler; 
+    private readonly CharacterData _data;
     public ICharacterData Data => _data;
     private readonly ReactiveProperty<float> _love = new (0);
     public ReadOnlyReactiveProperty<float> Love => _love;
     
-    public CharacterHandler(CharacterType type, TalkHandler<TTalk> talkHandler, CharacterData<TImage, TVoice, TTalk> data)
+    public CharacterHandler(CharacterType type, TalkHandler talkHandler, CharacterData data)
     {
         CharacterType = type;
         _talkHandler = talkHandler;
@@ -24,7 +21,7 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
     }
 
     // TODO: cts管理
-    public async UniTask Talk(TTalk type, CancellationToken token)
+    public async UniTask Talk(int type, CancellationToken token)
     {
         await _talkHandler.ExecTalk(type, token);
     }

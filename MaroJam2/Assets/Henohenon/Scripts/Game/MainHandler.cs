@@ -16,7 +16,7 @@ public class MainHandler: IDisposable
     private readonly InventoryKeyHandler _inventoryKeyHandler;
     private readonly Button _startButton;
 
-    public MainHandler(TitleElements titleElements, HomeElements homeElements, GatyaElements gatyaElements, GeneralElements generalElements, ItemInfo itemInfo, GatyaData gatyaData,  CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> luxData)
+    public MainHandler(TitleElements titleElements, HomeElements homeElements, GatyaElements gatyaElements, GeneralElements generalElements, ItemInfo itemInfo, GatyaData gatyaData, IReadOnlyDictionary<CharacterType, CharacterData> data)
     {
         _viewHandler = new ViewHandler(titleElements, homeElements, gatyaElements);
         _titleHandler = new TitleHandler(titleElements);
@@ -24,7 +24,7 @@ public class MainHandler: IDisposable
         _inventoryKeyHandler = new InventoryKeyHandler(itemInfo, homeElements.Presents);
         _gatyaHandler = new GatyaHandler(gatyaElements, gatyaData, itemInfo, _inventoryKeyHandler);
         _homeHandler = new HomeHandler(homeElements, _inventoryKeyHandler);
-        _charaSelectorHandler = new CharacterSelectorHandler(homeElements, gatyaElements, generalElements.VoicePlayer, _homeHandler, _gatyaHandler.GatyaController, gatyaData.Tables, luxData);
+        _charaSelectorHandler = new CharacterSelectorHandler(homeElements, gatyaElements, generalElements.VoicePlayer, _homeHandler, _gatyaHandler.GatyaController, gatyaData.Tables, data);
         
         _startButton = titleElements.StartButton;
         _startButton.onClick.AddListener(RunTutorial);

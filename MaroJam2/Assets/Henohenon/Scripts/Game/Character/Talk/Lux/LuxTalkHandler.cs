@@ -6,17 +6,17 @@ using Microsoft.Unity.VisualStudio.Editor;
 using R3;
 using UnityEngine;
 
-public class LuxTalkHandler : TalkHandler<LuxTalkType>, IDisposable
+public class LuxTalkHandler : TalkHandler, IDisposable
 {
     private readonly TalkController _talkController;
     private readonly IVoicePlayer _voicePlayer;
-    private readonly CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> _data;
+    private readonly CharacterData _data;
     private readonly Observable<Unit> _onNext;
 
     private CancellationTokenSource _cts;
 
     public LuxTalkHandler(TalkController talkController, IVoicePlayer voicePlayer, Observable<Unit> onNext,
-        CharacterData<LuxImageType, LuxVoiceType, LuxTalkType> data)
+        CharacterData data)
     {
         _talkController = talkController;
         _voicePlayer = voicePlayer;
@@ -24,13 +24,14 @@ public class LuxTalkHandler : TalkHandler<LuxTalkType>, IDisposable
         _data = data;
     }
 
-    protected override async UniTask Talk(LuxTalkType type, CancellationToken token)
+    protected override async UniTask Talk(int t, CancellationToken token)
     {
+        var type = (LuxTalkType)t;
         _talkController.TalkBox.gameObject.SetActive(true);
         switch (type)
         {
             case LuxTalkType.Tutorial:
-                MiniImage(LuxImageType.Mini_Holo);
+                MiniImage((int)LuxImageType.Mini_Holo);
                 try
                 {
                     await Text("こんにちは！\n合えて嬉しいです！");
@@ -42,13 +43,13 @@ public class LuxTalkHandler : TalkHandler<LuxTalkType>, IDisposable
                             await Text("え？もう知ってるんですか？\nわかりました！\n俺をひいてくれるのを待ってるね！");
                             break;
                         case SelectionType.Beta:
-                            await Talk(LuxTalkType.Tutorial_Stay, token);
+                            await Talk((int)LuxTalkType.Tutorial_Stay, token);
                             break;
                     }
                 }
                 finally
                 {
-                    Image(LuxImageType.Default);
+                    Image((int)LuxImageType.Default);
                 }
                 break;
             case LuxTalkType.Tutorial_Stay:
@@ -65,12 +66,12 @@ public class LuxTalkHandler : TalkHandler<LuxTalkType>, IDisposable
                 await Text("仮想体からいえることは以上です！\n本物の俺と仲良くなって\nハッピーエンド目指しましょうね～");
                 break;
             case LuxTalkType.TutorialAgain:
-                MiniImage(LuxImageType.Mini_Holo);
+                MiniImage((int)LuxImageType.Mini_Holo);
                 await Text("は～い！わかりました！\nもう一回説明しますね");
-                await Talk(LuxTalkType.Tutorial, token);
+                await Talk((int)LuxTalkType.Tutorial, token);
                 break;
             default:
-                if (!_data.SimpleParams.TryGetValue(type, out var param))
+                if (!_data.SimpleParams.TryGetValue(t, out var param))
                 {
                     throw new ArgumentException("Invalid talk type");
                 }
@@ -97,23 +98,23 @@ public class LuxTalkHandler : TalkHandler<LuxTalkType>, IDisposable
             await _onNext.FirstAsync(token);
         }
 
-        void Image(LuxImageType t)
+        void Image(int t)
         {
             _talkController.MiniTalkButton.gameObject.SetActive(false);
             _talkController.CharaTalkButton.gameObject.SetActive(true);
-            if (t == LuxImageType.None) return;
+            if ((LuxImageType)t == LuxImageType.None) return;
             if (_data.Images.TryGetValue(t, out var image)) _talkController.CharacterImage.sprite = image;
         }
 
-        void MiniImage(LuxImageType t)
+        void MiniImage(int t)
         {
             _talkController.MiniTalkButton.gameObject.SetActive(true);
             _talkController.CharaTalkButton.gameObject.SetActive(false);
-            if (t == LuxImageType.None) return;
+            if ((LuxImageType)t == LuxImageType.None) return;
             if (_data.Images.TryGetValue(t, out var image)) _talkController.MiniCharaImage.sprite = image;
         }
 
-        void Voice(LuxVoiceType t)
+        void Voice(int t)
         {
             if (_data.Voices.TryGetValue(t, out var voice)) _voicePlayer.Play(voice);
         }
