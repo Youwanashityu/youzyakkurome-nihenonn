@@ -46,13 +46,13 @@ MonoBehaviour:
     - Key: 2
       Value:
         texts:
-        - ty
+        - "\u3042\u308A\u304C\u3068\u3046\uFF01"
         image: 1
-        voice: 1
+        voice: 0
   randomTalks:
     m_list:
     - Key: 0
-      Value: 04000000
+      Value: 02000000
   presentsInfo:
     m_list:
     - Key: 13
