@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c47cf2dca3492eb123ad467a8947b0, type: 3}
+  m_Name: Graim
+  m_EditorClassIdentifier: 
+  loveLvPoints:
+  - 0
+  - 15
+  - 40
+  - 75
+  - 120
+  - 300
+  - 600
+  - 1100
+  - 2000
+  - 2800
+  images:
+    m_list:
+    - Key: 1
+      Value: {fileID: 7157423307026412611, guid: 0d1d1484925a7344aaeaf2dd1680673f, type: 3}
+    - Key: 2
+      Value: {fileID: 5410000558352528866, guid: fe62a9731a9269b4c907abb27d7fe610, type: 3}
+    - Key: 3
+      Value: {fileID: 8696874089980885659, guid: 3c45cbb96526236408a7c9a2b97cf73d, type: 3}
+  voices:
+    m_list:
+    - Key: 1
+      Value: {fileID: 8300000, guid: 8f39310c1e616d14580021e0de72c247, type: 3}
+  simpleParams:
+    m_list:
+    - Key: 0
+      Value:
+        texts: []
+        image: 0
+        voice: 0
+    - Key: 4
+      Value:
+        texts:
+        - "\u304A\u306F\u3088\u3046\u3054\u3056\u3044\u307E\u3059\uFF01"
+        - "...\u304A\u5B22\u3061\u3083\u3093\u5143\u6C17\u3060\u306D\u3048\u3002
+          \u304A\u306F\u3088\u3046...\u3053\u308C\u3067\u6E80\u8DB3\u304B\u306A\uFF1F"
+        image: 1
+        voice: 1
+  randomTalks:
+    m_list:
+    - Key: 1
+      Value: 04000000
+  presentsInfo:
+    m_list:
+    - Key: 13
+      Value:
+        talkType: 00000000
+        loveAmount: 100
+    - Key: 4
+      Value:
+        talkType: 00000000
+        loveAmount: 5
+    - Key: 3
+      Value:
+        talkType: 00000000
+        loveAmount: 5
+    - Key: 8
+      Value:
+        talkType: 00000000
+        loveAmount: 5

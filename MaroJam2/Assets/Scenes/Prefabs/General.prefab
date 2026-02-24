@@ -715,3 +715,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundPlayer: {fileID: 4968417709569937295}
+  click: {fileID: 8300000, guid: d5af24bb79fe2594c995a07dce6f8666, type: 3}
+  clickDecision: {fileID: 8300000, guid: 086357e9d628bd047adb28ec2be37783, type: 3}
+  likeabilityUp: {fileID: 8300000, guid: 02025108bf3a9ed4db84c6b5327276a9, type: 3}
+  likeabilityDown: {fileID: 8300000, guid: 4b91103463352074ab96c1a84eb1c498, type: 3}
+  gatyaStart: {fileID: 8300000, guid: 9fac1324a269e764bbff9ad27ad262ab, type: 3}
+  gatyaSingleN: {fileID: 8300000, guid: 312105a0f0925c24f98f85b33460a54b, type: 3}
+  gatyaSingleSr: {fileID: 8300000, guid: baf6df37913f21a468ae24a1e1db2ea2, type: 3}

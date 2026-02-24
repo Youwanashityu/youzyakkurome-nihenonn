@@ -12,21 +12,21 @@ public class TenResultRowController : MonoBehaviour
     [SerializeField]
     private RectTransform animation;
     [SerializeField]
-    private SerializedDictionary<ItemTier, Color> tierColors;
+    private SerializedDictionary<ItemTier, Sprite> tierSprites;
 
     public void Reset()
     {
         animation.DOKill();
         animation.localScale = Vector3.zero;
         icon.sprite = null;
-        background.color = tierColors[ItemTier.Common];
+        background.sprite = tierSprites[ItemTier.Common];
     }
     
     public void Initialize(ItemDisplayInfo displayInfo)
     {
         Reset();
         icon.sprite = displayInfo.Icon;
-        background.color = tierColors[displayInfo.Tier];
+        background.sprite = tierSprites[displayInfo.Tier];
         animation.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
     }
 }
