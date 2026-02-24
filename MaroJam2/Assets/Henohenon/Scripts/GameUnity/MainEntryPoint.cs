@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Henohenon.Scripts.GameUnity.General;
@@ -15,17 +16,23 @@ public class MainEntryPoint : MonoBehaviour
     [SerializeField]
     private GeneralElements generalElements;
     [SerializeField]
-    private GatyaTableScriptable luxTable;
+    private GatyaDataScriptable gatyaData;
     [SerializeField]
     private ItemInfoScriptable itemInfo;
     [SerializeField]
     private LuxScriptable lux;
+    [SerializeField]
+    private GraimScriptable graim;
 
     private MainHandler _mainHandler;
 
     private void Awake()
     {
-        _mainHandler = new MainHandler(titleElements, homeElements, gatyaElements, generalElements, itemInfo.GetPureData, luxTable.GetPureData, lux.GetPureData);
+        _mainHandler = new MainHandler(titleElements, homeElements, gatyaElements, generalElements, itemInfo.GetPureData, gatyaData.GetPureData, new Dictionary<CharacterType, CharacterData>
+            {
+                {CharacterType.Lux, lux.GetPureData},
+                {CharacterType.Graim, graim.GetPureData},
+            });
     }
 
     private void OnDestroy()

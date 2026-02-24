@@ -15,41 +15,57 @@ MonoBehaviour:
   rateTable:
     m_list:
     - Key: 1
-      Value: 1
+      Value: 2
     - Key: 2
       Value: 1
+    - Key: 13
+      Value: 10
     - Key: 3
-      Value: 10
+      Value: 100
     - Key: 4
-      Value: 10
+      Value: 100
     - Key: 5
-      Value: 10
+      Value: 100
+    - Key: 6
+      Value: 100
+    - Key: 7
+      Value: 100
+    - Key: 8
+      Value: 100
+    - Key: 9
+      Value: 100
     - Key: 10
       Value: 100
     - Key: 11
       Value: 100
     - Key: 12
       Value: 100
-    - Key: 13
-      Value: 100
-  totalRatio: 432
+  totalRatio: 1013
   gatyaPer:
     m_list:
     - Key: 1
-      Value: 0.23148148
+      Value: 0.19743337
     - Key: 2
-      Value: 0.23148148
-    - Key: 3
-      Value: 2.3148148
-    - Key: 4
-      Value: 2.3148148
-    - Key: 5
-      Value: 2.3148148
-    - Key: 10
-      Value: 23.148148
-    - Key: 11
-      Value: 23.148148
-    - Key: 12
-      Value: 23.148148
+      Value: 0.09871668
     - Key: 13
-      Value: 23.148148
+      Value: 0.9871668
+    - Key: 3
+      Value: 9.871668
+    - Key: 4
+      Value: 9.871668
+    - Key: 5
+      Value: 9.871668
+    - Key: 6
+      Value: 9.871668
+    - Key: 7
+      Value: 9.871668
+    - Key: 8
+      Value: 9.871668
+    - Key: 9
+      Value: 9.871668
+    - Key: 10
+      Value: 9.871668
+    - Key: 11
+      Value: 9.871668
+    - Key: 12
+      Value: 9.871668

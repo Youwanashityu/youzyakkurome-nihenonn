@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Henohenon.Scripts.GameUnity.General;
@@ -12,14 +13,15 @@ public class HomeTestEntryPoint : MonoBehaviour
     private GeneralElements generalElements;
     [SerializeField]
     private ItemInfoScriptable itemInfo;
-
+    [SerializeField]
+    private Dictionary<ItemType, int> initItems;
+    
     private HomeHandler _handler;
     private Subject<ItemType> _onGetItem;
 
     private void Awake()
     {
-        _onGetItem = new Subject<ItemType>();
-        var inventoryHandler = new InventoryHandler(itemInfo.GetPureData, _onGetItem, homeElements.Presents);
+        var inventoryHandler = new InventoryKeyHandler(itemInfo.GetPureData, homeElements.Presents, initItems);
         _handler = new HomeHandler(homeElements, inventoryHandler);
     }
 

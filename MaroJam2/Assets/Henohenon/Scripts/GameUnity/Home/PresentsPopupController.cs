@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using R3;
 using UnityEngine;
 
@@ -12,17 +13,13 @@ public class PresentsPopupController: MonoBehaviour
     private readonly Subject<ItemType> _onPresent = new();
     public Observable<ItemType> OnPresent => _onPresent;
     private readonly Dictionary<ItemType, ItemBoxController> _instances = new Dictionary<ItemType, ItemBoxController>();
-
+    private ItemType[] _itemFilter;
     public PopupElement Popup => popup;
-    
-    public void Clear()
+
+    public void SetFilter(ItemType[] itemFilter)
     {
-        foreach (var instance in _instances.Values)
-        {
-            instance.OnClicked.RemoveAllListeners();
-            Destroy(instance);
-        }
-        _instances.Clear();
+        _itemFilter = itemFilter;
+        ApplyFilter();
     }
 
     public void Set(ItemType type, ItemDisplayInfo displayInfo, int number)
@@ -34,7 +31,7 @@ public class PresentsPopupController: MonoBehaviour
         else
         {
             var instance = Instantiate(itemBoxPrefab, list);
-            instance.Initialize(displayInfo, number);
+            instance.Initialize(displayInfo, number, _itemFilter.Contains(type));
             instance.OnClicked.AddListener(() => OnBoxClicked(type));
             
             _instances.Add(type, instance);
@@ -48,7 +45,14 @@ public class PresentsPopupController: MonoBehaviour
 
     private void OnDestroy()
     {
-        Clear();
         _onPresent.Dispose();
+    }
+    
+    private void ApplyFilter()
+    {
+        foreach (var i in _instances)
+        {
+            i.Value.SetFiltered(_itemFilter.Contains(i.Key));
+        }
     }
 }

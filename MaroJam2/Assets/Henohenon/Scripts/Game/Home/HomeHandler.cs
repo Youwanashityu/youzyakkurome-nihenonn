@@ -2,26 +2,31 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class HomeHandler : IDisposable
 {
     private readonly HomeElements _elements;
     private readonly Subject<Unit> _onNext;
+    private readonly IItemsHandler _itemsHandler;
     public Subject<Unit> OnNext => _onNext;
     private ICharacterHandler _characterHandler;
     private IDisposable _loveSubscription;
     private readonly CompositeDisposable _disposables;
-    private InventoryHandler _inventoryHandler;
-    private CancellationTokenSource _cts;
-    private bool _running = false;
+    private CancellationTokenSource _tutorialCts;
+    private CancellationTokenSource _presentCts;
+    private CancellationTokenSource _talkCts;
+    private bool _runningTutorial = false;
+    private bool _runningPresent = false;
+    private bool _runningTalk = false;
 
-    public HomeHandler(HomeElements elements, InventoryHandler inventoryHandler)
+    public HomeHandler(HomeElements elements, IItemsHandler itemsHandler)
     {
         _elements = elements;
         _onNext = new Subject<Unit>();
         _disposables = new CompositeDisposable();
-        _inventoryHandler = inventoryHandler;
+        _itemsHandler = itemsHandler;
 
         _elements.TalkController.CharaTalkButton.onClick.AddListener(OnTalkButton);
         _elements.TalkController.MiniTalkButton.onClick.AddListener(OnTalkButton);
@@ -30,55 +35,60 @@ public class HomeHandler : IDisposable
         _elements.SwitchCharaButton.onClick.AddListener(OnSwitchCharaButton);
     }
 
-    public void Initialize(ICharacterHandler handler)
+    public void Initialize(ICharacterHandler handler, ItemType[] filter)
     {
         _characterHandler = handler;
         _elements.LevelSlider.value = _characterHandler.Love.CurrentValue / 100f;
+        _elements.Presents.SetFilter(filter);
         _loveSubscription?.Dispose();
-        _loveSubscription = _characterHandler.Love.Subscribe(value => _elements.LevelSlider.value = value);
+        _loveSubscription = _characterHandler.Love.Subscribe(_ =>
+        {
+            var lv = _characterHandler.GetLoveLv();
+            _elements.LoveLvText.text = $"Lv.{lv}";
+            _elements.LevelSlider.value = _characterHandler.GetLoveRatio();
+        });
     }
     
     public async UniTask RunTutorial(CancellationToken token)
     {
-        if (_running) return;
-        _cts = _cts.Reset();
-        var linkedToken = _cts.LinkedToken(token);
+        if (_runningTutorial) return;
+        _tutorialCts = _tutorialCts.Reset();
+        var linkedToken = _tutorialCts.LinkedToken(token);
         
-        _running = true;
+        _runningTutorial = true;
         try
         {
             await _characterHandler.Tutorial(linkedToken);
         }
         finally
         {
-            _running = false;
+            _runningTutorial = false;
         }
     }
     
     private async UniTask RunPresent(ItemType type, CancellationToken token)
     {
-        if (_running) return;
-        _cts = _cts.Reset();
+        _presentCts = _presentCts.Reset();
+        var linkedToken = _presentCts.LinkedToken(token);
         
-        _running = true;
+        _runningPresent = true;
         try
         {
-            var number = _inventoryHandler.UseItem(type);
+            var number = _itemsHandler.UseItem(type);
             number = Math.Max(0, number);
-            await _characterHandler.Present(type, number, _cts.Token);
+            await _characterHandler.Present(type, number, linkedToken);
         }
         finally
         {
-            _running = false;
+            _runningPresent = false;
         }
     }
     
     private void OnTalkButton()
     {
-        _cts = _cts.Reset();
-        if (!_running)
+        if (!_runningTalk && !_runningPresent && !_runningTutorial)
         {
-            _characterHandler.RandomTalk(_cts.Token).Forget();
+            RunTalk().Forget();
         }
         else
         {
@@ -86,6 +96,21 @@ public class HomeHandler : IDisposable
         }
     }
 
+    private async UniTask RunTalk()
+    {
+        if (_runningTalk) return;
+        _talkCts = _talkCts.Reset();
+        _runningTalk = true;
+        try
+        {
+            await _characterHandler.RandomTalk(_talkCts.Token);
+        }
+        finally
+        {
+            _runningTalk = false;
+        }
+    }
+    
     private void OnPresentButton()
     {
         _elements.Presents.Popup.Show();

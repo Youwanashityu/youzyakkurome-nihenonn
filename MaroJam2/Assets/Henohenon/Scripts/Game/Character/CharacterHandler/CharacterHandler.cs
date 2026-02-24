@@ -2,29 +2,26 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
+using UnityEngine;
 
-public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
-    where TImage : Enum
-    where TVoice : Enum
-    where TTalk : Enum
+public class CharacterHandler: ICharacterHandler
 {
     public readonly CharacterType CharacterType;
-    private readonly TalkHandler<TTalk> _talkHandler;
-    private readonly PresentHandler<TTalk> _presentHandler;
-    private readonly CharacterData<TImage, TVoice, TTalk> _data;
+    private readonly TalkHandler _talkHandler; 
+    private readonly CharacterData _data;
     public ICharacterData Data => _data;
     private readonly ReactiveProperty<float> _love = new (0);
     public ReadOnlyReactiveProperty<float> Love => _love;
     
-    public CharacterHandler(CharacterType type, TalkHandler<TTalk> talkHandler, CharacterData<TImage, TVoice, TTalk> data)
+    public CharacterHandler(CharacterType type, TalkHandler talkHandler, CharacterData data)
     {
         CharacterType = type;
         _talkHandler = talkHandler;
-        _presentHandler = new PresentHandler<TTalk>(_talkHandler, data.PresentsInfo);
         _data = data;
     }
 
-    public async UniTask Talk(TTalk type, CancellationToken token)
+    // TODO: cts管理
+    public async UniTask Talk(int type, CancellationToken token)
     {
         await _talkHandler.ExecTalk(type, token);
     }
@@ -47,15 +44,41 @@ public class CharacterHandler<TImage, TVoice, TTalk>: ICharacterHandler
         var info = _data.PresentsInfo[type];
         var list = info.TalkType;
         var talkType = list[UnityEngine.Random.Range(0, list.Length)];
-        
-        await _talkHandler.ExecTalk(talkType, token);
 
-        _love.Value += info.LoveAmount * numb;
+        try
+        {
+            await _talkHandler.ExecTalk(talkType, token);
+        }
+        finally
+        {
+            _love.Value = _love.CurrentValue + info.LoveAmount * numb;
+        }
     }
-    
+
+    public float GetLoveRatio()
+    {
+        var last = _data.LoveLvPoints[GetLoveLv() - 1];
+        var current = _data.LoveLvPoints[GetLoveLv()];
+        return (_love.CurrentValue - last) / (current - last);
+    }
+
+    public int GetLoveLv()
+    {
+        var result = 0;
+        var v = _love.CurrentValue;
+        foreach (var point in _data.LoveLvPoints)
+        {
+            if (v < point)
+            {
+                return result;
+            }
+            result++;
+        }
+        return 10;
+    }
+
     public void Dispose()
     {
         _talkHandler.Dispose();
-        _presentHandler.Dispose();
     }
 }

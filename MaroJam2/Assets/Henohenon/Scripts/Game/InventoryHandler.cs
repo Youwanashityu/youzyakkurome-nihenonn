@@ -1,41 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using R3;
-using UnityEngine;
 
-public class InventoryHandler: IDisposable
+public class InventoryKeyHandler: IItemsHandler, IAkkaKeyHandler, IDisposable
 {
-    private readonly ItemInfo _itemInfo;
+    private readonly IReadOnlyDictionary<ItemType, ItemDisplayInfo> _displayInfos;
     private readonly PresentsPopupController _presentsPopup;
     private readonly Dictionary<ItemType, int> _items;
-    private readonly IDisposable _subscription;
+    private readonly ReactiveProperty<int> _keyAmount;
+    private readonly ReactiveProperty<int> _akkaAmount;
+    public ReadOnlyReactiveProperty<int> KeyAmount => _keyAmount;
+    public ReadOnlyReactiveProperty<int> AkkaAmount => _akkaAmount;
 
-    public InventoryHandler(ItemInfo itemInfo, Observable<ItemType> onGetItem, PresentsPopupController presentsPopup)
+    public InventoryKeyHandler(ItemInfo itemInfo, PresentsPopupController presentsPopup, Dictionary<ItemType, int> initItems)
     {
-        _itemInfo = itemInfo;
+        _displayInfos = itemInfo.DisplayInfo;
+        var randomKeyAmount =  itemInfo.InitKeyAmount[UnityEngine.Random.Range(0, itemInfo.InitKeyAmount.Length)];
+        var randomAkkaAmount =  itemInfo.InitAkkaAmount[UnityEngine.Random.Range(0, itemInfo.InitAkkaAmount.Length)];
+        _keyAmount = new ReactiveProperty<int>(randomKeyAmount);
+        _akkaAmount = new ReactiveProperty<int>(randomAkkaAmount);
         _presentsPopup = presentsPopup;
-        _items = new();
-
-        _subscription = onGetItem.Subscribe(AddItem);
+        _items = initItems;
+        foreach (var item in initItems)
+        {
+            _presentsPopup.Set(item.Key, _displayInfos[item.Key], _items[item.Key]);
+        }
     }
 
-    private void AddItem(ItemType type)
+    public void AddItem(ItemType type)
     {
         _items[type] = _items.GetValueOrDefault(type) + 1;
-        _presentsPopup.Set(type, _itemInfo.DisplayInfo[type], _items[type]);
+        _presentsPopup.Set(type, _displayInfos[type], _items[type]);
     }
     
     public int UseItem(ItemType type)
     {
         if (!_items.TryGetValue(type, out var result)) return 0;
         _items[type] = 0;
-        _presentsPopup.Set(type, _itemInfo.DisplayInfo[type], _items[type]);
+        _presentsPopup.Set(type, _displayInfos[type], _items[type]);
+        _presentsPopup.Popup.Hide();
 
         return result;
     }
 
+    public void Purchase(int addKey, int subAkka)
+    {
+        _keyAmount.Value = _keyAmount.CurrentValue + addKey;
+        _akkaAmount.Value = _akkaAmount.CurrentValue - subAkka;
+    }
+
+    public void UseKey(int numb)
+    {
+        _keyAmount.Value = _keyAmount.CurrentValue - numb;
+    }
+
     public void Dispose()
     {
-        _subscription.Dispose();
     }
 }
