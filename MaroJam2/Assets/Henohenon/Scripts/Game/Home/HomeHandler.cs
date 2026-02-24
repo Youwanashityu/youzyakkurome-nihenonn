@@ -23,7 +23,8 @@ public class HomeHandler : IDisposable
         _disposables = new CompositeDisposable();
         _inventoryHandler = inventoryHandler;
 
-        _elements.TalkController.TalkButton.onClick.AddListener(OnTalkButton);
+        _elements.TalkController.CharaTalkButton.onClick.AddListener(OnTalkButton);
+        _elements.TalkController.MiniTalkButton.onClick.AddListener(OnTalkButton);
         _elements.Presents.OnPresent.Subscribe(t => RunPresent(t, CancellationToken.None).Forget()).AddTo(_disposables);
         _elements.PresentButton.onClick.AddListener(OnPresentButton);
         _elements.SwitchCharaButton.onClick.AddListener(OnSwitchCharaButton);
@@ -97,7 +98,8 @@ public class HomeHandler : IDisposable
 
     public void Dispose()
     {
-        _elements.TalkController.TalkButton.onClick.RemoveListener(OnTalkButton);
+        _elements.TalkController.CharaTalkButton.onClick.RemoveListener(OnTalkButton);
+        _elements.TalkController.MiniTalkButton.onClick.RemoveListener(OnTalkButton);
         _loveSubscription?.Dispose();
         _disposables.Dispose();
     }

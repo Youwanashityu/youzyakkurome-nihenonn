@@ -3,5 +3,6 @@ using UnityEngine;
 
 public interface ICharacterData
 {
-    public Sprite DefaultImage { get; }
+    public Sprite DefaultCharaImage { get; }
+    public Sprite DefaultMiniImage { get; }
 }

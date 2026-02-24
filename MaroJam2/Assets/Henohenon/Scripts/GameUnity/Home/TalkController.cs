@@ -9,27 +9,33 @@ using UnityEngine.UI;
 public class TalkController : MonoBehaviour
 {
     [SerializeField] private Image characterImage;
+    [SerializeField] private Image miniCharaImage;
     [SerializeField] private TMP_Text talkText;
     [SerializeField] private TMP_Text selectionTextA;
     [SerializeField] private TMP_Text selectionTextB;
-    [SerializeField] private Button talkButton;
+    [SerializeField] private Button charaTalkButton;
+    [SerializeField] private Button miniTalkButton;
     [SerializeField] private GameObject talkBox;
     [SerializeField] private Button selectionButtonA;
     [SerializeField] private Button selectionButtonB;
     
     public Image CharacterImage => characterImage;
+
+    public Image MiniCharaImage => miniCharaImage;
     public TMP_Text TalkText => talkText;
     public TMP_Text SelectionTextA => selectionTextA;
     public TMP_Text SelectionTextB => selectionTextB;
-    public Button TalkButton => talkButton;
+    public Button CharaTalkButton => charaTalkButton;
+    public Button MiniTalkButton => miniTalkButton;
     public GameObject TalkBox => talkBox;
     
     private CancellationTokenSource _cts;
 
-    public void Initialize(Sprite image)
+    public void Initialize(Sprite chara, Sprite mini)
     {
         _cts = _cts.Clear();
-        characterImage.sprite = image;
+        characterImage.sprite = chara;
+        miniCharaImage.sprite = mini;
         talkBox.SetActive(false);
         selectionButtonA.gameObject.SetActive(false);
         selectionButtonB.gameObject.SetActive(false);

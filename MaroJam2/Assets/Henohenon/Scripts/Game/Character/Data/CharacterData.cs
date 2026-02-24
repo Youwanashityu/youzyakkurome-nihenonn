@@ -7,7 +7,8 @@ public class CharacterData<TImage, TVoice, TTalk>: ICharacterData
     where TVoice : Enum
     where TTalk : Enum
 {
-    public Sprite DefaultImage { get; }
+    public Sprite DefaultCharaImage { get; }
+    public Sprite DefaultMiniImage { get; }
     public readonly IReadOnlyDictionary<TImage, Sprite> Images;
     public readonly IReadOnlyDictionary<TVoice, AudioClip> Voices;
     public readonly IReadOnlyDictionary<TTalk, SimpleTalkParams> SimpleParams;
@@ -15,13 +16,14 @@ public class CharacterData<TImage, TVoice, TTalk>: ICharacterData
     public readonly IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> PresentsInfo;
 
 
-    public CharacterData(Sprite defaultImage, IReadOnlyDictionary<TImage, Sprite> images, IReadOnlyDictionary<TVoice, AudioClip> voices, IReadOnlyDictionary<TTalk, SimpleTalkParams> simpleParams, IReadOnlyDictionary<int, TTalk[]> randomTalks, IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> presentsInfo)
+    public CharacterData(Sprite defaultCharaImage, Sprite defaultMiniImage, IReadOnlyDictionary<TImage, Sprite> images, IReadOnlyDictionary<TVoice, AudioClip> voices, IReadOnlyDictionary<TTalk, SimpleTalkParams> simpleParams, IReadOnlyDictionary<int, TTalk[]> randomTalks, IReadOnlyDictionary<ItemType, PresentInfo<TTalk>> presentsInfo)
     {
+        DefaultCharaImage = defaultCharaImage;
+        DefaultMiniImage = defaultMiniImage;
         Images = images;
         Voices = voices;
         SimpleParams = simpleParams;
         RandomTalks = randomTalks;
         PresentsInfo = presentsInfo;
-        DefaultImage = defaultImage;
     }
 }
