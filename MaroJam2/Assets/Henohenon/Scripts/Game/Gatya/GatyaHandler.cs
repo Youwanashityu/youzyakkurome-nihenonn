@@ -11,17 +11,17 @@ public class GatyaHandler : IDisposable
     private readonly GatyaElements _elements;
     private readonly IAkkaKeyHandler _akkaKeyHandler;
     private readonly GatyaController _gatyaController;
-    private readonly PurchaseHandler _purchaseHandler;
+    private readonly GatyaData _data;
     private readonly IReadOnlyDictionary<PurchaseType, Button> _purchaseButtons;
     private readonly CompositeDisposable _disposable;
     public IGatyaController GatyaController => _gatyaController;
 
-    public GatyaHandler(GatyaElements elements, GatyaData data, ItemInfo itemInfo, InventoryKeyHandler inventoryKeyHandler)
+    public GatyaHandler(GatyaElements elements, GatyaData data, ItemInfo itemInfo, InventoryKeyHandler inventoryKeyHandler, Observable<CharacterType> onCharacterChange)
     {
         _elements = elements;
         _akkaKeyHandler = inventoryKeyHandler;
         _gatyaController = new GatyaController(elements, itemInfo.DisplayInfo, data.MaxTenjoCount);
-        _purchaseHandler = new PurchaseHandler(data.PurchaseInfos, inventoryKeyHandler);
+        _data = data;
         
         _elements.ChangeButton.onClick.AddListener(OnChange);
         _elements.OneButton.onClick.AddListener(OnOne);
@@ -30,7 +30,7 @@ public class GatyaHandler : IDisposable
         _purchaseButtons = elements.PurchaseController.Buttons;
         foreach (var purchase in _purchaseButtons)
         {
-            purchase.Value.onClick.AddListener(() => _purchaseHandler.Purchase(purchase.Key));
+            purchase.Value.onClick.AddListener(()=> OnPurchase(purchase));
         }
 
         _disposable = new CompositeDisposable();
@@ -39,6 +39,12 @@ public class GatyaHandler : IDisposable
         OnKeyChange(_akkaKeyHandler.AkkaAmount.CurrentValue);
         _akkaKeyHandler.KeyAmount.Subscribe(OnKeyChange).AddTo(_disposable);
         _akkaKeyHandler.AkkaAmount.Subscribe(OnAkkaChange).AddTo(_disposable);
+        onCharacterChange.Subscribe(Initialize).AddTo(_disposable);
+    }
+
+    public void Initialize(CharacterType type)
+    {
+        _gatyaController.Initialize(_data.Tables[type]);
     }
 
     private void OnOne()
@@ -91,10 +97,16 @@ public class GatyaHandler : IDisposable
         _elements.AddKeysButton.onClick.RemoveListener(_elements.PurchaseController.Popup.Show);
         foreach (var purchase in _purchaseButtons)
         {
-            purchase.Value.onClick.RemoveListener(() => _purchaseHandler.Purchase(purchase.Key));
+            purchase.Value.onClick.RemoveListener(() => OnPurchase(purchase));
         }
         
         _gatyaController.Dispose();
         _disposable.Dispose();
+    }
+
+    private void OnPurchase(KeyValuePair<PurchaseType, Button> purchase)
+    {
+        var info = _data.PurchaseInfos[purchase.Key];
+        _akkaKeyHandler.Purchase(info.KeyAmount, info.AkkaAmount);
     }
 }

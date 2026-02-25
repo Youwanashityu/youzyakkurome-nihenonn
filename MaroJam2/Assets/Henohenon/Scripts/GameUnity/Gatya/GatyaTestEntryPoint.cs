@@ -1,4 +1,5 @@
 using System;
+using R3;
 using UnityEngine;
 
 public class GatyaTestEntryPoint : MonoBehaviour
@@ -18,8 +19,8 @@ public class GatyaTestEntryPoint : MonoBehaviour
     {
         var gatyaPureData = gatyaData.GetPureData;
         var itemPureData = itemInfo.GetPureData;
-        _handler = new GatyaHandler(elements, gatyaPureData, itemPureData, new InventoryKeyHandler(itemInfo.GetPureData, null, new ()));
-        _handler.GatyaController.SetTable(gatyaPureData.Tables[type]);
+        _handler = new GatyaHandler(elements, gatyaPureData, itemPureData, new InventoryKeyHandler(itemInfo.GetPureData, null, new ()), new Subject<CharacterType>());
+        _handler.GatyaController.Initialize(gatyaPureData.Tables[type]);
     }
 
     private void OnDestroy()
@@ -30,6 +31,6 @@ public class GatyaTestEntryPoint : MonoBehaviour
     private void OnValidate()
     {
         var tables = gatyaData.GetPureData.Tables;
-        _handler.GatyaController.SetTable(tables[type]);
+        _handler.GatyaController.Initialize(tables[type]);
     }
 }

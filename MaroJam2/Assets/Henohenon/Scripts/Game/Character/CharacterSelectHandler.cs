@@ -4,24 +4,28 @@ using System.Linq;
 
 public class CharacterSelectorHandler
 {
-    private readonly CharacterSelector _homeSelector;
-    private readonly CharacterSelector _gatyaSelector;
+    private readonly CharacterSelector[] _selectors;
     private readonly CharactersManager _charactersManager;
     public ICharacterHandler[] Characters => _charactersManager.Characters.Values.ToArray();
-    public CharacterSelectorHandler(HomeElements homeElements, GatyaElements gatyaElements, IVoicePlayer voicePlayer, HomeHandler homeHandler, IGatyaController gatyaController, IReadOnlyDictionary<CharacterType, GatyaTable> tables, IReadOnlyDictionary<CharacterType, CharacterData> data)
+    public CharacterSelectorHandler(CharacterSelector[] selectors, CharactersManager charactersManager)
     {
-        _charactersManager = new CharactersManager(homeElements.TalkController, voicePlayer, homeHandler, gatyaController, tables, data);
-        _homeSelector = homeElements.CharacterSelector;
-        _gatyaSelector = gatyaElements.CharacterSelector;
-        AddListenCharacterSelector(_homeSelector);
-        AddListenCharacterSelector(_gatyaSelector);
+        _charactersManager = charactersManager;
+        _selectors = selectors;
+
+        foreach (var selector in selectors)
+        {
+            AddListenCharacterSelector(selector);
+        }
     }
 
     public void Dispose()
     {
         _charactersManager.Dispose();
-        RemoveListenCharacterSelector(_homeSelector);
-        RemoveListenCharacterSelector(_gatyaSelector);
+
+        foreach (var selector in _selectors)
+        {
+            RemoveListenCharacterSelector(selector);
+        }
     }
 
     private void AddListenCharacterSelector(CharacterSelector selector)

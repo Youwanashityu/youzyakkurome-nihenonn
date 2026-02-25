@@ -2,8 +2,6 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class HomeHandler : IDisposable
 {
@@ -35,11 +33,11 @@ public class HomeHandler : IDisposable
         _elements.SwitchCharaButton.onClick.AddListener(OnSwitchCharaButton);
     }
 
-    public void Initialize(ICharacterHandler handler, ItemType[] filter)
+    public void Initialize(ICharacterHandler handler)
     {
         _characterHandler = handler;
         _elements.LevelSlider.value = _characterHandler.Love.CurrentValue / 100f;
-        _elements.Presents.SetFilter(filter);
+        _elements.Presents.SetFilter(handler.Data.EventItemList);
         _loveSubscription?.Dispose();
         _loveSubscription = _characterHandler.Love.Subscribe(_ =>
         {
@@ -47,6 +45,8 @@ public class HomeHandler : IDisposable
             _elements.LoveLvText.text = $"Lv.{lv}";
             _elements.LevelSlider.value = _characterHandler.GetLoveRatio();
         });
+
+        _elements.TalkController.Initialize(handler.Data.DefaultCharaImage, handler.Data.DefaultMiniImage);
     }
     
     public async UniTask RunTutorial(CancellationToken token)
