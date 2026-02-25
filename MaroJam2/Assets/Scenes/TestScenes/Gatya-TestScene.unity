@@ -166,6 +166,7 @@ MonoBehaviour:
   elements: {fileID: 1556911769}
   gatyaData: {fileID: 11400000, guid: 44f4491dc376a2a4f8baa6d474891794, type: 2}
   itemInfo: {fileID: 11400000, guid: 4885469abd381c143b4ea123379c695c, type: 2}
+  type: 0
 --- !u!1001 &1556911768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -332,6 +333,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2656010614252440731, guid: a3c19442c29a70b49a16399cadae2c90, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3390066122049519008, guid: a3c19442c29a70b49a16399cadae2c90, type: 3}
+      propertyPath: hideOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4244718074998190871, guid: a3c19442c29a70b49a16399cadae2c90, type: 3}
