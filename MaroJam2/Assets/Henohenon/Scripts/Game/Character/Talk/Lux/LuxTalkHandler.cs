@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -67,59 +68,211 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 await Text("は～い！わかりました！\nもう一回説明しますね");
                 await Talk((int)LuxTalkType.Tutorial, token);
                 break;
-            default:
-                if (!_data.SimpleParams.TryGetValue(t, out var param))
-                {
-                    throw new ArgumentException("Invalid talk type");
-                }
-                
-                Voice(param.Voice);
-                Image(param.Image);
 
-                foreach (var text in param.Texts)
+            case LuxTalkType.LIKE01_Hello:
+                try
                 {
-                    await Text(text);
+                    Image((int)LuxImageType.R_DOWN_POKE);
+                    await Text("やっと会えましたね！お姉さん！\n俺、嬉しいです！\nこんにちは！");
+                    var answer = await Question("おはようございまーす！", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)LuxVoiceType.Hello);
+                            await Talk((int)LuxTalkType.LIKE01_Hello_stay, token);
+                            break;
+                        case SelectionType.Beta:
+                            break;
+
+                    }
+                }
+                finally
+                {
+                    Image((int)LuxImageType.Default);
                 }
                 break;
+            case LuxTalkType.LIKE01_Hello_stay:
+                Image((int)LuxImageType.R_DOWN_SMILE_OPEN);
+                await Text("えへへ、こうして会話できるなんて..\n俺のことを選んでくれたんですね。");
+                await Text("選ばれたからにはこのルクス！\n後悔はさせません！\n期待してください！");
+                break;
+
+            case LuxTalkType.LIKE01_Money:
+                try
+                {
+                    Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                    await Text("お姉さん、お金に困っていませんか？\n耳寄りな情報がありますよ！");
+                    var answer = await Question("人違いですね", "ゼロ！");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)LuxVoiceType.Wrongperson);
+                            await Talk((int)LuxTalkType.LIKE01_Money_no, token);
+                            break;
+                        case SelectionType.Beta:
+                            Voice((int)LuxVoiceType.Zero);
+                            await Talk((int)LuxTalkType.LIKE01_Money_yes, token);
+                            break;
+                    }
+
+                }
+                finally
+                {
+                    Image((int)LuxImageType.Default);
+                }
+                break;
+
+            case LuxTalkType.LIKE01_Money_no:
+                Image((int)LuxImageType.R_UP_SHY);
+                await Text("そんな！怪しくないですよ！\nお姉さんに幸せになってほしいだけ！\n危なくないです！");
+                Image((int)LuxImageType.R_UP_MUMUMU);
+                await Text("お姉さーん！！！！！！");
+                break;
+
+            case LuxTalkType.LIKE01_Money_yes:
+                Image((int)LuxImageType.R_UP_SHY);
+                await Text("ゼロ！！？！？！？！！！！\nあっここ奢りましょうか！？！？！？");
+                Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                await Text("...まぁそれなら早速教えてあげます！\n鍵の横の＋ボタンを押してください！");
+                await Text("お金がいっぱい出てきますからね！\n全部お姉さんのものです！\nガチャに使っていいんですよ！");
+                Image((int)LuxImageType.R_DOWN_POKE);
+                await Text("このお金はどこから...?\nさぁ...?");
+                Image((int)LuxImageType.R_DOWN_NOMAL_CLOSE);
+                await Text("グレイムさんが流通させている\nここ限定通貨だとは聞きましたけど...");
+                await Text("ほらなんでしたっけ...\r\n商品券と大して変わらない？みたいな？");
+                Image((int)LuxImageType.R_DOWN_POKE);
+                await Text("意外と彼も良い人ですね～");
+                break;
+
+            case LuxTalkType.LIKE01_Aroma:
+                try
+                {
+
+                    Image((int)LuxImageType.R_UP_EXCITING);
+                    await Text("お姉さんって良い匂いしますね～\nやっぱり向こうじゃ香水って当たり前？");
+                    Image((int)LuxImageType.R_UP_SHY);
+                    await Text("あっすみません嗅いじゃって...!\n気になっちゃって...");
+                    var answer = await Question("有罪！", "無罪！");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)LuxVoiceType.Guilty);
+                            await Talk((int)LuxTalkType.LIKE01_Aroma_ng, token);
+                            break;
+                        case SelectionType.Beta:
+                            Voice((int)LuxVoiceType.Innocence);
+                            await Talk((int)LuxTalkType.LIKE01_Aroma_ok, token);
+                            break;
+                    }
+                }
+                finally
+                {
+                    Image((int)LuxImageType.Default);
+                }
+                break;
+
+            case LuxTalkType.LIKE01_Aroma_ng:
+                Image((int)LuxImageType.R_UP_SHY);
+                await Text("す、すみません...!\n恥ずかしかったですよね...");
+                Image((int)LuxImageType.R_UP_MUMUMU);
+                await Text("...俺のことも嗅ぎますか？\nキャロットラペの匂いがしますよ。");
+                break;
+
+            case LuxTalkType.LIKE01_Aroma_ok:
+                try
+                {
+
+
+                    Image((int)LuxImageType.R_DOWN_POKE);
+                    await Text("怒らないんですか？\nじゃあまだ嗅いで良いですか？");
+                    var answer = await Question("駄目だ", "いいよ");
+　　　　　　　　　 switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Image((int)LuxImageType.R_UP_MUMUMU);
+                            await Text("ちぇっ");
+                            break;
+                        case SelectionType.Beta:
+                             await Talk((int)LuxTalkType.LIKE01_Aroma_ok_yes, token);
+                            break;
+                    }
+                }
+                finally
+                {
+                    Image((int)LuxImageType.Default);
+                }
+                break;
+
+            case LuxTalkType.LIKE01_Aroma_ok_yes:
+                Image((int)LuxImageType.R_DOWN_SMILE_OPEN);
+                await Text("やったー！\n犬みたいでみっともないって\n怒られちゃうんですよね...");
+                Image((int)LuxImageType.R_UP_MUMUMU);
+                await Text("お姉さんは...\n俺のこと犬っぽいって思いますか？");
+                Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                await Text("もし思っていたら...\n責任もって飼ってほしいなぁ...\nなんてね。");
+                break;
+
+
+
+
+        
+
+        default:
+                if (!_data.SimpleParams.TryGetValue(t, out var param))
+        {
+            throw new ArgumentException("Invalid talk type");
         }
-        _talkController.TalkBox.SetActive(false);
+
+        Voice(param.Voice);
+        Image(param.Image);
+
+        foreach (var text in param.Texts)
+        {
+            await Text(text);
+        }
+        break;
+    }
+    _talkController.TalkBox.SetActive(false);
 
         async UniTask Delay(float delay)
-        {
-            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
-        }
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
+    }
 
-        async UniTask Text(string text)
-        {
-            _talkController.TalkText.text = text;
-            await _onNext.FirstAsync(token);
-        }
+    async UniTask Text(string text)
+    {
+        _talkController.TalkText.text = text;
+        await _onNext.FirstAsync(token);
+    }
 
-        void Image(int t)
-        {
-            _talkController.MiniTalkButton.gameObject.SetActive(false);
-            _talkController.CharaTalkButton.gameObject.SetActive(true);
-            if ((LuxImageType)t == LuxImageType.None) return;
-            if (_data.Images.TryGetValue(t, out var image)) _talkController.CharacterImage.sprite = image;
-        }
+    void Image(int t)
+    {
+        _talkController.MiniTalkButton.gameObject.SetActive(false);
+        _talkController.CharaTalkButton.gameObject.SetActive(true);
+        if ((LuxImageType)t == LuxImageType.None) return;
+        if (_data.Images.TryGetValue(t, out var image)) _talkController.CharacterImage.sprite = image;
+    }
 
-        void MiniImage(int t)
-        {
-            _talkController.MiniTalkButton.gameObject.SetActive(true);
-            _talkController.CharaTalkButton.gameObject.SetActive(false);
-            if ((LuxImageType)t == LuxImageType.None) return;
-            if (_data.Images.TryGetValue(t, out var image)) _talkController.MiniCharaImage.sprite = image;
-        }
+    void MiniImage(int t)
+    {
+        _talkController.MiniTalkButton.gameObject.SetActive(true);
+        _talkController.CharaTalkButton.gameObject.SetActive(false);
+        if ((LuxImageType)t == LuxImageType.None) return;
+        if (_data.Images.TryGetValue(t, out var image)) _talkController.MiniCharaImage.sprite = image;
+    }
 
-        void Voice(int t)
-        {
-            if (_data.Voices.TryGetValue(t, out var voice)) _voicePlayer.Play(voice);
-        }
+    void Voice(int t)
+    {
+        if (_data.Voices.TryGetValue(t, out var voice)) _voicePlayer.Play(voice);
+    }
 
-        async UniTask<SelectionType> Question(string alpha, string beta)
-        {
-            return await _talkController.Question(alpha, beta, token);
-        }
+    async UniTask<SelectionType> Question(string alpha, string beta)
+    {
+        return await _talkController.Question(alpha, beta, token);
+    }
     }
 
     public override async UniTask Tutorial(CancellationToken token)

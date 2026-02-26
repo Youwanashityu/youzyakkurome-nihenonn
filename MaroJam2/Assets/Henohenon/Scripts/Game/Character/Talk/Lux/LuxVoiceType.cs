@@ -2,5 +2,10 @@
 public enum LuxVoiceType
 {
     None,
-    ExcuseMe
+    ExcuseMe,
+    Hello,
+    Zero,
+    Wrongperson,
+    Guilty,
+    Innocence,
 }

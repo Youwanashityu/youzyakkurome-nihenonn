@@ -50,6 +50,11 @@ public class TalkController : MonoBehaviour
         selectionTextB.text = betaText;
         selectionButtonA.gameObject.SetActive(true);
         selectionButtonB.gameObject.SetActive(true);
+
+        //陽以前追加：空文字ならボタンを消す
+        selectionButtonA.gameObject.SetActive(!string.IsNullOrEmpty(alphaText));
+        selectionButtonB.gameObject.SetActive(!string.IsNullOrEmpty(betaText));
+
         var alpha = selectionButtonA.onClick.OnInvokeAsync(linkedToken);
         var beta = selectionButtonB.onClick.OnInvokeAsync(linkedToken);
         try
