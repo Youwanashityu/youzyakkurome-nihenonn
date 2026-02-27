@@ -28,7 +28,7 @@ public class CharacterHandler: ICharacterHandler
     
     public async UniTask RandomTalk(CancellationToken token)
     {
-        var list = _data.RandomTalks[0]; // TODO: Lovelevel反映
+        var list = _data.RandomTalks[GetLoveLv()];
         var type = list[UnityEngine.Random.Range(0, list.Length)];
         
         await _talkHandler.ExecTalk(type, token);

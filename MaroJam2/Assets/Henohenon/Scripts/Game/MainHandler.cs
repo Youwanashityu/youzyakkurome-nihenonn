@@ -10,6 +10,8 @@ public class MainHandler: IDisposable
     private readonly ViewHandler _viewHandler;
     private readonly TitleHandler _titleHandler;
     private readonly HomeHandler _homeHandler;
+    private readonly CharactersManager _charactersManager;
+    private readonly HomeCharacterHandler _homeCharacterHandler;
     private readonly GatyaHandler _gatyaHandler;
     private readonly GeneralHandler _generalHandler;
     private readonly CharacterSelectorHandler _charaSelectorHandler;
@@ -23,9 +25,11 @@ public class MainHandler: IDisposable
         _titleHandler = new TitleHandler(titleElements);
         _generalHandler = new GeneralHandler(generalElements);
         _inventoryKeyHandler = new InventoryKeyHandler(itemInfo, homeElements.Presents, new ());
-        _gatyaHandler = new GatyaHandler(gatyaElements, gatyaData, itemInfo, _inventoryKeyHandler);
         _homeHandler = new HomeHandler(homeElements, _inventoryKeyHandler);
-        _charaSelectorHandler = new CharacterSelectorHandler(homeElements, gatyaElements, generalElements.VoicePlayer, _homeHandler, _gatyaHandler.GatyaController, gatyaData.Tables, data);
+        _charactersManager = new CharactersManager(homeElements.TalkController, generalElements.VoicePlayer, _homeHandler, data);
+        _homeCharacterHandler = new HomeCharacterHandler(_homeHandler, _charactersManager);
+        _gatyaHandler = new GatyaHandler(gatyaElements, gatyaData, itemInfo, _inventoryKeyHandler, _charactersManager.OnCharaChange);
+        _charaSelectorHandler = new CharacterSelectorHandler(new []{homeElements.CharacterSelector, gatyaElements.CharacterSelector}, _charactersManager);
         _soundHandler = new SoundHandler(generalElements, titleElements, _charaSelectorHandler.Characters, _gatyaHandler);
         
         _startButton = titleElements.StartButton;
@@ -40,11 +44,14 @@ public class MainHandler: IDisposable
 
 	public void Dispose(){
 		_titleHandler.Dispose();
-		_homeHandler.Dispose();
 		_gatyaHandler.Dispose();
 		_generalHandler.Dispose();
 		_inventoryKeyHandler.Dispose();
 		_viewHandler.Dispose();
+		_homeHandler.Dispose();
+		_charactersManager.Dispose();
+		_homeCharacterHandler.Dispose();
 		_charaSelectorHandler.Dispose();
+		_soundHandler.Dispose();
 	}
 }

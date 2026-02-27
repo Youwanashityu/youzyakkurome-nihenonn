@@ -12,7 +12,7 @@ public class GatyaController: IGatyaController, IDisposable
     private readonly int _maxTenjoCount;
     private CancellationTokenSource _cts;
     private int _tenjoCount = 0;
-    private GatyaTable _table;
+    private GatyaTable _currentTable;
     private readonly Subject<Unit> _onStartGatya = new ();
     private readonly Subject<ItemType> _onGetItem = new ();
     private readonly Subject<ItemTier> _onPickItem = new ();
@@ -25,7 +25,7 @@ public class GatyaController: IGatyaController, IDisposable
         _elements = elements;
         _displayInfo = displayInfo;
         _maxTenjoCount = maxTenjoCount;
-        
+
         _elements.OneResult.SkipButton.onClick.AddListener(() =>
         {
             _cts = _cts.Clear();
@@ -33,9 +33,9 @@ public class GatyaController: IGatyaController, IDisposable
         _elements.OneResult.SkipButton.gameObject.SetActive(false);
     }
 
-    public void SetTable(GatyaTable table)
+    public void Initialize(GatyaTable table)
     {
-        _table = table;
+        _currentTable = table;
     }
 
     public void GatyaOne()
@@ -43,7 +43,7 @@ public class GatyaController: IGatyaController, IDisposable
         _onStartGatya.OnNext(Unit.Default);
         _cts = _cts.Reset();
 
-        var type = _table.One();
+        var type = _currentTable.One();
         var info = _displayInfo[type];
         _tenjoCount++;
         if (_tenjoCount >= _maxTenjoCount)
@@ -65,7 +65,7 @@ public class GatyaController: IGatyaController, IDisposable
         var onlyCommon = true;
         for (var i = 0; i < 10; i++)
         {
-            var type = _table.One();
+            var type = _currentTable.One();
             var info = _displayInfo[type];
             _tenjoCount++;
             if (_tenjoCount >= _maxTenjoCount)
@@ -126,10 +126,10 @@ public class GatyaController: IGatyaController, IDisposable
 
     private ItemDisplayInfo GetUpperRareInfo()
     {
-        var result = _displayInfo[_table.One()];
+        var result = _displayInfo[_currentTable.One()];
         while (result.Tier == ItemTier.Common)
         {
-            result = _displayInfo[_table.One()];
+            result = _displayInfo[_currentTable.One()];
         }
 
         return result;
@@ -138,11 +138,11 @@ public class GatyaController: IGatyaController, IDisposable
     private (ItemType, ItemDisplayInfo) GetTenjo()
     {
         var type = ItemType.None;
-        var result = _displayInfo[_table.One()];
+        var result = _displayInfo[_currentTable.One()];
         // TODO: 流石に頭悪い説
         while (result.Tier != ItemTier.Epic)
         {
-            type = _table.One();
+            type = _currentTable.One();
             result = _displayInfo[type];
         }
 
