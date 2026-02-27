@@ -12,8 +12,8 @@ public class PresentsPopupController: MonoBehaviour
 
     private readonly Subject<ItemType> _onPresent = new();
     public Observable<ItemType> OnPresent => _onPresent;
-    private readonly Dictionary<ItemType, ItemBoxController> _instances = new Dictionary<ItemType, ItemBoxController>();
-    private ItemType[] _itemFilter;
+    private readonly Dictionary<ItemType, ItemBoxController> _instances = new ();
+    private ItemType[] _itemFilter = Array.Empty<ItemType>();
     public PopupElement Popup => popup;
 
     public void SetFilter(ItemType[] itemFilter)

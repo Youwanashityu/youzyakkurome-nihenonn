@@ -4,20 +4,20 @@ using System.Linq;
 
 public class GatyaTable
 {
-    private readonly IReadOnlyDictionary<ItemType, int> rateTable;
-    private readonly int totalRatio;
+    private readonly IReadOnlyDictionary<ItemType, int> _rateTable;
+    private readonly int _totalRatio;
     
-    public GatyaTable(Dictionary<ItemType, int> rateTable)
+    public GatyaTable(IReadOnlyDictionary<ItemType, int> rateTable)
     {
-        this.rateTable = rateTable;
-        totalRatio = rateTable.Values.Sum(r => r);
+        this._rateTable = rateTable;
+        _totalRatio = rateTable.Values.Sum(r => r);
     }
 
     public ItemType One()
     {
         // TODO: unityengineのランダムって確かそんな良くなかったのでガチでやるならイイカンジのライブラリ入れたが良い
-        var random = UnityEngine.Random.Range(0, totalRatio);
-        foreach (var rate in rateTable)
+        var random = UnityEngine.Random.Range(0, _totalRatio);
+        foreach (var rate in _rateTable)
         {
             if (random < rate.Value)
             {
@@ -25,6 +25,6 @@ public class GatyaTable
             }
             random -= rate.Value;
         }
-        return rateTable.Keys.First();
+        return _rateTable.Keys.First();
     }
 }

@@ -12,8 +12,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
 
     private CancellationTokenSource _cts;
 
-    public LuxTalkHandler(TalkController talkController, IVoicePlayer voicePlayer, Observable<Unit> onNext,
-        CharacterData data)
+    public LuxTalkHandler(TalkController talkController, IVoicePlayer voicePlayer, Observable<Unit> onNext, CharacterData data)
     {
         _talkController = talkController;
         _voicePlayer = voicePlayer;
