@@ -16,7 +16,7 @@ MonoBehaviour:
   initAkkaAmount: 000000000000000000000000fa000000c4090000c4090000102700003075000031de0b00
   displayInfo:
     m_list:
-    - Key: 2
+    - Key: 6
       Value:
         displayName: "\u30B0\u30EC\u30A4\u30E0"
         icon: {fileID: -576238955493357297, guid: 00a6cffdb5d3fb04fa534b2869d98297, type: 3}
@@ -41,7 +41,7 @@ MonoBehaviour:
         displayName: "\u30AD\u30E3\u30E9\u30E1\u30EB"
         icon: {fileID: 5318898368465099441, guid: 5dbb067d5c8623c459df7a5c522fb24b, type: 3}
         tier: 0
-    - Key: 6
+    - Key: 0
       Value:
         displayName: "\u30AF\u30C3\u30AD\u30FC"
         icon: {fileID: -7547135128506798939, guid: 4da4a8f19b3e6ba4d9276d621cfb2423, type: 3}

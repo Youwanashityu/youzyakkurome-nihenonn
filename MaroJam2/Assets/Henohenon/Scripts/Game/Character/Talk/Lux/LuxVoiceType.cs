@@ -8,4 +8,9 @@ public enum LuxVoiceType
     Wrongperson,
     Guilty,
     Innocence,
+    Oh,
+    Sleepatnight,
+    Cute,
+    Onlythistime,
+    Goodbye,
 }
