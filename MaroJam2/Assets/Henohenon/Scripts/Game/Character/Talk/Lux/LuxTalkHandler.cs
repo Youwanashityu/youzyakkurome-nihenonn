@@ -59,13 +59,38 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 await Text("PickUP対象にしてくれると\n俺が出る確率が上がりますよ～");
                 await Text("運が悪くても大丈夫！\n天井になったら絶対会いに行きます！");
                 await Text("あ！それとそれと！\nガチャで出たお菓子は俺にくれると\n嬉しいなぁ...");
-                await Text("あれは戦闘ボタンですね。\n俺のかっこいい姿が見れますよ～\n気が向いたらやってくださいね！");
                 await Text("仮想体からいえることは以上です！\n本物の俺と仲良くなって\nハッピーエンド目指しましょうね～");
                 break;
+
             case LuxTalkType.TutorialAgain:
-                MiniImage((int)LuxImageType.Mini_Holo);
+                try
+                {
+                    Image((int)LuxImageType.Mini_Holo);
+                    await Text("あっお姉さん！\nまたお話聞きたいですか？");
+                    var answer = await Question("いらない", "そうだ");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Image((int)LuxImageType.Mini_Holo);
+                            await Text("え～もしかしてかまってちゃんですか？\nそういうのは本物にやってくださいね");
+                            break;
+                        case SelectionType.Beta:
+                            await Talk((int)LuxTalkType.TutorialAgain_Stay, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)LuxImageType.Default);
+                }
+                break;
+
+            case LuxTalkType.TutorialAgain_Stay:
+                Image((int)LuxImageType.Mini_Holo);
                 await Text("は～い！わかりました！\nもう一回説明しますね");
-                await Talk((int)LuxTalkType.Tutorial, token);
                 break;
 
             case LuxTalkType.LIKE01_Hello:

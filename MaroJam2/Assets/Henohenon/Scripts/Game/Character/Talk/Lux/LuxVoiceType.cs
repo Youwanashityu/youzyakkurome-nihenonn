@@ -13,4 +13,5 @@ public enum LuxVoiceType
     Cute,
     Onlythistime,
     Goodbye,
+    Fat,
 }
