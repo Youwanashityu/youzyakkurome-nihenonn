@@ -59,6 +59,20 @@ MonoBehaviour:
     m_list:
     - Key: 1
       Value: {fileID: 8300000, guid: 8f39310c1e616d14580021e0de72c247, type: 3}
+    - Key: 2
+      Value: {fileID: 8300000, guid: 06760cbc01418704b97ab62686c9d57e, type: 3}
+    - Key: 3
+      Value: {fileID: 8300000, guid: 23bf62e2760501242a4ba02a739a248b, type: 3}
+    - Key: 4
+      Value: {fileID: 8300000, guid: 816faeccb829dea4db7c5b8e136e40c2, type: 3}
+    - Key: 5
+      Value: {fileID: 8300000, guid: 9da48d43d93be9247aa112a59400c46e, type: 3}
+    - Key: 6
+      Value: {fileID: 8300000, guid: bb0176bc0ec85e740b826855b6ad4a6b, type: 3}
+    - Key: 7
+      Value: {fileID: 8300000, guid: 680348869c625634c89b6f46b504ba5d, type: 3}
+    - Key: 8
+      Value: {fileID: 8300000, guid: 01cd0cee6d274204cb95d5c8e4fe1a3a, type: 3}
   simpleParams:
     m_list:
     - Key: 0

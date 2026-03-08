@@ -2,5 +2,13 @@
 public enum GraimVoiceType
 {
     None,
-    GoodMorning
+    GoodMorning,
+    Wrongperson,
+    Trillionyen,
+    Guilty,
+    Innocence,
+    Explanation,
+    Oh,
+    Sleepatnight,
+
 }

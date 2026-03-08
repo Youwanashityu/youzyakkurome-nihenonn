@@ -6,7 +6,6 @@ public enum LuxTalkType
     Tutorial_Stay,
     Graim,
     TutorialAgain,
-    TutorialAgain_Skip,
     TutorialAgain_Stay,
 
 
