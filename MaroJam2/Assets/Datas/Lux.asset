@@ -85,8 +85,14 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: 680348869c625634c89b6f46b504ba5d, type: 3}
     - Key: 8
       Value: {fileID: 8300000, guid: 01cd0cee6d274204cb95d5c8e4fe1a3a, type: 3}
+    - Key: 9
+      Value: {fileID: 8300000, guid: 62597ed3760ad2b4986a644302bb32f1, type: 3}
     - Key: 10
       Value: {fileID: 8300000, guid: 452827c7d53a86141a63c3d407ad0dfa, type: 3}
+    - Key: 11
+      Value: {fileID: 8300000, guid: 01c768f61fc93bd449c9fced1eb61eeb, type: 3}
+    - Key: 12
+      Value: {fileID: 8300000, guid: d5115809557bf224184d2e8b92b1de49, type: 3}
   simpleParams:
     m_list:
     - Key: 0
@@ -103,7 +109,7 @@ MonoBehaviour:
   randomTalks:
     m_list:
     - Key: 0
-      Value: 05000000070000000a000000
+      Value: 05000000070000000a0000000e00000011000000
   presentsInfo:
     m_list:
     - Key: 13
