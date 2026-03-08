@@ -27,20 +27,78 @@ public class GraimTalkHandler : TalkHandler, IDisposable
         _talkController.TalkBox.gameObject.SetActive(true);
         switch (type)
         {
-            default:
-                if (!_data.SimpleParams.TryGetValue(t, out var param))
+            case GraimTalkType.Tutorial:
+                try
                 {
-                    throw new ArgumentException("Invalid talk type");
-                }
-                
-                Voice(param.Voice);
-                Image(param.Image);
+                    Image((int)GraimImageType.Mini_Holo);
+                    await Text("...え？もう説明聞いたよね？\r\nこの体は偽物で仲よくはなれないよ？");
+                    await Text("はぁ...初めましてお嬢ちゃん。\r\nこの場所のことを教えてあげるよ。");
+                    var answer = await Question("いらない", "おねがい");
 
-                foreach (var text in param.Texts)
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            await Text("な、なにしにきたんだ？\nお嬢ちゃんからかってるのかい？\nふふ、面白い子だね。");
+                            await Text("本物ともきっとうまくやれるよ、\n早く僕をひいてくれないか？");
+
+                            break;
+                        case SelectionType.Beta:
+                            await Talk((int)GraimTalkType.Tutorial_Stay, token);
+                            break;
+
+                    }
+
+                }
+                finally
                 {
-                    await Text(text);
+                    Image((int)GraimImageType.Default);
                 }
                 break;
+
+            case GraimTalkType.Tutorial_Stay:
+                Image((int)GraimImageType.Mini_Holo);
+                await Text("...少年の方から話は聞いたんだろう？\n僕と話したかったのかい？\nふふ、可愛い子だね。");
+                await Text("まぁもう聞いたかと思うが...\nこの体は偽物でね。\n本物はガチャをひけば出会えるよ。");
+                await Text("今の僕は君と仲良くなっても何も\n起きないんだ。残念だね？");
+                await Text("君の目的は僕か少年と仲良くなること。\n本物の人間と仲良くなれば\n文字通りクリアってわけだ。");
+                await Text("ガチャアイコンをタップするといい。\n現在開催中のガチャは一個だ。\n君はそれをまわすといい。");
+                await Text("キャラクターの対象は僕か少年だ。\n好きなだけひくといい。");
+                await Text("あぁ、ピックアップ対象を僕にしなさい\nタップして変えるだけだ。簡単だね？\nそうすればきっと僕と出会えるはずだ。");
+                await Text("まあ、お嬢ちゃんの運が悪くとも\n天井が来たら必ず迎えに行くさ。");
+                await Text("それと。\nガチャで出たお菓子は僕によこせ。\n僕と仲良くなりたいんだろう？");
+                await Text("仮想体からは以上だ。\nいくらでも話してあげるから、\nまたおいで？");
+                break;
+
+            case GraimTalkType.TutorialAgain:
+                try
+                {
+                    Image((int)GraimImageType.Mini_Holo);
+                    await Text("やぁ、お嬢ちゃん。\n約束通り僕の話を聞きに？");
+                    var answer = await Question("ちがう", "そうだ");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            await Text("...君、僕のことからかってるよね？\n誰にでもやってるのかい、それ？\n意地の悪い子だ。");
+                            break;
+                        case SelectionType.Beta:
+                            await Talk((int)GraimTalkType.TutorialAgain_Stay, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.TutorialAgain_Stay:
+                Image((int)GraimImageType.Mini_Holo);
+                await Text("うんうん、良い子だね。\nもう一回話してあげよう。\nあぁ、何回でもいいよ？");
+                break;
+
         }
         _talkController.TalkBox.SetActive(false);
 

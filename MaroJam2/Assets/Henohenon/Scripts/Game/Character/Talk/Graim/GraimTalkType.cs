@@ -5,5 +5,7 @@ public enum GraimTalkType
     Tutorial,
     Tutorial_Stay,
     TutorialAgain,
+    TutorialAgain_Stay,
+
     LIKE01_Hello
 }
