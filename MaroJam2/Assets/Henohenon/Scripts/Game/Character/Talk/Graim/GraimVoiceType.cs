@@ -10,5 +10,14 @@ public enum GraimVoiceType
     Explanation,
     Oh,
     Sleepatnight,
-
+    Woof,
+    Quietly,
+    Theoretically,
+    Nicetomeetyou,
+    Goodbye,
+    Yeah,
+    Eat,
+    Youareripped,
+    Magicalgirl,
+    Match,
 }

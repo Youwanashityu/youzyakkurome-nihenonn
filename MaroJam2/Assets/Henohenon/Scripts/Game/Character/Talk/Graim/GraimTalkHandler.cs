@@ -283,6 +283,489 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 await Text("まあ、生活するのに困らないくらいには\n稼いでいる、自立した男だよ。");
                 break;
 
+            case GraimTalkType.LIKE02_Dog:
+                try
+                {
+                    Image((int)GraimImageType.G_down_haa);
+                    await Text("君も飽きないねぇ...\nあっちをうろちょろこっちをうろちょろ");
+                    Image((int)GraimImageType.G_down_aori_giza);
+                    await Text("僕のことを嗅ぎまわって楽しいかい？\nまるで犬だね。");
+                    var answer = await Question("おや？", "ワン！");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)GraimVoiceType.Oh);
+                            await Talk((int)GraimTalkType.LIKE02_Dog_no, token);
+                            break;
+                        case SelectionType.Beta:
+                            Voice((int)GraimVoiceType.Woof);
+                            await Talk((int)GraimTalkType.LIKE02_Dog_yes, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE02_Dog_no:
+                Image((int)GraimImageType.G_down_aori_open);
+                await Text("自覚がないのかい？\nいつも近くに...");
+                Image((int)GraimImageType.G_up_tere);
+                await Text("待って、それは僕の方か？");
+                break;
+
+            case GraimTalkType.LIKE02_Dog_yes:
+                Image((int)GraimImageType.G_down_why);
+                await Text("...\nいや...その...");
+                Image((int)GraimImageType.G_up_tere);
+                await Text("ふふふ...\nお嬢ちゃん僕に飼われたいの？");
+                Image((int)GraimImageType.G_down_aori_giza);
+                await Text("似合う首輪でも買ってきてあげようか？\n...\n冗談だからね？");
+                break;
+
+
+            case GraimTalkType.LIKE02_Secret:
+                try
+                {
+                    Image((int)GraimImageType.G_up_nomal_close);
+                    await Text("お嬢ちゃんはどうしてここに？\n見た感じ同業者でもなさそうだし...");
+                    Image((int)GraimImageType.G_up_humu_giza);
+                    await Text("ここらは静かでいいよね...\n人気もあまりないし...");
+                    Image((int)GraimImageType.G_up_nomal_giza);
+                    await Text("内緒話にはもってこいだと思わないかい");
+                    var answer = await Question("静粛に！", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)GraimVoiceType.Quietly);
+                            Image((int)GraimImageType.G_down_nomal_giza);
+                            await Text("ふふ、お嬢ちゃんは元気だねえ。\n内緒話には向かなそうだね？");
+                            break;
+                        case SelectionType.Beta:
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE02_Drink:
+                try
+                {
+                    Image((int)GraimImageType.G_up_nomal_close);
+                    await Text("あら、飲み物もなくなっちゃったね。\n新しいのを頼もうか。");
+                    Image((int)GraimImageType.G_up_nomal_open);
+                    await Text("そうだね...君、お酒は飲めるかい？");
+                    var answer = await Question("飲めない", "飲める");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            await Talk((int)GraimTalkType.LIKE02_Drink_no, token);
+                            break;
+                        case SelectionType.Beta:
+                            await Talk((int)GraimTalkType.LIKE02_Drink_yes, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE02_Drink_no:
+                Image((int)GraimImageType.G_up_nomal_giza);
+                await Text("...君飲めないの？\nへぇ～若いとは思っていたが\nそこまで幼いとは...");
+                Image((int)GraimImageType.G_down_aori_open);
+                await Text("残念だね？\n牛乳でも飲むかい？");
+                Image((int)GraimImageType.G_down_aori_giza);
+                await Text("ふふ...可愛い子だね。\n僕はワインでもいただこうかな。");
+                Image((int)GraimImageType.G_down_haa);
+                await Text("えっワインは今ない？\n...");
+                Image((int)GraimImageType.G_down_haa);
+                await Text("これだから田舎の流通は...");
+                break;
+
+            case GraimTalkType.LIKE02_Drink_yes:
+                Image((int)GraimImageType.G_up_humu_giza);
+                await Text("それはいいね。\nアルコールでリラックスして\n会話に耽るのは良いものだよ。");
+                Image((int)GraimImageType.G_up_nomal_close);
+                await Text("キールとかどうかな？\n白ワインを使ったカクテルだよ。");
+                Image((int)GraimImageType.G_down_why);
+                await Text("ところで君、カクテル言葉ってわかる？\nいや、分からないならいいんだ。\nあまり馴染みがないだろうしね。");
+                break;
+
+            case GraimTalkType.LIKE02_Valentine:
+                try
+                {
+                    Image((int)GraimImageType.G_up_nomal_open);
+                    await Text("お嬢ちゃん、甘未は好きかい？\nほら、バレンタインの時期だろう？今");
+                    Image((int)GraimImageType.G_down_damattore);
+                    await Text("あれ、もう過ぎてるんだったかな。\n時差ボケかな...そんなレベルじゃない？");
+                    Image((int)GraimImageType.G_down_damattore);
+                    await Text("お嬢ちゃんには好い人がいるのかな？\n恋人とかいたりする？");
+                    var answer = await Question("理論上は可能です", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)GraimVoiceType.Theoretically);
+                            Image((int)GraimImageType.G_down_haa);
+                            await Text("...人体錬成するとかそういうことかな？\nあまり触れちゃいけなかったかな...");
+                            Image((int)GraimImageType.G_down_happy);
+                            await Text("ちなみに僕は今フリーだからね。\n安心してくれていいよ？");
+                            break;
+                        case SelectionType.Beta:
+
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE02_Accessories:
+                try
+                {
+                    Image((int)GraimImageType.G_up_nomal_close);
+                    await Text("君ってアクセサリーはつける？\nあぁ、いやちょっとね。");
+                    Image((int)GraimImageType.G_up_humu_close);
+                    await Text("僕らの出会いはまさしく運命だろう。\n記念に何かお嬢ちゃんに残したくてね。");
+                    Image((int)GraimImageType.G_down_nomal_close);
+                    await Text("君を子供じゃなくて一人の女性として...\nそう扱いたいんだ。\nピアスとかどうかな？");
+                    Image((int)GraimImageType.G_down_smile);
+                    await Text("近々開けようと思ってね、\nお揃いのものを君につけたいんだ。");
+                    var answer = await Question("よろしくてよ", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)GraimVoiceType.Nicetomeetyou);
+                            Image((int)GraimImageType.G_up_tere);
+                            await Text("...!\r\nお嬢ちゃん、その返事だとあれだね、\n悪役令嬢みたいだね。");
+                            Image((int)GraimImageType.G_up_nomal_close);
+                            await Text("君の考える大人の女性はそうなのかな？\n可愛らしい子だね。");
+                            Image((int)GraimImageType.G_down_aori_open);
+                            await Text("今度一緒に選びに行こうね。");
+                            break;
+                        case SelectionType.Beta:
+
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE03_Proposal:
+                try
+                {
+                    Image((int)GraimImageType.G_down_damattore);
+                    await Text("僕は口数が多い方ではないが...\n君のことはかなり気に入っているよ。\nそう見えない？悲しいね");
+                    Image((int)GraimImageType.G_pa_yoyuu);
+                    await Text("そうだな...\n君の返答によっては\nずっとここに居ても良いと思っているよ。");
+                    var answer = await Question("ばいばーい", "いえーい！");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)GraimVoiceType.Goodbye);
+                            await Talk((int)GraimTalkType.LIKE03_Proposal_no, token);
+                            break;
+                        case SelectionType.Beta:
+                            Voice((int)GraimVoiceType.Yeah);
+                            await Talk((int)GraimTalkType.LIKE03_Proposal_yes, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE03_Proposal_no:
+                try
+                {
+                    Image((int)GraimImageType.G_down_haa);
+                    await Text("えっそんな...\n君ってもしかして僕のことが嫌いかい？");
+                    Image((int)GraimImageType.G_down_haa);
+                    await Text("そんなわけないだろう？\n僕らの仲じゃないか、酷いなぁ。");
+                    Image((int)GraimImageType.G_up_nomal_close);
+                    await Text("冗談だよね？\n冗談だといいなさい。");
+                    var answer = await Question("ばいばーい", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)GraimVoiceType.Goodbye);
+                            Image((int)GraimImageType.G_up_humu_close);
+                            await Text("... ...");
+                            Image((int)GraimImageType.G_down_why);
+                            await Text("本当に？");
+                            Image((int)GraimImageType.G_down_haa);
+                            await Text("君と関わっていて思ったが\n君は頭が弱すぎるな。\n僕を拒絶するのは得策ではないはずだ。");
+                            Image((int)GraimImageType.G_down_damattore);
+                            await Text("お嬢ちゃんは弱いんだから\n僕と一緒に居た方が良い、そうだろう？");
+                            Image((int)GraimImageType.G_down_tere);
+                            await Text("それとも少年の方に行くつもりか？\r\n");
+                            Image((int)GraimImageType.G_down_why);
+                            await Text("若ければ誰でも良いのか？");
+                            Image((int)GraimImageType.G_down_damattore);
+                            await Text("当たり前だが歳の分知識と経験がある。\n俺は彼より強い。");
+                            Image((int)GraimImageType.G_down_damattore);
+                            await Text("考え直すべきだ。\nお嬢ちゃんが手を取るべきは俺だ。");
+                            Image((int)GraimImageType.G_up_humu_giza);
+                            await Text("... ...\n時間を上げるから考え直すといい。");
+                            Image((int)GraimImageType.G_up_nomal_close);
+                            await Text("色よい返事を期待しているよ。");
+                            break;
+                        case SelectionType.Beta:
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE03_Proposal_yes:
+                Image((int)GraimImageType.G_down_aori_giza);
+                await Text("ふふ、可愛い子だね。\n君の純粋さは美徳だ。");
+                Image((int)GraimImageType.G_down_smile);
+                await Text("...ほんとにここに残っちゃおうかな？");
+                break;
+
+            case GraimTalkType.LIKE03_Pride:
+                Image((int)GraimImageType.G_up_nomal_close);
+                await Text("少年に会うのはやめなさい。いいね？\n僕がいるんだから充分だろう？");
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("付き合う友達は選んだほうが良いよ。\nお嬢ちゃんの為を思って言っているんだ。");
+                break;
+
+            case GraimTalkType.LIKE03_Muscle:
+                try
+                {
+                    Image((int)GraimImageType.G_down_nomal_close);
+                    await Text("これは単なる雑談だが...\nお嬢ちゃんは筋肉は好きかい？");
+                    var answer = await Question("飯を食え！", "仕上がってるよ！");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)GraimVoiceType.Eat);
+                            await Talk((int)GraimTalkType.LIKE03_Muscle_yes, token);
+                            break;
+                        case SelectionType.Beta:
+                            Voice((int)GraimVoiceType.Youareripped);
+                            await Talk((int)GraimTalkType.LIKE03_Muscle_mock, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE03_Muscle_yes:
+                try
+                {
+                    Image((int)GraimImageType.G_down_haa);
+                    await Text("む、やっぱり好きなんだね。\n困ったねぇ...\n仕事柄筋肉はつけられないんだ。");
+                    Image((int)GraimImageType.G_down_haa);
+                    await Text("誠実さが必要な仕事だからね、\nほら...ムキムキだと威圧感がね...");
+                    Image((int)GraimImageType.G_down_happy);
+                    await Text("あ、でも力は結構強いんだよ、\n試してみるかい？");
+                    var answer = await Question("真の魔法少女の戦いが始まる！", "勝負");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)GraimVoiceType.Magicalgirl);
+                            await Talk((int)GraimTalkType.LIKE03_Muscle_yes_mock, token);
+                            break;
+                        case SelectionType.Beta:
+                            Voice((int)GraimVoiceType.Match);
+                            await Talk((int)GraimTalkType.LIKE03_Muscle_yes_yes, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE03_Muscle_mock:
+                Image((int)GraimImageType.G_up_tere);
+                await Text("お嬢ちゃん、適当に言ってるだろう");
+                Image((int)GraimImageType.G_up_tere);
+                await Text("僕がこんなに健気に君好みになろうとしているのに...");
+                Image((int)GraimImageType.G_down_why);
+                await Text("...あ");
+                break;
+
+            case GraimTalkType.LIKE03_Muscle_yes_mock:
+                try
+                {
+                    Image((int)GraimImageType.G_down_why);
+                    await Text("えっ");
+                    await Text("お嬢ちゃんって魔法少女だったのかい？\nなるほど確かに...");
+                    Image((int)GraimImageType.G_down_tere);
+                    await Text("ちょっと待ちたまえ、\n僕も魔法少女になるのかい？");
+                    Image((int)GraimImageType.G_down_haa);
+                    await Text("その...大変そうだね...\n確定申告とか...\n業務委託になるのかな？");
+                    var answer = await Question("冗談だ", "私と契約してくれ");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            await Talk((int)GraimTalkType.LIKE03_Muscle_yes_mock_sorry, token);
+                            break;
+                        case SelectionType.Beta:
+                            await Talk((int)GraimTalkType.LIKE03_Muscle_yes_mock_fool, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE03_Muscle_yes_yes:
+                Image((int)GraimImageType.G_down_haa);
+                await Text("お嬢ちゃんと争うつもりはないかな？\nああでもそっちの方がわかりやすいか...");
+                Image((int)GraimImageType.G_down_happy);
+                await Text("妥協してハグとかどうかな？\n力いっぱい抱きしめてあげるよ。");
+                Image((int)GraimImageType.G_up_nomal_giza);
+                await Text("なんて、誠実な男は付き合ってもない\nお嬢ちゃんと抱き合わないか。");
+                Image((int)GraimImageType.G_down_aori_giza);
+                await Text("残念だね？");
+                break;
+
+            case GraimTalkType.LIKE03_Muscle_yes_mock_sorry:
+                try
+                {
+                    Image((int)GraimImageType.G_down_why);
+                    await Text("...　...");
+                    Image((int)GraimImageType.G_down_haa);
+                    await Text("お嬢ちゃんって結構...\n度胸があるね？");
+                    Image((int)GraimImageType.G_down_nomal_close);
+                    await Text("僕にそんな発言するのは君くらいだよ");
+                    var answer = await Question("怒った？", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Image((int)GraimImageType.G_down_aori_open);
+                            await Text("ふふ、怒ってないよ。\nああでもそうだな...\n魔法少女姿は見たかったね？");
+                            break;
+                        case SelectionType.Beta:
+ 
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE03_Muscle_yes_mock_fool:
+                Image((int)GraimImageType.G_down_tere);
+                await Text("持ち帰って検討しようかな...?");
+                break;
+
+            case GraimTalkType.LIKE03_Cheating:
+                Image((int)GraimImageType.G_down_aori_open);
+                await Text("どこからが浮気だと思うか？\nふふ、なに恋バナでもしたいのかい？");
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("まあ確かに何が好きかよりも\n何が嫌いかわかっていた方が\n今後の関係も良いだろう。");
+                Image((int)GraimImageType.G_up_nomal_close);
+                await Text("そうだね...目を合わせたら...かな？");
+                Image((int)GraimImageType.G_up_humu_close);
+                await Text("他人と交流してほしくないんだ。\n仕事なんてさせないし、\n買い物は通販で良いだろう？");
+                Image((int)GraimImageType.G_down_haa);
+                await Text("パートナーはアクセサリーじゃないんだ。\n外で見せびらかすとかは考えられないな");
+                Image((int)GraimImageType.G_down_aori_open);
+                await Text("瞳に僕の構成したものだけを映す、\nこれが一番素敵だね...");
+                Image((int)GraimImageType.G_down_smile);
+                await Text("でももし自由が欲しいというなら...\n休日はデートをしよう！");
+                break;
+
+            case GraimTalkType.LIKE03_Date:
+                try
+                {
+                    Image((int)GraimImageType.G_up_humu_close);
+                    await Text("今は責任ある立場だから難しいが...\n落ち着いたら静かな場所に行きたいね。");
+                    Image((int)GraimImageType.G_up_nomal_open);
+                    await Text("君は海と山どっちが好きかな？");
+                    var answer = await Question("海", "山");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            await Talk((int)GraimTalkType.LIKE03_Date_sea, token);
+                            break;
+                        case SelectionType.Beta:
+                            await Talk((int)GraimTalkType.LIKE03_Date_Mountain, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.LIKE03_Date_sea:
+                Image((int)GraimImageType.G_up_nomal_close);
+                await Text("ああいいね、\nお嬢ちゃんは泳げるかな？\n夏になったら泳ぎに行こう。");
+                break;
+
+            case GraimTalkType.LIKE03_Date_Mountain:
+                Image((int)GraimImageType.G_up_nomal_close);
+                await Text("そうだね...\n春になったら一緒に登ろうか。\n山頂で飲む珈琲は美味しいらしいよ。");
+                break;
+
 
         }
 
