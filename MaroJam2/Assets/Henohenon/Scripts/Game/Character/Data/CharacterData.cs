@@ -6,6 +6,12 @@ using UnityEngine;
 public class CharacterData: ICharacterData
 {
     public float[] LoveLvPoints { get; }
+
+    //チュートリアル会話が何回目か
+    public bool GraimTutorialDone;
+    public bool LuxTutorialDone;
+
+
     public Sprite DefaultCharaImage { get; }
     public Sprite DefaultMiniImage { get; }
     public ItemType[] EventItemList { get; }

@@ -96,8 +96,12 @@ MonoBehaviour:
         voice: 1
   randomTalks:
     m_list:
+    - Key: 0
+      Value: 0500000006000000090000000a0000000b000000
     - Key: 1
-      Value: 04000000
+      Value: 0e00000011000000120000001500000016000000
+    - Key: 2
+      Value: 170000001a0000001b0000002200000023000000
   presentsInfo:
     m_list:
     - Key: 13

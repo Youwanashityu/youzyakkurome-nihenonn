@@ -24,9 +24,26 @@ public class GraimTalkHandler : TalkHandler, IDisposable
     protected override async UniTask Talk(int t, CancellationToken token)
     {
         var type = (GraimTalkType)t;
+
+        // ★ 初回 → Tutorial、2回目以降 → TutorialAgain に差し替える
+        if (type == GraimTalkType.Tutorial)
+        {
+            if (_data.GraimTutorialDone)
+            {
+                type = GraimTalkType.TutorialAgain; // 2回目以降
+            }
+            else
+            {
+                _data.GraimTutorialDone = true; // 初回終了フラグを立てる
+            }
+        }
+
+
+
         _talkController.TalkBox.gameObject.SetActive(true);
         switch (type)
         {
+
             case GraimTalkType.Tutorial:
                 try
                 {

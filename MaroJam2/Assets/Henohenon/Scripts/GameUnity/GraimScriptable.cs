@@ -10,6 +10,11 @@ public class GraimScriptable : ScriptableObject
 {
     [SerializeField]
     private float[] loveLvPoints;
+
+    //チュートリアル会話が何回目か
+    public bool GraimTutorialDone;
+
+
     [SerializeField]
     private SerializedDictionary<GraimImageType, Sprite> images;
     [SerializeField]

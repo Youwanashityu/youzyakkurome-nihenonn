@@ -24,7 +24,22 @@ public class LuxTalkHandler : TalkHandler, IDisposable
     protected override async UniTask Talk(int t, CancellationToken token)
     {
         var type = (LuxTalkType)t;
+
+        // ★ Lux の初回／2回目以降の分岐
+        if (type == LuxTalkType.Tutorial)
+        {
+            if (_data.LuxTutorialDone)
+            {
+                type = LuxTalkType.TutorialAgain;
+            }
+            else
+            {
+                _data.LuxTutorialDone = true;
+            }
+        }
+
         _talkController.TalkBox.gameObject.SetActive(true);
+
         switch (type)
         {
             case LuxTalkType.Tutorial:
