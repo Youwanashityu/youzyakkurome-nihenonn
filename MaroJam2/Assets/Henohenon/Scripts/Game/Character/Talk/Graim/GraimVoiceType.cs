@@ -20,4 +20,5 @@ public enum GraimVoiceType
     Youareripped,
     Magicalgirl,
     Match,
+    Shutup,
 }

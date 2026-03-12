@@ -11,8 +11,10 @@ public class GraimScriptable : ScriptableObject
     [SerializeField]
     private float[] loveLvPoints;
 
-    //チュートリアル会話が何回目か
+    //会話が何回目か
     public bool GraimTutorialDone;
+    public bool GraimChocolateDone;
+
 
 
     [SerializeField]

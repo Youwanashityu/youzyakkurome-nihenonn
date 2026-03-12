@@ -12,10 +12,13 @@ public class LuxScriptable : ScriptableObject
     private float[] loveLvPoints;
     [SerializeField]
 
-    //チュートリアル会話が何回目か
+    //会話が何回目か
     public bool LuxTutorialDone;
+    public bool LuxChocolateDone;
 
 
+
+    [SerializeField]
     private SerializedDictionary<LuxImageType, Sprite> images;
     [SerializeField]
     private SerializedDictionary<LuxVoiceType, AudioClip> voices;

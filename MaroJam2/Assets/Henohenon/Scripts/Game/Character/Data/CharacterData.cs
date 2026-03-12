@@ -9,7 +9,11 @@ public class CharacterData: ICharacterData
 
     //チュートリアル会話が何回目か
     public bool GraimTutorialDone;
+    public bool GraimChocolateDone;
+
     public bool LuxTutorialDone;
+    public bool LuxChocolateDone;
+
 
 
     public Sprite DefaultCharaImage { get; }

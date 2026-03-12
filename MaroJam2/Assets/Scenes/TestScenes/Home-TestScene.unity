@@ -1119,9 +1119,9 @@ MonoBehaviour:
   itemInfo: {fileID: 11400000, guid: 4885469abd381c143b4ea123379c695c, type: 2}
   initItems:
     m_list:
-    - Key: 4
+    - Key: 13
       Value: 3
-    - Key: 3
+    - Key: 8
       Value: 50000
 --- !u!4 &2125403652
 Transform:

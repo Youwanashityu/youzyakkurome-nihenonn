@@ -23,6 +23,8 @@ MonoBehaviour:
   - 1100
   - 2000
   - 2800
+  GraimTutorialDone: 0
+  GraimChocolateDone: 0
   images:
     m_list:
     - Key: 1
@@ -106,17 +108,45 @@ MonoBehaviour:
     m_list:
     - Key: 13
       Value:
-        talkType: 00000000
+        talkType: 26000000
         loveAmount: 100
-    - Key: 4
+    - Key: 12
       Value:
-        talkType: 00000000
+        talkType: 2b000000
         loveAmount: 5
-    - Key: 3
+    - Key: 11
       Value:
-        talkType: 00000000
+        talkType: 2e000000
+        loveAmount: 5
+    - Key: 10
+      Value:
+        talkType: 2f000000
+        loveAmount: 5
+    - Key: 9
+      Value:
+        talkType: 30000000
         loveAmount: 5
     - Key: 8
       Value:
-        talkType: 00000000
+        talkType: 31000000
+        loveAmount: 5
+    - Key: 7
+      Value:
+        talkType: 32000000
+        loveAmount: 5
+    - Key: 6
+      Value:
+        talkType: 33000000
+        loveAmount: 5
+    - Key: 5
+      Value:
+        talkType: 34000000
+        loveAmount: 5
+    - Key: 4
+      Value:
+        talkType: 35000000
+        loveAmount: 5
+    - Key: 0
+      Value:
+        talkType: 36000000
         loveAmount: 5

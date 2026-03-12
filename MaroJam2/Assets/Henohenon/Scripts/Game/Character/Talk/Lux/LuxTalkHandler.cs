@@ -38,6 +38,20 @@ public class LuxTalkHandler : TalkHandler, IDisposable
             }
         }
 
+        // ★ チョコの初回／2回目以降の分岐
+        if (type == LuxTalkType.Present_Chocolate)
+        {
+            if (_data.LuxChocolateDone)
+            {
+                type = LuxTalkType.Present_ChocolateAgain; // 2回目以降
+            }
+            else
+            {
+                _data.LuxChocolateDone = true; 
+            }
+        }
+
+
         _talkController.TalkBox.gameObject.SetActive(true);
 
         switch (type)
@@ -628,8 +642,192 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 break;
 
 
+            case LuxTalkType.Present_Chocolate:
+                try
+                {
+                    Image((int)LuxImageType.R_UP_EXCITING);
+                    await Text("えっこれってチョコなんですか！？\nおしゃれですね！嬉しいなぁ\nえへへ、どれから食べようかなぁ");
+                    Image((int)LuxImageType.R_UP_MUMUMU);
+                    await Text("ちなみにこれって俺だけ...ですよね？");
+                    var answer = await Question("そうだ", "からかう");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            await Talk((int)LuxTalkType.Present_Chocolate_love, token);
+                            break;
+                        case SelectionType.Beta:
+                            await Talk((int)LuxTalkType.Present_Chocolate_mock, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)LuxImageType.Default);
+                }
+                break;
+
+            case LuxTalkType.Present_Chocolate_love:
+                Image((int)LuxImageType.R_UP_EXCITING);
+                await Text("...当たり前ですよね！\nお姉さんは俺のことが好きなんだから！");
+                break;
 
 
+            case LuxTalkType.Present_Chocolate_mock:
+                try
+                {
+                    Image((int)LuxImageType.R_UP_SHY);
+                    await Text("ちょっと...\n違うんですか...？\nこんなにきれいなのを他の人にも...？");
+                    var answer = await Question("おや？", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)LuxVoiceType.Oh);
+                            await Talk((int)LuxTalkType.Present_Chocolate_mock_mock, token);
+                            break;
+                        case SelectionType.Beta:
+
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)LuxImageType.Default);
+                }
+                break;
+
+            case LuxTalkType.Present_Chocolate_mock_mock:
+                try
+                {
+                    Image((int)LuxImageType.R_UP_MUMUMU);
+                    await Text("お姉さんって結構ひどいんですね。\n俺はあなた以外いらないのに。");
+                    Image((int)LuxImageType.R_DOWN_NOMAL_CLOSE);
+                    await Text("歳下もてあそんで楽しいですか？");
+                    var answer = await Question("からかっただけだ", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Image((int)LuxImageType.R_DOWN_KOMARU);
+                            await Text("へぇ～そういうことするんですね。\n俺傷ついちゃいました。");
+                            Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                            await Text("でも俺は優しいから許してあげる！");
+                            Image((int)LuxImageType.R_DOWN_POKE);
+                            await Text("お詫びの印にチョコ食べさせてよ\nほら早く、あ～");
+                            break;
+                        case SelectionType.Beta:
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)LuxImageType.Default);
+                }
+                break;
+
+            case LuxTalkType.Present_ChocolateAgain:
+                Image((int)LuxImageType.R_UP_EXCITING);
+                await Text("あっチョコだ！\nわ～い！この間のおいしかったです！");
+                Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                await Text("そうだ！口開けてください！\nお姉さんにも食べさせてあげますよ。\nほら早く、あ～");
+                break;
+
+            case LuxTalkType.Present_Tiramisu:
+                Image((int)LuxImageType.R_UP_EXCITING);
+                await Text("わ～おいしそうなケーキ！！！\n女の人からこんなの貰ったの初めて！");
+                Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                await Text("待っててください！紅茶淹れますね！\n一緒に食べましょう！");
+                break;
+
+            case LuxTalkType.Present_Marronglacé:
+                Image((int)LuxImageType.R_DOWN_POKE);
+                await Text("なんですかこれ、栗？？？\n都会の人って栗好きなんですか？");
+                Image((int)LuxImageType.R_DOWN_SMILE_CLOSE);
+                await Text("栗採れる場所俺知ってますよ！\nあとで一緒に行きますか？");
+                break;
+
+            case LuxTalkType.Present_Madeleine:
+                Image((int)LuxImageType.R_UP_EXCITING);
+                await Text("わ！なんかふわふわしてる！\n美味しそう！！！");
+                await Text("まどれーぬ？\nなんか...お洒落だ...！\n都会ってすげえ...！");
+                break;
+
+            case LuxTalkType.Present_Macaron:
+                Image((int)LuxImageType.R_UP_SHY);
+                await Text("え...\nその...");
+                Image((int)LuxImageType.R_UP_MUMUMU);
+                await Text("俺でも知ってますよ！\nこれって高級品...ですよね？");
+                Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                await Text("お姉さんにとって俺って特別？\n嬉しいな。");
+                break;
+
+            case LuxTalkType.Present_Donut:
+                Image((int)LuxImageType.R_UP_EXCITING);
+                await Text("えー！！！！\nドーナツだ！！！！");
+                await Text("チョコかけていいんですか！？\n初めて見ました！！！\nわー美味しそう！！！");
+                Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                await Text("お姉さん大好き！");
+                break;
+
+            case LuxTalkType.Present_Cupcake:
+                Image((int)LuxImageType.R_DOWN_SHY);
+                await Text("おぉ...キラキラしてる...\nこのキラキラ食べていいやつ？");
+                await Text("食べられるんだ...都会ってすげえ...");
+                break;
+
+            case LuxTalkType.Present_Cookie:
+                Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                await Text("クッキーですね！！！\n食べたことあります！！\n美味しいですよね！");
+                await Text("今食べちゃお。\n美味しいです！ありがとうお姉さん！");
+                break;
+
+            case LuxTalkType.Present_Caramel:
+                Image((int)LuxImageType.R_UP_SHY);
+                await Text("キャラメルだー！！！\nわっ手がべたべたする。");
+                Image((int)LuxImageType.R_UP_SMILE_CLOSE);
+                await Text("キャラメル大好きなんです！\nお姉さんも一緒に食べましょう！");
+                break;
+
+
+            case LuxTalkType.Present_Candy:
+                try
+                {
+                    Image((int)LuxImageType.R_UP_MUMUMU);
+                    await Text("あめちゃん...\n俺のこと子供っぽいって思ってます？");
+                    await Text("チョコとか欲しかったな...\n男じゃなくて子供なんでしょ？");
+                    var answer = await Question("好きだからあげた", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Image((int)LuxImageType.R_UP_SHY);
+                            await Text("...えっ");
+                            break;
+                        case SelectionType.Beta:
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)LuxImageType.Default);
+                }
+                break;
+
+            case LuxTalkType.Present_Baumkuchen:
+                Image((int)LuxImageType.R_DOWN_POKE);
+                await Text("結婚式でもらうやつだ！\n美味しいですよね。");
+                Image((int)LuxImageType.R_DOWN_NOMAL_CLOSE);
+                await Text("俺らも配りましょうね。");
+                break;
 
 
 

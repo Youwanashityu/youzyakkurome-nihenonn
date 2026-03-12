@@ -38,6 +38,21 @@ public class GraimTalkHandler : TalkHandler, IDisposable
             }
         }
 
+        // ★ チョコの初回／2回目以降の分岐
+        if (type == GraimTalkType.Present_Chocolate)
+        {
+            if (_data.GraimChocolateDone)
+            {
+                type = GraimTalkType.Present_ChocolateAgain; 
+            }
+            else
+            {
+                _data.GraimChocolateDone = true; 
+            }
+        }
+
+
+
 
 
         _talkController.TalkBox.gameObject.SetActive(true);
@@ -783,7 +798,223 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 await Text("そうだね...\n春になったら一緒に登ろうか。\n山頂で飲む珈琲は美味しいらしいよ。");
                 break;
 
+            case GraimTalkType.Present_Chocolate:
+                try
+                {
+                    Image((int)GraimImageType.G_up_humu_giza);
+                    await Text("あぁ、チョコじゃないか。\n結構良いものだね、ありがとう。\n早速いただくとするよ。");
+                    Image((int)GraimImageType.G_down_why);
+                    await Text("ところで...これは少年にもあげたのかな");
+                    var answer = await Question("いいえ", "そうだ");
 
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            await Talk((int)GraimTalkType.Present_Chocolate_love, token);
+                            break;
+                        case SelectionType.Beta:
+                            await Talk((int)GraimTalkType.Present_Chocolate_mock, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.Present_Chocolate_love:
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("... ...！\nへぇ！そう！君も物好きだねえ！");
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("いやはや意外だな君みたいな人間は\n愛想がいいからてっきり配り歩いている\nものかと思ってしまったよ");
+                Image((int)GraimImageType.G_pa_yoyuu);
+                await Text("男の趣味悪いんじゃないかな？\nまあチョコは返さないけどね。");
+                break;
+
+            case GraimTalkType.Present_Chocolate_mock:
+                try
+                {
+                    Image((int)GraimImageType.G_down_haa);
+                    await Text("... ...？\nなんだい君、僕以外にも相手がいるのか");
+                    Image((int)GraimImageType.G_down_haa);
+                    await Text("なんというかそれは...\nあまりよろしくないんじゃないかな？\nこのチョコ安くないだろう？");
+                    Image((int)GraimImageType.G_down_damattore);
+                    await Text("それを配り歩くというのは...\n誤解される可能性の方が高いだろう。\nお嬢ちゃん、自覚あるかい？");
+                    await Text("純粋な感謝の表れだとしてもだね、\n一般的にこういったものは\n一人に絞るべきなんだよ、わかるかい？");
+                    await Text("君のその純粋無垢さは\n美徳ではあるが...今は抑えるべきだ。\n聞いてるかい？");
+
+                    var answer = await Question("素人は黙っとれ", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Voice((int)GraimVoiceType.Shutup);
+                            await Talk((int)GraimTalkType.Present_Chocolate_mock_mock, token);
+                            break;
+                        case SelectionType.Beta:
+
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.Present_Chocolate_mock_mock:
+                try
+                {
+                    Image((int)GraimImageType.G_down_why);
+                    await Text("... ...!\nな、なんてことを言うんだお嬢ちゃん\n僕は...");
+                    await Text("俺には君しかいないのに...\n");
+                    Image((int)GraimImageType.G_down_tere);
+                    await Text("やっぱりその...若い子の方が良いのかな\n僕はほら...\n君の隣に並べるような人間じゃないし...");
+                    var answer = await Question("ごめん、からかっただけだ", "");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            Image((int)GraimImageType.G_up_tere);
+                            await Text("なるほど、記憶失ってもらっても？");
+                            Image((int)GraimImageType.G_down_why);
+                            await Text("君ねぇ...\n歳上を揶揄うのも大概にしなさい、ね？\nはぁ...");
+                            await Text("さっきの説教は気にしなくていい、\nいいかい、忘れなさい。\nまったくもう質の悪い...");
+                            Image((int)GraimImageType.G_down_aori_open);
+                            await Text("君、口を開けなさい。\n罪の味として覚えておくといい。\n開けるまで待つからね。");
+                            break;
+                        case SelectionType.Beta:
+
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.Present_ChocolateAgain:
+                Image((int)GraimImageType.G_down_why);
+                await Text("君も飽きないねぇ...\nそうだな、今手を汚したくない、\n君の手ずから食べさせてくれないか？");
+                Image((int)GraimImageType.G_down_aori_open);
+                await Text("あぁ、楽しみだなぁ。");
+                break;
+
+            case GraimTalkType.Present_Tiramisu:
+                try
+                {
+                    Image((int)GraimImageType.G_down_nomal_open);
+                    await Text("あぁ、ティラミス？凝ってるねえ。\n有難くいただくとするよ。\nところで...");
+                    Image((int)GraimImageType.G_up_nomal_close);
+                    await Text("ティラミスに意味はあるのかい？\n何か嫌なことでもあったのかな？");
+                    var answer = await Question("ない", "あった");
+
+                    switch (answer)
+                    {
+                        case SelectionType.Alpha:
+                            await Talk((int)GraimTalkType.Present_Tiramisu_no, token);
+                            break;
+                        case SelectionType.Beta:
+                            await Talk((int)GraimTalkType.Present_Tiramisu_yes, token);
+                            break;
+
+                    }
+
+                }
+                finally
+                {
+                    Image((int)GraimImageType.Default);
+                }
+                break;
+
+            case GraimTalkType.Present_Tiramisu_no:
+                Image((int)GraimImageType.G_up_humu_close);
+                await Text("そうかそうか、変なことを聞いたね。\n何もないならそれでいいんだ。");
+                Image((int)GraimImageType.G_up_humu_giza);
+                await Text("ほら、席について。\n一緒に食べようね。");
+                break;
+
+            case GraimTalkType.Present_Tiramisu_yes:
+                Image((int)GraimImageType.G_down_haa);
+                await Text("それは大変だったね。\n相手の名前は言えるかい？");
+                Image((int)GraimImageType.G_down_happy);
+                await Text("大丈夫！\nすぐに何とかしてあげるからね。\n安心してくれていいよ。");
+                break;
+
+            case GraimTalkType.Present_Marronglacé:
+                Image((int)GraimImageType.G_down_why);
+                await Text("そうだな...\nお嬢ちゃんその...\nそういうことは段階を踏んでだね...");
+                Image((int)GraimImageType.G_down_tere);
+                await Text("はぁ...\n大人に対してはプレゼントは\nちゃんと意味を調べた方が良いよ。");
+                break;
+
+            case GraimTalkType.Present_Madeleine:
+                Image((int)GraimImageType.G_up_humu_close);
+                await Text("ふふ、随分と可愛いものをくれるね。\nそうだね...\n追加で珈琲も頼もうか。");
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("君もまだ帰るには惜しいだろう？");
+                break;
+
+            case GraimTalkType.Present_Macaron:
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("お嬢ちゃん、羽振りがいいねぇ。\nあぁいや、ガチャで出たのか。\nそれにしたっていいのかい？");
+                Image((int)GraimImageType.G_up_tere);
+                await Text("恐らく僕は君が思うよりはるかに...\nロマンチストでね、期待しても？");
+                break;
+
+            case GraimTalkType.Present_Donut:
+                Image((int)GraimImageType.G_up_tere);
+                await Text("ふふっ...\nいや失敬、急に笑ってしまってすまないね。");
+                Image((int)GraimImageType.G_up_nomal_open);
+                await Text("それにしたってわかりやすいというか...\nわざわざチョコがかけられているし...\nこれ、バレンタインだよね？");
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("はぁ～...かわいい子だね、\nお返しを待っていなさい。\n三倍返しだよ、期待してくれたまえ。");
+                break;
+
+            case GraimTalkType.Present_Cupcake:
+                Image((int)GraimImageType.G_down_nomal_close);
+                await Text("おぉ...女子力。\nこれ、作るの大変だったんじゃないのかい？");
+                Image((int)GraimImageType.G_down_smile);
+                await Text("こういったものを貢がれるのは初めてだな。\n君は優しい子だね。");
+                break;
+
+            case GraimTalkType.Present_Cookie:
+                Image((int)GraimImageType.G_down_nomal_close);
+                await Text("...\n...\n...");
+                Image((int)GraimImageType.G_pa_smile_close);
+                await Text("はぁ？");
+                break;
+
+            case GraimTalkType.Present_Caramel:
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("おやおや...\nお嬢ちゃんは随分と愚かというか...\n僕には好都合なんだけどね？");
+                Image((int)GraimImageType.G_down_happy);
+                await Text("味わって食べることにするよ\\nどうもありがとう。");
+                break;
+
+            case GraimTalkType.Present_Candy:
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("なんかちょっと子供っぽいね...\nふふ、ちょっとからかっただけさ。\nありがとう。");
+                Image((int)GraimImageType.G_down_aori_giza);
+                await Text("これを舐めている間は\n煙草を吸わなくて済みそうだ。");
+                break;
+
+            case GraimTalkType.Present_Baumkuchen:
+                Image((int)GraimImageType.G_down_why);
+                await Text("えっ\nけ、結婚するのかい？\n相手は誰かな？");
+                Image((int)GraimImageType.G_down_damattore);
+                await Text("いや単なる好奇心だよ深い意味があるわけじゃないんだ\nでもそれそれとして君は幼すぎるし判断能力に欠ける\n相手はちゃんとした人なんだろうねお嬢ちゃん");
+                Image((int)GraimImageType.G_down_tere);
+                await Text("お嬢ちゃん、\n歳上で弄んで楽しいかい？");
+                break;
         }
 
         _talkController.TalkBox.SetActive(false);
