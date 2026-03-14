@@ -1132,7 +1132,7 @@ MonoBehaviour:
   itemInfo: {fileID: 11400000, guid: 4885469abd381c143b4ea123379c695c, type: 2}
   graim: {fileID: 11400000, guid: e689dca7021e82d458dd187ed4fc886f, type: 2}
   lux: {fileID: 11400000, guid: 918ebb73ba01fa44dadfce09b845867d, type: 2}
-  graimTalkType: 0
+  graimTalkType: 20
   luxTalkType: 7
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

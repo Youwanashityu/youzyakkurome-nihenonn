@@ -120,6 +120,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
             case LuxTalkType.TutorialAgain_Stay:
                 Image((int)LuxImageType.Mini_Holo);
                 await Text("は～い！わかりました！\nもう一回説明しますね");
+                await Talk((int)LuxTalkType.Tutorial_Stay, token);
                 break;
 
             case LuxTalkType.LIKE01_Hello:

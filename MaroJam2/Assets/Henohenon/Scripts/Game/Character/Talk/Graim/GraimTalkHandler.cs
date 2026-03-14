@@ -92,10 +92,10 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 await Text("...少年の方から話は聞いたんだろう？\n僕と話したかったのかい？\nふふ、可愛い子だね。");
                 await Text("まぁもう聞いたかと思うが...\nこの体は偽物でね。\n本物はガチャをひけば出会えるよ。");
                 await Text("今の僕は君と仲良くなっても何も\n起きないんだ。残念だね？");
-                await Text("君の目的は僕か少年と仲良くなること。\n本物の人間と仲良くなれば\n文字通りクリアってわけだ。");
+                await Text("君は僕か少年と仲良くなること。\n告白されるくらいになれば\n文字通りクリアってわけだ。");
                 await Text("ガチャアイコンをタップするといい。\n現在開催中のガチャは一個だ。\n君はそれをまわすといい。");
-                await Text("キャラクターの対象は僕か少年だ。\n好きなだけひくといい。");
-                await Text("あぁ、ピックアップ対象を僕にしなさい\nタップして変えるだけだ。簡単だね？\nそうすればきっと僕と出会えるはずだ。");
+                await Text("キャクターの対象は僕か少年だ。\n好きなだけひくといい。");
+                await Text("ピックアップ対象を僕にしなさい\nタップして変えるだけだ。簡単だね？\nそうすれば僕と出会えるはずだ。");
                 await Text("まあ、お嬢ちゃんの運が悪くとも\n天井が来たら必ず迎えに行くさ。");
                 await Text("それと。\nガチャで出たお菓子は僕によこせ。\n僕と仲良くなりたいんだろう？");
                 await Text("仮想体からは以上だ。\nいくらでも話してあげるから、\nまたおいで？");
@@ -129,6 +129,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
             case GraimTalkType.TutorialAgain_Stay:
                 Image((int)GraimImageType.Mini_Holo);
                 await Text("うんうん、良い子だね。\nもう一回話してあげよう。\nあぁ、何回でもいいよ？");
+                await Talk((int)GraimTalkType.Tutorial_Stay, token);
                 break;
 
             case GraimTalkType.LIKE01_Hello:
@@ -194,17 +195,15 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                     Image((int)GraimImageType.G_up_humu_giza);
                     await Text("それなら鍵の横にある＋ボタンを\n押すといい、換金所に案内される。");
                     Image((int)GraimImageType.G_up_humu_close);
-                    await Text("お金がいっぱいあるのが見えるはずだ。\n全部君が使っていい。\n全部ガチャに使っていいんだよ。");
+                    await Text("お金があるのが見えるはずだ。\n全部君が使っていい。\n全部ガチャに使っていいんだよ。");
                     Image((int)GraimImageType.G_up_nomal_giza);
                     await Text("...出所が気になる？\nへぇ、君聡いね。\nこのお金は今は他所では使えないよ。");
                     Image((int)GraimImageType.G_up_humu_close);
                     await Text("まあ今バレなければ良い話だが...\nちょっとの辛抱だよ。");
-                    Image((int)GraimImageType.G_up_humu_giza);
-                    await Text("それにここだけでも良いんだよ。\n少しずつ金を回すんだ。\nいずれ全ての人間がこの金を手に入れる。");
                     Image((int)GraimImageType.G_down_aori_giza);
                     await Text("しばらくしたら皆がこのお金を使う。\nそしたら僕の勝ちだ。");
                     Image((int)GraimImageType.G_pa_yoyuu);
-                    await Text("見分けのつかない悪貨を誰が断罪する？\n黙って本物を懐にしまえばいい。");
+                    await Text("精巧な悪貨を誰が断罪する？\n黙って本物を懐にしまえばいい。");
                     var answer = await Question("無罪！", "有罪！");
 
                     switch (answer)
@@ -230,7 +229,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
 
             case GraimTalkType.LIKE01_Money_yes_guilty:
                 Image((int)GraimImageType.G_down_damattore);
-                await Text("う～ん、でももう手遅れじゃないかなぁ\nだってここに僕がいるってことは\n君はそのお金でガチャを回した訳だし...");
+                await Text("う～ん、もう手遅れじゃないかなぁ\nだってここに僕がいるってことは\n君はガチャを回した訳だし...");
                 Image((int)GraimImageType.G_up_nomal_open);
                 await Text("ふふ...僕らは共犯者なんだよ。\n仲良くしよう、ね？");
                 break;
@@ -248,7 +247,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                     Image((int)GraimImageType.G_down_why);
                     await Text("君はどうして来てくれるのかな？\nあぁ、責めてるわけじゃないよ。");
                     Image((int)GraimImageType.G_down_haa);
-                    await Text("人付き合いをしてこなかったからね。\n新鮮なんだ。\n君は僕にどんな利益を見出したのかな？");
+                    await Text("人付き合いをしてこなかったからね。\n新鮮なんだ。\n僕にどんな利益を見出したのかな？");
                     var answer = await Question("説明しよう！", "");
 
                     switch (answer)
@@ -312,7 +311,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 Image((int)GraimImageType.G_up_nomal_close);
                 await Text("しばらくはここに居るよ。\n仕事内容は...言わない方が良いか。");
                 Image((int)GraimImageType.G_down_damattore);
-                await Text("まあ、生活するのに困らないくらいには\n稼いでいる、自立した男だよ。");
+                await Text("まあ、1人で生きていけるくらいに\n稼いでいる、自立した男だよ。");
                 break;
 
             case GraimTalkType.LIKE02_Dog:
@@ -357,7 +356,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 Image((int)GraimImageType.G_up_tere);
                 await Text("ふふふ...\nお嬢ちゃん僕に飼われたいの？");
                 Image((int)GraimImageType.G_down_aori_giza);
-                await Text("似合う首輪でも買ってきてあげようか？\n...\n冗談だからね？");
+                await Text("似合う首輪でもつけてあげようか？\n...\n冗談だからね？");
                 break;
 
 
@@ -369,7 +368,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                     Image((int)GraimImageType.G_up_humu_giza);
                     await Text("ここらは静かでいいよね...\n人気もあまりないし...");
                     Image((int)GraimImageType.G_up_nomal_giza);
-                    await Text("内緒話にはもってこいだと思わないかい");
+                    await Text("内緒話にはもってこいだね");
                     var answer = await Question("静粛に！", "");
 
                     switch (answer)
@@ -437,7 +436,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 Image((int)GraimImageType.G_up_nomal_close);
                 await Text("キールとかどうかな？\n白ワインを使ったカクテルだよ。");
                 Image((int)GraimImageType.G_down_why);
-                await Text("ところで君、カクテル言葉ってわかる？\nいや、分からないならいいんだ。\nあまり馴染みがないだろうしね。");
+                await Text("君、カクテル言葉ってわかる？\nいや、分からないならいいんだ。\nあまり馴染みがないだろうしね。");
                 break;
 
             case GraimTalkType.LIKE02_Valentine:
@@ -446,7 +445,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                     Image((int)GraimImageType.G_up_nomal_open);
                     await Text("お嬢ちゃん、甘未は好きかい？\nほら、バレンタインの時期だろう？今");
                     Image((int)GraimImageType.G_down_damattore);
-                    await Text("あれ、もう過ぎてるんだったかな。\n時差ボケかな...そんなレベルじゃない？");
+                    await Text("あれ、もう過ぎてるんだったかな。\n時差ボケかな...え？ホワイトデー？\nもう？");
                     Image((int)GraimImageType.G_down_damattore);
                     await Text("お嬢ちゃんには好い人がいるのかな？\n恋人とかいたりする？");
                     var answer = await Question("理論上は可能です", "");
@@ -456,7 +455,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                         case SelectionType.Alpha:
                             Voice((int)GraimVoiceType.Theoretically);
                             Image((int)GraimImageType.G_down_haa);
-                            await Text("...人体錬成するとかそういうことかな？\nあまり触れちゃいけなかったかな...");
+                            await Text("...人体錬成するとかかな？\nあまり触れちゃいけなかったかな...");
                             Image((int)GraimImageType.G_down_happy);
                             await Text("ちなみに僕は今フリーだからね。\n安心してくれていいよ？");
                             break;
@@ -479,9 +478,9 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                     Image((int)GraimImageType.G_up_nomal_close);
                     await Text("君ってアクセサリーはつける？\nあぁ、いやちょっとね。");
                     Image((int)GraimImageType.G_up_humu_close);
-                    await Text("僕らの出会いはまさしく運命だろう。\n記念に何かお嬢ちゃんに残したくてね。");
+                    await Text("僕らの出会いはまさしく運命だろう。\n記念に何か残したくてね。");
                     Image((int)GraimImageType.G_down_nomal_close);
-                    await Text("君を子供じゃなくて一人の女性として...\nそう扱いたいんだ。\nピアスとかどうかな？");
+                    await Text("君を子供じゃなくて女性として...\nそう扱いたいんだ。\nピアスとかどうかな？");
                     Image((int)GraimImageType.G_down_smile);
                     await Text("近々開けようと思ってね、\nお揃いのものを君につけたいんだ。");
                     var answer = await Question("よろしくてよ", "");
@@ -493,7 +492,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                             Image((int)GraimImageType.G_up_tere);
                             await Text("...!\r\nお嬢ちゃん、その返事だとあれだね、\n悪役令嬢みたいだね。");
                             Image((int)GraimImageType.G_up_nomal_close);
-                            await Text("君の考える大人の女性はそうなのかな？\n可愛らしい子だね。");
+                            await Text("君の中の大人の女性はそうなのかな？\n可愛らしい子だね。");
                             Image((int)GraimImageType.G_down_aori_open);
                             await Text("今度一緒に選びに行こうね。");
                             break;
@@ -516,7 +515,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                     Image((int)GraimImageType.G_down_damattore);
                     await Text("僕は口数が多い方ではないが...\n君のことはかなり気に入っているよ。\nそう見えない？悲しいね");
                     Image((int)GraimImageType.G_pa_yoyuu);
-                    await Text("そうだな...\n君の返答によっては\nずっとここに居ても良いと思っているよ。");
+                    await Text("そうだな...\n君の返答によっては\nずっとここに居ても良いよ。");
                     var answer = await Question("ばいばーい", "いえーい！");
 
                     switch (answer)
@@ -543,7 +542,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 try
                 {
                     Image((int)GraimImageType.G_down_haa);
-                    await Text("えっそんな...\n君ってもしかして僕のことが嫌いかい？");
+                    await Text("えっそんな...\nもしかして僕のことが嫌いかい？");
                     Image((int)GraimImageType.G_down_haa);
                     await Text("そんなわけないだろう？\n僕らの仲じゃないか、酷いなぁ。");
                     Image((int)GraimImageType.G_up_nomal_close);
@@ -559,15 +558,15 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                             Image((int)GraimImageType.G_down_why);
                             await Text("本当に？");
                             Image((int)GraimImageType.G_down_haa);
-                            await Text("君と関わっていて思ったが\n君は頭が弱すぎるな。\n僕を拒絶するのは得策ではないはずだ。");
+                            await Text("君と関わっていて思ったが\n君は頭が弱すぎるな。\n僕を拒絶するのは得策ではない。");
                             Image((int)GraimImageType.G_down_damattore);
-                            await Text("お嬢ちゃんは弱いんだから\n僕と一緒に居た方が良い、そうだろう？");
+                            await Text("お嬢ちゃんは弱いんだから\n僕と一緒に居た方が良い\nそうだろう？");
                             Image((int)GraimImageType.G_down_tere);
                             await Text("それとも少年の方に行くつもりか？\r\n");
                             Image((int)GraimImageType.G_down_why);
                             await Text("若ければ誰でも良いのか？");
                             Image((int)GraimImageType.G_down_damattore);
-                            await Text("当たり前だが歳の分知識と経験がある。\n俺は彼より強い。");
+                            await Text("当たり前だが歳の分\n知識と経験がある。\n俺は彼より強い。");
                             Image((int)GraimImageType.G_down_damattore);
                             await Text("考え直すべきだ。\nお嬢ちゃんが手を取るべきは俺だ。");
                             Image((int)GraimImageType.G_up_humu_giza);
@@ -598,7 +597,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 Image((int)GraimImageType.G_up_nomal_close);
                 await Text("少年に会うのはやめなさい。いいね？\n僕がいるんだから充分だろう？");
                 Image((int)GraimImageType.G_down_damattore);
-                await Text("付き合う友達は選んだほうが良いよ。\nお嬢ちゃんの為を思って言っているんだ。");
+                await Text("付き合う友達は選んだほうが良いよ。\nお嬢ちゃんの為に言っているんだ。");
                 break;
 
             case GraimTalkType.LIKE03_Muscle:
@@ -673,7 +672,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 {
                     Image((int)GraimImageType.G_down_why);
                     await Text("えっ");
-                    await Text("お嬢ちゃんって魔法少女だったのかい？\nなるほど確かに...");
+                    await Text("君、魔法少女だったのかい？\nなるほど確かに...");
                     Image((int)GraimImageType.G_down_tere);
                     await Text("ちょっと待ちたまえ、\n僕も魔法少女になるのかい？");
                     Image((int)GraimImageType.G_down_haa);
@@ -700,7 +699,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
 
             case GraimTalkType.LIKE03_Muscle_yes_yes:
                 Image((int)GraimImageType.G_down_haa);
-                await Text("お嬢ちゃんと争うつもりはないかな？\nああでもそっちの方がわかりやすいか...");
+                await Text("お嬢ちゃんと争うつもりはないかな？\nでもそっちの方がわかりやすいか...");
                 Image((int)GraimImageType.G_down_happy);
                 await Text("妥協してハグとかどうかな？\n力いっぱい抱きしめてあげるよ。");
                 Image((int)GraimImageType.G_up_nomal_giza);
@@ -754,7 +753,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 Image((int)GraimImageType.G_up_humu_close);
                 await Text("他人と交流してほしくないんだ。\n仕事なんてさせないし、\n買い物は通販で良いだろう？");
                 Image((int)GraimImageType.G_down_haa);
-                await Text("パートナーはアクセサリーじゃないんだ。\n外で見せびらかすとかは考えられないな");
+                await Text("パートナーは飾りじゃないんだ。\n見せびらかすとかは考えられないな");
                 Image((int)GraimImageType.G_down_aori_open);
                 await Text("瞳に僕の構成したものだけを映す、\nこれが一番素敵だね...");
                 Image((int)GraimImageType.G_down_smile);
@@ -765,7 +764,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 try
                 {
                     Image((int)GraimImageType.G_up_humu_close);
-                    await Text("今は責任ある立場だから難しいが...\n落ち着いたら静かな場所に行きたいね。");
+                    await Text("今は責任ある立場だから難しいが...\n落ち着いたら...\nそうだな、静かな場所に行きたいね。");
                     Image((int)GraimImageType.G_up_nomal_open);
                     await Text("君は海と山どっちが好きかな？");
                     var answer = await Question("海", "山");
@@ -804,7 +803,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                     Image((int)GraimImageType.G_up_humu_giza);
                     await Text("あぁ、チョコじゃないか。\n結構良いものだね、ありがとう。\n早速いただくとするよ。");
                     Image((int)GraimImageType.G_down_why);
-                    await Text("ところで...これは少年にもあげたのかな");
+                    await Text("ところで...少年にもあげたのかな");
                     var answer = await Question("いいえ", "そうだ");
 
                     switch (answer)
@@ -829,7 +828,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 Image((int)GraimImageType.G_down_damattore);
                 await Text("... ...！\nへぇ！そう！君も物好きだねえ！");
                 Image((int)GraimImageType.G_down_damattore);
-                await Text("いやはや意外だな君みたいな人間は\n愛想がいいからてっきり配り歩いている\nものかと思ってしまったよ");
+                await Text("いやはや意外だな君みたいな人間は\n愛想がいいから配り歩いている\nものかと思ってしまったよ");
                 Image((int)GraimImageType.G_pa_yoyuu);
                 await Text("男の趣味悪いんじゃないかな？\nまあチョコは返さないけどね。");
                 break;
@@ -838,12 +837,12 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                 try
                 {
                     Image((int)GraimImageType.G_down_haa);
-                    await Text("... ...？\nなんだい君、僕以外にも相手がいるのか");
+                    await Text("... ...？\nなんだい君、二股かい？");
                     Image((int)GraimImageType.G_down_haa);
                     await Text("なんというかそれは...\nあまりよろしくないんじゃないかな？\nこのチョコ安くないだろう？");
                     Image((int)GraimImageType.G_down_damattore);
                     await Text("それを配り歩くというのは...\n誤解される可能性の方が高いだろう。\nお嬢ちゃん、自覚あるかい？");
-                    await Text("純粋な感謝の表れだとしてもだね、\n一般的にこういったものは\n一人に絞るべきなんだよ、わかるかい？");
+                    await Text("純粋な感謝の表れだとしてもだね、\n一般的にこういったものは\n一人に絞るべきなんだよ\nわかるかい？");
                     await Text("君のその純粋無垢さは\n美徳ではあるが...今は抑えるべきだ。\n聞いてるかい？");
 
                     var answer = await Question("素人は黙っとれ", "");
@@ -874,7 +873,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                     await Text("... ...!\nな、なんてことを言うんだお嬢ちゃん\n僕は...");
                     await Text("俺には君しかいないのに...\n");
                     Image((int)GraimImageType.G_down_tere);
-                    await Text("やっぱりその...若い子の方が良いのかな\n僕はほら...\n君の隣に並べるような人間じゃないし...");
+                    await Text("やっぱり...若い子の方が良いのかな\nそれに僕はほら...\n善い人間とは言えないし...");
                     var answer = await Question("ごめん、からかっただけだ", "");
 
                     switch (answer)
@@ -883,7 +882,7 @@ public class GraimTalkHandler : TalkHandler, IDisposable
                             Image((int)GraimImageType.G_up_tere);
                             await Text("なるほど、記憶失ってもらっても？");
                             Image((int)GraimImageType.G_down_why);
-                            await Text("君ねぇ...\n歳上を揶揄うのも大概にしなさい、ね？\nはぁ...");
+                            await Text("君ねぇ...\n歳上で遊ばないの、ね？\nはぁ...");
                             await Text("さっきの説教は気にしなくていい、\nいいかい、忘れなさい。\nまったくもう質の悪い...");
                             Image((int)GraimImageType.G_down_aori_open);
                             await Text("君、口を開けなさい。\n罪の味として覚えておくといい。\n開けるまで待つからね。");
@@ -972,18 +971,18 @@ public class GraimTalkHandler : TalkHandler, IDisposable
 
             case GraimTalkType.Present_Donut:
                 Image((int)GraimImageType.G_up_tere);
-                await Text("ふふっ...\nいや失敬、急に笑ってしまってすまないね。");
+                await Text("ふふっ...\n失敬、急に笑ってしまってすまないね。");
                 Image((int)GraimImageType.G_up_nomal_open);
-                await Text("それにしたってわかりやすいというか...\nわざわざチョコがかけられているし...\nこれ、バレンタインだよね？");
+                await Text("わかりやすいというか...\nわざわざチョコがかけられているし...\nこれ、バレンタインだよね？");
                 Image((int)GraimImageType.G_down_damattore);
                 await Text("はぁ～...かわいい子だね、\nお返しを待っていなさい。\n三倍返しだよ、期待してくれたまえ。");
                 break;
 
             case GraimTalkType.Present_Cupcake:
                 Image((int)GraimImageType.G_down_nomal_close);
-                await Text("おぉ...女子力。\nこれ、作るの大変だったんじゃないのかい？");
+                await Text("おぉ...女子力。\nこれ、作るの大変じゃないのかい？");
                 Image((int)GraimImageType.G_down_smile);
-                await Text("こういったものを貢がれるのは初めてだな。\n君は優しい子だね。");
+                await Text("こういったものは初めてだな。\n君は優しい子だね。");
                 break;
 
             case GraimTalkType.Present_Cookie:

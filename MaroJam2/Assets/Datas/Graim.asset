@@ -37,8 +37,12 @@ MonoBehaviour:
       Value: {fileID: 21300000, guid: 9c1775792546a454a92f531878430696, type: 3}
     - Key: 5
       Value: {fileID: 21300000, guid: 36afafdc676647d44af7461184c91b7a, type: 3}
+    - Key: 7
+      Value: {fileID: 21300000, guid: 66cec0e9cd8bc3e458aaaf6f2c4c7ad8, type: 3}
     - Key: 6
       Value: {fileID: 21300000, guid: e7ac77ee089e849438c72a692bec8495, type: 3}
+    - Key: 8
+      Value: {fileID: 21300000, guid: bf0ef5d7a50ca524a9fb99f44f4c0276, type: 3}
     - Key: 9
       Value: {fileID: 21300000, guid: 933293c4c3e4cb242ac7710d0bd2cf2c, type: 3}
     - Key: 10
@@ -49,14 +53,24 @@ MonoBehaviour:
       Value: {fileID: 21300000, guid: eafdb77cb0aec104eb0f916c0fbcdf5b, type: 3}
     - Key: 13
       Value: {fileID: 21300000, guid: 7dde7bd7eba01ad4eb878f65f741414b, type: 3}
+    - Key: 15
+      Value: {fileID: 21300000, guid: 91872819955a43c4d8b9c4cf2269c128, type: 3}
     - Key: 14
       Value: {fileID: 21300000, guid: 430dd6e85abb6f54e9c20304f3ef857f, type: 3}
-    - Key: 7
-      Value: {fileID: 21300000, guid: 91872819955a43c4d8b9c4cf2269c128, type: 3}
-    - Key: 8
-      Value: {fileID: 21300000, guid: 430dd6e85abb6f54e9c20304f3ef857f, type: 3}
-    - Key: 0
-      Value: {fileID: 21300000, guid: 430dd6e85abb6f54e9c20304f3ef857f, type: 3}
+    - Key: 19
+      Value: {fileID: 21300000, guid: 6173a14aa3943fb45967023286e16fc9, type: 3}
+    - Key: 20
+      Value: {fileID: 21300000, guid: 0d1d1484925a7344aaeaf2dd1680673f, type: 3}
+    - Key: 18
+      Value: {fileID: 21300000, guid: 161588d20b24543438db7a000cab5e7f, type: 3}
+    - Key: 21
+      Value: {fileID: 21300000, guid: b18a682946e4e684caa864a2308788d1, type: 3}
+    - Key: 23
+      Value: {fileID: 21300000, guid: 0e28f6098c161634492edc58b5148529, type: 3}
+    - Key: 16
+      Value: {fileID: 21300000, guid: a8d2bca6bf2ee074cb81679d7a4e5986, type: 3}
+    - Key: 17
+      Value: {fileID: 21300000, guid: 4e02d5b1a757f5a468ca5e391e76cdf2, type: 3}
   voices:
     m_list:
     - Key: 1
@@ -71,6 +85,8 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: 9da48d43d93be9247aa112a59400c46e, type: 3}
     - Key: 6
       Value: {fileID: 8300000, guid: bb0176bc0ec85e740b826855b6ad4a6b, type: 3}
+    - Key: 13
+      Value: {fileID: 8300000, guid: d423a4304ecb5ef48b2b8b672aedad2f, type: 3}
     - Key: 7
       Value: {fileID: 8300000, guid: 680348869c625634c89b6f46b504ba5d, type: 3}
     - Key: 8
@@ -81,6 +97,16 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: 7ec756b07b180994ba73f114883fc1ed, type: 3}
     - Key: 12
       Value: {fileID: 8300000, guid: 941d91cd0c664f747a77229a2cc875ee, type: 3}
+    - Key: 15
+      Value: {fileID: 8300000, guid: 2c5ed760b684a2349afac1c4efd35412, type: 3}
+    - Key: 16
+      Value: {fileID: 8300000, guid: 03691c82f73e26943b69d3b0fc80a2c6, type: 3}
+    - Key: 17
+      Value: {fileID: 8300000, guid: f77b714a9faeb8e4b8209c5711a1c2b2, type: 3}
+    - Key: 18
+      Value: {fileID: 8300000, guid: a8f95651264d90043ace9006f7923d20, type: 3}
+    - Key: 19
+      Value: {fileID: 8300000, guid: c2988692f618153449b69833a9a372b3, type: 3}
   simpleParams:
     m_list:
     - Key: 0
