@@ -51,8 +51,6 @@ public enum LuxTalkType
     Present_Chocolate_mock_mock,
     Present_ChocolateAgain,
     Present_Tiramisu,
-    Present_Tiramisu_no,
-    Present_Tiramisu_yes,
     Present_Marronglacé,
     Present_Madeleine,
     Present_Macaron,

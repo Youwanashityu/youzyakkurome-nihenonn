@@ -84,7 +84,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 await Text("キャラクターアイコンをタップすると\nホーム画面に誰を置くか選べます。");
                 await Text("とはいっても今は仮想体の俺しか\nいないんですけどね...");
                 await Text("ガチャアイコンをタップすると\nガチャ画面に飛びます！");
-                await Text("好きなだけ回せるので\n俺をPickUP対象にしてくださいね！\nガチャ画面で僕をタップしてください！");
+                await Text("好きなだけ回せるので\n俺をPickUP対象にしてくださいね！\nガチャ画面で僕を選んで！");
                 await Text("PickUP対象にしてくれると\n俺が出る確率が上がりますよ～");
                 await Text("運が悪くても大丈夫！\n天井になったら絶対会いに行きます！");
                 await Text("あ！それとそれと！\nガチャで出たお菓子は俺にくれると\n嬉しいなぁ...");
@@ -195,7 +195,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 await Text("このお金はどこから...?\nさぁ...?");
                 Image((int)LuxImageType.R_DOWN_NOMAL_CLOSE);
                 await Text("グレイムさんが流通させている\nここ限定通貨だとは聞きましたけど...");
-                await Text("ほらなんでしたっけ...\r\n商品券と大して変わらない？みたいな？");
+                await Text("ほらなんでしたっけ...\r\n商品券？みたいな？");
                 Image((int)LuxImageType.R_DOWN_POKE);
                 await Text("意外と彼も良い人ですね～");
                 break;
@@ -205,7 +205,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 {
 
                     Image((int)LuxImageType.R_UP_EXCITING);
-                    await Text("お姉さんって良い匂いしますね～\nやっぱり向こうじゃ香水って当たり前？");
+                    await Text("お姉さんって良い匂いしますね～\nやっぱり都会じゃ香水って当たり前？");
                     Image((int)LuxImageType.R_UP_SHY);
                     await Text("あっすみません嗅いじゃって...!\n気になっちゃって...");
                     var answer = await Question("有罪！", "無罪！");
@@ -302,7 +302,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
             case LuxTalkType.LIKE01_Scandal_no:
                 Image((int)LuxImageType.R_UP_MUMUMU);
                 await Text("...お姉さんは強いんですね！\n確かに歳下の俺じゃ頼りないかも...");
-                await Text("で、でも！\n力はないけど傍にいることはできます！");
+                await Text("で、でも！\n傍にいることはできます！");
                 Image((int)LuxImageType.R_UP_SMILE_CLOSE);
                 await Text("名前を呼んでくれたら\n3コール以内に駆け付けるから。");
                 Image((int)LuxImageType.R_UP_SHY);
@@ -320,7 +320,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 try
                 {
                     Image((int)LuxImageType.R_UP_SMILE_CLOSE);
-                    await Text("お姉さんも俺に興味があるんですか？\nいっぱい話しかけてくれて嬉しいです！");
+                    await Text("お姉さんも俺に興味があるんですか？\nいっぱいお話できて嬉しいです！");
                     var answer = await Question("おや？", "気になって夜しか眠れない");
 
                     switch (answer)
@@ -355,7 +355,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 Image((int)LuxImageType.R_DOWN_POKE);
                 await Text("俺はルクスです！\n昔からここに住んでいます！");
                 Image((int)LuxImageType.R_DOWN_EXCITING);
-                await Text("学生なんですが同年代が少なくて...\nあなたがここに来てくれて嬉しいです！");
+                await Text("学生なんですが同年代が少なくて...\nあなたが来てくれて嬉しいです！");
                 Image((int)LuxImageType.R_DOWN_KOMARU);
                 await Text("ただ、その...この町は\n皆身内みたいなものでして...\n基本無礼講というか...");
                 Image((int)LuxImageType.R_DOWN_SHY);
@@ -364,7 +364,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
 
             case LuxTalkType.LIKE02_Hello:
                 Image((int)LuxImageType.R_UP_EXCITING);
-                await Text("最近お姉さんのことが知れて嬉しいです。\n人と仲良くなれるのって楽しいですね。");
+                await Text("お姉さんのことが知れて嬉しいです。\n人と仲良くなれるのって良いですね。");
                 Image((int)LuxImageType.R_UP_SMILE_CLOSE);
                 await Text("こんな穏やかな時間がずっと続けば...\nそうは思いませんか？");
                 Image((int)LuxImageType.R_UP_EXCITING);
@@ -376,8 +376,8 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 try
                 {
                     Image((int)LuxImageType.R_DOWN_NOMAL_OPEN);
-                    await Text("お姉さんは普段何をしているんですか？\n俺はここのカフェで働いていて...\n珈琲淹れるのうまいんですよ。");
-                    await Text("ここには珈琲と紅茶しかないですけど...\nクリームソーダを飲んでみたいです！\nお姉さんは飲んだことありますか？");
+                    await Text("お姉さんって珈琲とか好き？\n俺はここのカフェで働いていて...\n珈琲淹れるのうまいんですよ。");
+                    await Text("ここには珈琲と紅茶だけだけど...\nクリームソーダを飲んでみたいです！\nお姉さんは飲んだことありますか？");
                     var answer = await Question("ない", "ある");
 
                     switch (answer)
@@ -404,7 +404,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 Image((int)LuxImageType.R_DOWN_SMILE_CLOSE);
                 await Text("お金が貯まったら上京するので...\nそしたら一緒に飲みに来ましょうね！");
                 Image((int)LuxImageType.R_UP_SMILE_CLOSE);
-                await Text("デートですよ、忘れないでくださいね。");
+                await Text("デートですよ、忘れないでね。");
                 break;
 
             case LuxTalkType.LIKE02_Date_yes:
@@ -459,7 +459,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
 
             case LuxTalkType.LIKE02_Valentine:
                 Image((int)LuxImageType.R_DOWN_SMILE_OPEN);
-                await Text("お姉さんチョコレートって好きですか？\n今はバレンタイン？の時期なんですよね");
+                await Text("お姉さんチョコって好きですか？\nバレンタイン？の時期なんですよね");
                 Image((int)LuxImageType.R_DOWN_POKE);
                 await Text("あれ、もう過ぎてる？\nチョコレートがもらえるんですよね！");
                 await Text("俺食べたことなくって...\nここでも出してないんですよ。\nショートケーキはあるんですけどね。");
@@ -473,7 +473,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                     Image((int)LuxImageType.R_DOWN_NOMAL_OPEN);
                     await Text("あの...お姉さん写真撮りませんか？");
                     Image((int)LuxImageType.R_DOWN_KOMARU);
-                    await Text("記念に何か残るものが欲しくて...\n都会から人なんてなかなか来ないから...");
+                    await Text("記念に何か残るものが欲しくて...\n都会から人なんて来ないから...");
                     Image((int)LuxImageType.R_UP_MUMUMU);
                     await Text("このお店に飾りたいんです！\nお願い！一枚だけ！");
                     var answer = await Question("今回に限り！", "");
@@ -504,7 +504,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 {
                     Image((int)LuxImageType.R_UP_MUMUMU);
                     await Text("俺は子供っぽいかもしれないけど...\nちゃんとした男として\nあなたのことが好きです！");
-                    await Text("世界が君の敵になったとしても守るから\nだから、ここにずっといてよ！");
+                    await Text("世界が君の敵になっても守るから\nだから、ここにずっといてよ！");
 
                     var answer = await Question("さようなら", "かわいい");
 
@@ -531,11 +531,11 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                 Image((int)LuxImageType.R_UP_SHY);
                 await Text("...?\nか、帰っちゃうんですか...？\nやだ...ここに居てほしい...");
                 Image((int)LuxImageType.R_DOWN_KOMARU);
-                await Text("まぁでも無理ですよね。\nお姉さんだって仕事とかあるだろうし...");
+                await Text("まぁでも無理ですよね。\nお姉さんは仕事とかあるだろうし...");
                 Image((int)LuxImageType.R_UP_EXCITING);
                 await Text("でも大丈夫！必ず迎えに行きます！\nすぐには無理かもしれないけど...\n必ず迎えに行くから！");
                 Image((int)LuxImageType.R_UP_SMILE_CLOSE);
-                await Text("だからお姉さんは俺のこと忘れないで。");
+                await Text("お姉さんは俺のこと忘れないで。");
                 Image((int)LuxImageType.R_DOWN_NOMAL_CLOSE);
                 await Text("俺は諦めないから。");
                 break;
@@ -570,7 +570,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
                         case SelectionType.Alpha:
                             Voice((int)LuxVoiceType.Fat);
                             Image((int)LuxImageType.R_DOWN_SHY);
-                            await Text("あっちが！そういうことじゃないです！\nただどこもまろくてやわこいし...");
+                            await Text("ちが！そういうことじゃないです！\nただどこもまろくてやわこいし...");
                             Image((int)LuxImageType.R_DOWN_NOMAL_CLOSE);
                             await Text("お姉さんって、どんな味？\n...噛みついたりはしませんよ？");
                             break;
@@ -623,18 +623,18 @@ public class LuxTalkHandler : TalkHandler, IDisposable
             case LuxTalkType.LIKE03_liking_down:
                 Image((int)LuxImageType.R_UP_EXCITING);
                 await Text("...！\nやっぱりそうなんだ！！！\nえへへ、嬉しいです！！！");
-                await Text("お姉さん、俺も歳下なんですよ。\n一体誰のことを考えて答えたんですか？");
+                await Text("お姉さん、俺も歳下なんですよ。\n一体誰を考えて答えたんですか？");
                 Image((int)LuxImageType.R_UP_SMILE_CLOSE);
                 await Text("俺は逆で歳上が好きなんですよね～\n誰のこと考えて答えたと思います？");
                 break;
 
             case LuxTalkType.LIKE03_Star:
                 Image((int)LuxImageType.R_DOWN_NOMAL_OPEN);
-                await Text("都会は星が見えないって本当ですか？\nビルの光で空が見えないって聞きました");
+                await Text("都会は星が見えないって本当ですか？\nビルの光で見えないって聞きました");
                 Image((int)LuxImageType.R_DOWN_KOMARU);
                 await Text("ちょっと残念ですね...\n星はあんなにもきれいなのに。");
                 Image((int)LuxImageType.R_UP_SMILE_CLOSE);
-                await Text("都会に帰る前に俺と星を見ませんか？\n綺麗に見えるところを知ってるんです。");
+                await Text("都会に帰る前に俺と星を見ませんか？\n綺麗に見えるところ、\n知ってるんですよ！");
                 await Text("俺星座詳しいんですよ！\n娯楽がないというのもありますが...");
                 Image((int)LuxImageType.R_UP_MUMUMU);
                 await Text("少なくともその嘘ばっかりつく\nスマホの検索機能より正確ですよ。");
@@ -672,7 +672,7 @@ public class LuxTalkHandler : TalkHandler, IDisposable
 
             case LuxTalkType.Present_Chocolate_love:
                 Image((int)LuxImageType.R_UP_EXCITING);
-                await Text("...当たり前ですよね！\nお姉さんは俺のことが好きなんだから！");
+                await Text("...当たり前ですよね！\n俺のことが好きなんだから！");
                 break;
 
 
